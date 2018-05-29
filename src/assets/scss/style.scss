@@ -1,0 +1,66 @@
+// 變量
+$mainColor: #D7A82B;
+$mainColorLow: #8a9dac;
+
+$bgColor: #040301;
+$bgColorLow: #3f3c3c;
+
+$grayColor: #e6e6e6;
+
+$greenColor: #47cfb7;
+
+$redColor: #ff4c18;
+
+// 代碼塊
+@mixin submitButton {
+  display: block;
+  width: 100%;
+  height: 88px;
+  background: $mainColor;
+  color: #fff;
+  border-radius: 44px;
+  font-size: 30px;
+  margin: 100px auto 0;
+}
+
+@mixin headBlack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 90px;
+  line-height: 90px;
+  background: #040301;
+  color: #fff;
+  .title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 400;
+  }
+  .change_language {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 26px;
+    padding-right: 25px;
+    right: 25px;
+    .icon-jinrujiantou {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 28px;
+    }
+  }
+}
+
+
+@mixin clearFloat{
+    zoom:1;
+    &:after{
+    display:block;
+    clear:both;
+    content:"";
+    visibility:
+    hidden;height:0;
+    }
+} 

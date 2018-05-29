@@ -1,0 +1,962 @@
+{
+  "0": {
+    "name": "安哥拉",
+    "tel": "0244",
+    "en": "Angola"
+  },
+  "1": {
+    "name": "阿富汗",
+    "tel": "93",
+    "en": "Afghanistan"
+  },
+  "2": {
+    "name": "阿尔巴尼亚",
+    "tel": "335",
+    "en": "Albania"
+  },
+  "3": {
+    "name": "阿尔及利亚",
+    "tel": "213",
+    "en": "Algeria"
+  },
+  "4": {
+    "name": "安道尔共和国",
+    "tel": "376",
+    "en": "Andorra"
+  },
+  "5": {
+    "name": "安圭拉岛",
+    "tel": "1254",
+    "en": "Anguilla"
+  },
+  "6": {
+    "name": "安提瓜和巴布达",
+    "tel": "1268",
+    "en": "Antigua and Barbuda"
+  },
+  "7": {
+    "name": "阿根廷",
+    "tel": "54",
+    "en": "Argentina"
+  },
+  "8": {
+    "name": "亚美尼亚",
+    "tel": "374",
+    "en": "Armenia"
+  },
+  "9": {
+    "name": "阿森松",
+    "tel": "247",
+    "en": "Ascension"
+  },
+  "10": {
+    "name": "澳大利亚",
+    "tel": "61",
+    "en": "Australia"
+  },
+  "11": {
+    "name": "奥地利",
+    "tel": "43",
+    "en": "Austria"
+  },
+  "12": {
+    "name": "阿塞拜疆",
+    "tel": "994",
+    "en": "Azerbaijan"
+  },
+  "13": {
+    "name": "巴哈马",
+    "tel": "1242",
+    "en": "Bahamas"
+  },
+  "14": {
+    "name": "巴林",
+    "tel": "973",
+    "en": "Bahrain"
+  },
+  "15": {
+    "name": "孟加拉国",
+    "tel": "880",
+    "en": "Bangladesh"
+  },
+  "16": {
+    "name": "巴巴多斯",
+    "tel": "1246",
+    "en": "Barbados"
+  },
+  "17": {
+    "name": "白俄罗斯",
+    "tel": "375",
+    "en": "Belarus"
+  },
+  "18": {
+    "name": "比利时",
+    "tel": "32",
+    "en": "Belgium"
+  },
+  "19": {
+    "name": "伯利兹",
+    "tel": "501",
+    "en": "Belize"
+  },
+  "20": {
+    "name": "贝宁",
+    "tel": "229",
+    "en": "Benin"
+  },
+  "21": {
+    "name": "百慕大群岛",
+    "tel": "1441",
+    "en": "Bermuda Is"
+  },
+  "22": {
+    "name": "玻利维亚",
+    "tel": "591",
+    "en": "Bolivia"
+  },
+  "23": {
+    "name": "博茨瓦纳",
+    "tel": "267",
+    "en": "Botswana"
+  },
+  "24": {
+    "name": "巴西",
+    "tel": "55",
+    "en": "Brazil"
+  },
+  "25": {
+    "name": "文莱",
+    "tel": "673",
+    "en": "Brunei"
+  },
+  "26": {
+    "name": "保加利亚",
+    "tel": "359",
+    "en": "Bulgaria"
+  },
+  "27": {
+    "name": "布基纳法索",
+    "tel": "226",
+    "en": "Burkina Faso"
+  },
+  "28": {
+    "name": "缅甸",
+    "tel": "95",
+    "en": "Burma"
+  },
+  "29": {
+    "name": "布隆迪",
+    "tel": "257",
+    "en": "Burundi"
+  },
+  "30": {
+    "name": "喀麦隆",
+    "tel": "237",
+    "en": "Cameroon"
+  },
+  "31": {
+    "name": "加拿大",
+    "tel": "1",
+    "en": "Canada"
+  },
+  "32": {
+    "name": "开曼群岛",
+    "tel": "1345",
+    "en": "Cayman Is"
+  },
+  "33": {
+    "name": "中非共和国",
+    "tel": "236",
+    "en": "Central African Republic"
+  },
+  "34": {
+    "name": "乍得",
+    "tel": "235",
+    "en": "Chad"
+  },
+  "35": {
+    "name": "智利",
+    "tel": "56",
+    "en": "Chile"
+  },
+  "36": {
+    "name": "中国",
+    "tel": "86",
+    "en": "China"
+  },
+  "37": {
+    "name": "哥伦比亚",
+    "tel": "57",
+    "en": "Colombia"
+  },
+  "38": {
+    "name": "刚果",
+    "tel": "242",
+    "en": "Congo"
+  },
+  "39": {
+    "name": "库克群岛",
+    "tel": "682",
+    "en": "Cook Is"
+  },
+  "40": {
+    "name": "哥斯达黎加",
+    "tel": "506",
+    "en": "Costa Rica"
+  },
+  "41": {
+    "name": "古巴",
+    "tel": "53",
+    "en": "Cuba"
+  },
+  "42": {
+    "name": "塞浦路斯",
+    "tel": "357",
+    "en": "Cyprus"
+  },
+  "43": {
+    "name": "捷克",
+    "tel": "420",
+    "en": "Czech Republic"
+  },
+  "44": {
+    "name": "丹麦",
+    "tel": "45",
+    "en": "Denmark"
+  },
+  "45": {
+    "name": "吉布提",
+    "tel": "253",
+    "en": "Djibouti"
+  },
+  "46": {
+    "name": "多米尼加共和国",
+    "tel": "1890",
+    "en": "Dominica Rep"
+  },
+  "47": {
+    "name": "厄瓜多尔",
+    "tel": "593",
+    "en": "Ecuador"
+  },
+  "48": {
+    "name": "埃及",
+    "tel": "20",
+    "en": "Egypt"
+  },
+  "49": {
+    "name": "萨尔瓦多",
+    "tel": "503",
+    "en": "EI Salvador"
+  },
+  "50": {
+    "name": "爱沙尼亚",
+    "tel": "372",
+    "en": "Estonia"
+  },
+  "51": {
+    "name": "埃塞俄比亚",
+    "tel": "251",
+    "en": "Ethiopia"
+  },
+  "52": {
+    "name": "斐济",
+    "tel": "679",
+    "en": "Fiji"
+  },
+  "53": {
+    "name": "芬兰",
+    "tel": "358",
+    "en": "Finland"
+  },
+  "54": {
+    "name": "法国",
+    "tel": "33",
+    "en": "France"
+  },
+  "55": {
+    "name": "法属圭亚那",
+    "tel": "594",
+    "en": "French Guiana"
+  },
+  "56": {
+    "name": "法属玻利尼西亚",
+    "tel": "689",
+    "en": "French Polynesia"
+  },
+  "57": {
+    "name": "加蓬",
+    "tel": "241",
+    "en": "Gabon"
+  },
+  "58": {
+    "name": "冈比亚",
+    "tel": "220",
+    "en": "Gambia"
+  },
+  "59": {
+    "name": "格鲁吉亚",
+    "tel": "995",
+    "en": "Georgia"
+  },
+  "60": {
+    "name": "德国",
+    "tel": "49",
+    "en": "Germany"
+  },
+  "61": {
+    "name": "加纳",
+    "tel": "233",
+    "en": "Ghana"
+  },
+  "62": {
+    "name": "直布罗陀",
+    "tel": "350",
+    "en": "Gibraltar"
+  },
+  "63": {
+    "name": "希腊",
+    "tel": "30",
+    "en": "Greece"
+  },
+  "64": {
+    "name": "格林纳达",
+    "tel": "1809",
+    "en": "Grenada"
+  },
+  "65": {
+    "name": "关岛",
+    "tel": "1671",
+    "en": "Guam"
+  },
+  "66": {
+    "name": "危地马拉",
+    "tel": "502",
+    "en": "Guatemala"
+  },
+  "67": {
+    "name": "几内亚",
+    "tel": "224",
+    "en": "Guinea"
+  },
+  "68": {
+    "name": "圭亚那",
+    "tel": "592",
+    "en": "Guyana"
+  },
+  "69": {
+    "name": "海地",
+    "tel": "509",
+    "en": "Haiti"
+  },
+  "70": {
+    "name": "洪都拉斯",
+    "tel": "504",
+    "en": "Honduras"
+  },
+  "71": {
+    "name": "香港",
+    "tel": "852",
+    "en": "Hongkong"
+  },
+  "72": {
+    "name": "匈牙利",
+    "tel": "36",
+    "en": "Hungary"
+  },
+  "73": {
+    "name": "冰岛",
+    "tel": "354",
+    "en": "Iceland"
+  },
+  "74": {
+    "name": "印度",
+    "tel": "91",
+    "en": "India"
+  },
+  "75": {
+    "name": "印度尼西亚",
+    "tel": "62",
+    "en": "Indonesia"
+  },
+  "76": {
+    "name": "伊朗",
+    "tel": "98",
+    "en": "Iran"
+  },
+  "77": {
+    "name": "伊拉克",
+    "tel": "964",
+    "en": "Iraq"
+  },
+  "78": {
+    "name": "爱尔兰",
+    "tel": "353",
+    "en": "Ireland"
+  },
+  "79": {
+    "name": "以色列",
+    "tel": "972",
+    "en": "Israel"
+  },
+  "80": {
+    "name": "意大利",
+    "tel": "39",
+    "en": "Italy"
+  },
+  "81": {
+    "name": "科特迪瓦",
+    "tel": "225",
+    "en": "Ivory Coast"
+  },
+  "82": {
+    "name": "牙买加",
+    "tel": "1876",
+    "en": "Jamaica"
+  },
+  "83": {
+    "name": "日本",
+    "tel": "81",
+    "en": "Japan"
+  },
+  "84": {
+    "name": "约旦",
+    "tel": "962",
+    "en": "Jordan"
+  },
+  "85": {
+    "name": "柬埔寨",
+    "tel": "855",
+    "en": "Kampuchea (Cambodia )"
+  },
+  "86": {
+    "name": "哈萨克斯坦",
+    "tel": "327",
+    "en": "Kazakstan"
+  },
+  "87": {
+    "name": "肯尼亚",
+    "tel": "254",
+    "en": "Kenya"
+  },
+  "88": {
+    "name": "韩国",
+    "tel": "82",
+    "en": "Korea"
+  },
+  "89": {
+    "name": "科威特",
+    "tel": "965",
+    "en": "Kuwait"
+  },
+  "90": {
+    "name": "吉尔吉斯坦",
+    "tel": "331",
+    "en": "Kyrgyzstan"
+  },
+  "91": {
+    "name": "老挝",
+    "tel": "856",
+    "en": "Laos"
+  },
+  "92": {
+    "name": "拉脱维亚",
+    "tel": "371",
+    "en": "Latvia"
+  },
+  "93": {
+    "name": "黎巴嫩",
+    "tel": "961",
+    "en": "Lebanon"
+  },
+  "94": {
+    "name": "莱索托",
+    "tel": "266",
+    "en": "Lesotho"
+  },
+  "95": {
+    "name": "利比里亚",
+    "tel": "231",
+    "en": "Liberia"
+  },
+  "96": {
+    "name": "利比亚",
+    "tel": "218",
+    "en": "Libya"
+  },
+  "97": {
+    "name": "列支敦士登",
+    "tel": "",
+    "en": "Liechtenstein"
+  },
+  "98": {
+    "name": "立陶宛",
+    "tel": "370",
+    "en": "Lithuania"
+  },
+  "99": {
+    "name": "卢森堡",
+    "tel": "352",
+    "en": "Luxembourg"
+  },
+  "100": {
+    "name": "澳门",
+    "tel": "853",
+    "en": "Macao"
+  },
+  "101": {
+    "name": "马达加斯加",
+    "tel": "261",
+    "en": "Madagascar"
+  },
+  "102": {
+    "name": "马拉维",
+    "tel": "265",
+    "en": "Malawi"
+  },
+  "103": {
+    "name": "马来西亚",
+    "tel": "60",
+    "en": "Malaysia"
+  },
+  "104": {
+    "name": "马尔代夫",
+    "tel": "960",
+    "en": "Maldives"
+  },
+  "105": {
+    "name": "马里",
+    "tel": "223",
+    "en": "Mali"
+  },
+  "106": {
+    "name": "马耳他",
+    "tel": "356",
+    "en": "Malta"
+  },
+  "107": {
+    "name": "马里亚那群岛",
+    "tel": "1670",
+    "en": "Mariana Is"
+  },
+  "108": {
+    "name": "马提尼克",
+    "tel": "596",
+    "en": "Martinique"
+  },
+  "109": {
+    "name": "毛里求斯",
+    "tel": "230",
+    "en": "Mauritius"
+  },
+  "110": {
+    "name": "墨西哥",
+    "tel": "52",
+    "en": "Mexico"
+  },
+  "111": {
+    "name": "摩尔多瓦",
+    "tel": "373",
+    "en": "Moldova"
+  },
+  "112": {
+    "name": "摩纳哥",
+    "tel": "377",
+    "en": "Monaco"
+  },
+  "113": {
+    "name": "蒙古",
+    "tel": "976",
+    "en": "Mongolia"
+  },
+  "114": {
+    "name": "蒙特塞拉特岛",
+    "tel": "1664",
+    "en": "Montserrat Is"
+  },
+  "115": {
+    "name": "摩洛哥",
+    "tel": "212",
+    "en": "Morocco"
+  },
+  "116": {
+    "name": "莫桑比克",
+    "tel": "258",
+    "en": "Mozambique"
+  },
+  "117": {
+    "name": "纳米比亚",
+    "tel": "264",
+    "en": "Namibia"
+  },
+  "118": {
+    "name": "瑙鲁",
+    "tel": "674",
+    "en": "Nauru"
+  },
+  "119": {
+    "name": "尼泊尔",
+    "tel": "977",
+    "en": "Nepal"
+  },
+  "120": {
+    "name": "荷属安的列斯",
+    "tel": "599",
+    "en": "Netheriands Antilles"
+  },
+  "121": {
+    "name": "荷兰",
+    "tel": "31",
+    "en": "Netherlands"
+  },
+  "122": {
+    "name": "新西兰",
+    "tel": "64",
+    "en": "New Zealand"
+  },
+  "123": {
+    "name": "尼加拉瓜",
+    "tel": "505",
+    "en": "Nicaragua"
+  },
+  "124": {
+    "name": "尼日尔",
+    "tel": "227",
+    "en": "Niger"
+  },
+  "125": {
+    "name": "尼日利亚",
+    "tel": "234",
+    "en": "Nigeria"
+  },
+  "126": {
+    "name": "朝鲜",
+    "tel": "850",
+    "en": "North Korea"
+  },
+  "127": {
+    "name": "挪威",
+    "tel": "47",
+    "en": "Norway"
+  },
+  "128": {
+    "name": "阿曼",
+    "tel": "968",
+    "en": "Oman"
+  },
+  "129": {
+    "name": "巴基斯坦",
+    "tel": "92",
+    "en": "Pakistan"
+  },
+  "130": {
+    "name": "巴拿马",
+    "tel": "507",
+    "en": "Panama"
+  },
+  "131": {
+    "name": "巴布亚新几内亚",
+    "tel": "675",
+    "en": "Papua New Cuinea"
+  },
+  "132": {
+    "name": "巴拉圭",
+    "tel": "595",
+    "en": "Paraguay"
+  },
+  "133": {
+    "name": "秘鲁",
+    "tel": "51",
+    "en": "Peru"
+  },
+  "134": {
+    "name": "菲律宾",
+    "tel": "63",
+    "en": "Philippines"
+  },
+  "135": {
+    "name": "波兰",
+    "tel": "48",
+    "en": "Poland"
+  },
+  "136": {
+    "name": "葡萄牙",
+    "tel": "351",
+    "en": "Portugal"
+  },
+  "137": {
+    "name": "波多黎各",
+    "tel": "1787",
+    "en": "Puerto Rico"
+  },
+  "138": {
+    "name": "卡塔尔",
+    "tel": "974",
+    "en": "Qatar"
+  },
+  "139": {
+    "name": "留尼旺",
+    "tel": "262",
+    "en": "Reunion"
+  },
+  "140": {
+    "name": "罗马尼亚",
+    "tel": "40",
+    "en": "Romania"
+  },
+  "141": {
+    "name": "俄罗斯",
+    "tel": "7",
+    "en": "Russia"
+  },
+  "142": {
+    "name": "圣卢西亚",
+    "tel": "1758",
+    "en": "Saint Lueia"
+  },
+  "143": {
+    "name": "圣文森特岛",
+    "tel": "1784",
+    "en": "Saint Vincent"
+  },
+  "144": {
+    "name": "东萨摩亚(美)",
+    "tel": "684",
+    "en": "Samoa Eastern"
+  },
+  "145": {
+    "name": "西萨摩亚",
+    "tel": "685",
+    "en": "Samoa Western"
+  },
+  "146": {
+    "name": "圣马力诺",
+    "tel": "378",
+    "en": "San Marino"
+  },
+  "147": {
+    "name": "圣多美和普林西比",
+    "tel": "239",
+    "en": "Sao Tome and Principe"
+  },
+  "148": {
+    "name": "沙特阿拉伯",
+    "tel": "966",
+    "en": "Saudi Arabia"
+  },
+  "149": {
+    "name": "塞内加尔",
+    "tel": "221",
+    "en": "Senegal"
+  },
+  "150": {
+    "name": "塞舌尔",
+    "tel": "248",
+    "en": "Seychelles"
+  },
+  "151": {
+    "name": "塞拉利昂",
+    "tel": "232",
+    "en": "Sierra Leone"
+  },
+  "152": {
+    "name": "新加坡",
+    "tel": "65",
+    "en": "Singapore"
+  },
+  "153": {
+    "name": "斯洛伐克",
+    "tel": "421",
+    "en": "Slovakia"
+  },
+  "154": {
+    "name": "斯洛文尼亚",
+    "tel": "386",
+    "en": "Slovenia"
+  },
+  "155": {
+    "name": "所罗门群岛",
+    "tel": "677",
+    "en": "Solomon Is"
+  },
+  "156": {
+    "name": "索马里",
+    "tel": "252",
+    "en": "Somali"
+  },
+  "157": {
+    "name": "南非",
+    "tel": "27",
+    "en": "South Africa"
+  },
+  "158": {
+    "name": "西班牙",
+    "tel": "34",
+    "en": "Spain"
+  },
+  "159": {
+    "name": "斯里兰卡",
+    "tel": "94",
+    "en": "SriLanka"
+  },
+  "160": {
+    "name": "圣卢西亚",
+    "tel": "1758",
+    "en": "St.Lucia"
+  },
+  "161": {
+    "name": "圣文森特",
+    "tel": "1784",
+    "en": "St.Vincent"
+  },
+  "162": {
+    "name": "苏丹",
+    "tel": "249",
+    "en": "Sudan"
+  },
+  "163": {
+    "name": "苏里南",
+    "tel": "597",
+    "en": "Suriname"
+  },
+  "164": {
+    "name": "斯威士兰",
+    "tel": "268",
+    "en": "Swaziland"
+  },
+  "165": {
+    "name": "瑞典",
+    "tel": "46",
+    "en": "Sweden"
+  },
+  "166": {
+    "name": "瑞士",
+    "tel": "41",
+    "en": "Switzerland"
+  },
+  "167": {
+    "name": "叙利亚",
+    "tel": "963",
+    "en": "Syria"
+  },
+  "168": {
+    "name": "台湾省",
+    "tel": "886",
+    "en": "Taiwan"
+  },
+  "169": {
+    "name": "塔吉克斯坦",
+    "tel": "992",
+    "en": "Tajikstan"
+  },
+  "170": {
+    "name": "坦桑尼亚",
+    "tel": "255",
+    "en": "Tanzania"
+  },
+  "171": {
+    "name": "泰国",
+    "tel": "66",
+    "en": "Thailand"
+  },
+  "172": {
+    "name": "多哥",
+    "tel": "228",
+    "en": "Togo"
+  },
+  "173": {
+    "name": "汤加",
+    "tel": "676",
+    "en": "Tonga"
+  },
+  "174": {
+    "name": "特立尼达和多巴哥",
+    "tel": "1809",
+    "en": "Trinidad and Tobago"
+  },
+  "175": {
+    "name": "突尼斯",
+    "tel": "216",
+    "en": "Tunisia"
+  },
+  "176": {
+    "name": "土耳其",
+    "tel": "90",
+    "en": "Turkey"
+  },
+  "177": {
+    "name": "土库曼斯坦",
+    "tel": "993",
+    "en": "Turkmenistan"
+  },
+  "178": {
+    "name": "乌干达",
+    "tel": "256",
+    "en": "Uganda"
+  },
+  "179": {
+    "name": "乌克兰",
+    "tel": "380",
+    "en": "Ukraine"
+  },
+  "180": {
+    "name": "阿拉伯联合酋长国",
+    "tel": "971",
+    "en": "United Arab Emirates"
+  },
+  "181": {
+    "name": "英国",
+    "tel": "44",
+    "en": "United Kiongdom"
+  },
+  "182": {
+    "name": "美国",
+    "tel": "1",
+    "en": "United States of America"
+  },
+  "183": {
+    "name": "乌拉圭",
+    "tel": "598",
+    "en": "Uruguay"
+  },
+  "184": {
+    "name": "乌兹别克斯坦",
+    "tel": "233",
+    "en": "Uzbekistan"
+  },
+  "185": {
+    "name": "委内瑞拉",
+    "tel": "58",
+    "en": "Venezuela"
+  },
+  "186": {
+    "name": "越南",
+    "tel": "84",
+    "en": "Vietnam"
+  },
+  "187": {
+    "name": "也门",
+    "tel": "967",
+    "en": "Yemen"
+  },
+  "188": {
+    "name": "南斯拉夫",
+    "tel": "381",
+    "en": "Yugoslavia"
+  },
+  "189": {
+    "name": "津巴布韦",
+    "tel": "263",
+    "en": "Zimbabwe"
+  },
+  "190": {
+    "name": "扎伊尔",
+    "tel": "243",
+    "en": "Zaire"
+  },
+  "191": {
+    "name": "赞比亚",
+    "tel": "260",
+    "en": "Zambia"
+  }
+}

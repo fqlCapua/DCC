@@ -3,10 +3,13 @@
   <div class="setLoginPsd_order">
     <div class="form">
       <label class="label" :for="index" v-for="(item, index) in form" :key="index">
-        <input class="input" :id="index" :type="item.type || 'text'" v-if="index !== 'newsCode'&& index !== 'phone'" :placeholder="item.placeholder"  v-model="item.num" :readonly="item.readOnly">
+        <input class="input" :id="index" :type="item.type || 'text'" v-if="index !== 'newsCode'&& index !== 'phone' && index !== 'captcha'" :placeholder="item.placeholder"  v-model="item.num" :readonly="item.readOnly">
         <input class="input" :id="index" :type="item.type || 'text'" v-if="index == 'phone'" :placeholder="item.placeholder"  v-model="showPhone" :readonly="item.readOnly">
         <button class="input_button" v-if="index === 'newsCode'" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : codeTime + 's后重試' }}</button>
         <input class="input_code" :id="index" type="text" v-if="index === 'newsCode'" v-model="item.num" :placeholder="item.placeholder">
+        
+        <button class="img_button" v-if="index === 'captcha'" @click=""><img :src="captchaImg" @click="captchaInfo" /></button>
+        <input class="input_code" :id="index" type="text" v-if="index === 'captcha'" v-model="item.num" :placeholder="item.placeholder">
       </label>
     </div>
     <button class="submit" @click="submit">確定</button>
@@ -18,11 +21,21 @@ export default {
   name: 'setLoginPsd',
   data () {
     return {
+    	token:"",
+    	captchaImg:"",
+    	Imgstr:"",
+    	isCap:false,
       form: {
       	phone: {
           placeholder: '我的手機號',
           num: '',
           readOnly: true
+        },
+        captcha:{
+        	placeholder:'图片验证码',
+          num: '',
+          type: 'text',
+          readOnly: false
         },
         newsCode: {
           placeholder: '驗證碼',
@@ -64,9 +77,9 @@ export default {
   },
   methods: {
     init () {
-      this.axios.post('users/login_pass').then(({data}) => {
-        this.form.phone.num = data.phone
-      })
+      this.form.phone.num = localStorage.getItem("phone");
+      this.token = localStorage.getItem("token");
+      this.captchaInfo()
     },
     getCode () {
       if (this.codeTime !== 61) return false
@@ -78,42 +91,57 @@ export default {
           this.codeTime = 61
         }
       }, 1000)
-      this.axios.post('Sms/send', {
-        type: 2,
-        phone: this.form.phone.num
+      this.axios.post('sms', {
+        phoneNo: this.form.phone.num
       }).then(({data}) => {
-        if (data.status !== 200) {
+        if (data.ret !== 0) {
           clearInterval(timer)
           this.codeTime = 61
-          this.$bus.$emit('alert', data.message)
+          this.$bus.$emit('alert', data.data)
         }
       })
     },
+    captchaInfo (){
+    	  this.axios.get('captchaInfo')
+    	  .then(({data}) => {
+          console.log(data)
+          if(data.ret ==0){
+          	  this.captchaImg = data.data.img;
+          	  this.Imgstr = data.data.str;
+          }
+      })
+    },
     submit () {
+    	
+    	//this.checkCaptcha ()  //图片验证
+    	
       if (this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
+      if(this.form.captcha.num === '') return this.$bus.$emit('alert', '图片驗證碼为空')
       if (this.form.newsPsd.num === '') return this.$bus.$emit('alert', '請輸入密碼')
       if (this.form.confirmPsd.num != this.form.newsPsd.num) return this.$bus.$emit('alert', '兩次輸入的密碼不一致')
-      this.axios.post('users/loginReset', {
-        pass: this.form.newsPsd.num,
-        repass: this.form.confirmPsd.num,
-        code: this.form.newsCode.num
+      this.axios.post('resetMobilePassword', {
+      	token:this.token,
+        phone: this.form.phone.num,
+        password: this.form.confirmPsd.num,
+        captcha: this.form.captcha.num,
+        code: this.form.newsCode.num,
+        cap:this.Imgstr,
       }).then(({data}) => {
-        if (data.status === 200) {
-          this.axios.get('/auth/unlogin').then(({data}) => {
-            if (data.status === 200) {
-              this.$bus.$emit('alert', {
-                title: '修改成功',
-                msg: '恭喜您修改成功，請重新登錄',
-                btn: '知道了',
-                cb:function(){
-                  this.$router.push('login')
-                }
-              })
-            }
-          })
-        } else {
-          this.$bus.$emit('alert', data.message)
-        }
+             if(data.ret == 0){
+//           	   this.$bus.$emit('alert','修改成功');
+             	   this.$router.go(-1)
+             }
+      })
+    },
+    checkCaptcha (){
+    	 this.axios.post('checkCaptcha',{
+    	 	  cap:this.Imgstr,
+    	 	  captcha:this.form.captcha.num
+    	 }).then(({data}) => {
+          console.log(data)
+          if(data.ret ==0){
+          	  this.isCap = true;
+          }
       })
     }
   }
@@ -165,6 +193,23 @@ export default {
           width:30%;
           border-radius:48px;
           background: #d7a82b;
+          overflow: hidden;
+        }
+        .img_button {
+          float: right;
+          /*padding: 0 10px;*/
+          background: none;
+          color: #111111;
+          font-size: 28px;
+          height: 100%;
+          width:30%;
+          border-radius:48px;
+          background: #d7a82b;
+          overflow: hidden;
+          img{
+          	height: 100%;
+          	width: 100%;
+          }
         }
       }
     }

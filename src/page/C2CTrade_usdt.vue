@@ -1,5 +1,5 @@
 <template>
-	<div class="trade_dcc">
+	<div class="trade_usdt">
 		<!--头部标题-->
 		<div class="headerNav">
 			<div class="headerNav_wz" :class="{'active' : addClass === index}" :key='index' v-for="(item,index) in titleNav" @click='tabNav(item,index)'>
@@ -109,7 +109,7 @@
 
 <script>
 	export default {
-		name: 'C2CTradeDcc',
+		name: 'c2cTradeUsdt',
 		data() {
 			return {
 				addClass: 1,
@@ -118,11 +118,11 @@
 				formShow: false,
 				titleNav: [{
 						title: 'DCC',
-						router: 'C2CTradeDcc'
+						router: 'c2cTradeDcc'
 					},
 					{
 						title: 'USDT',
-						router: 'C2CTradeUsdt'
+						router: 'c2cTradeUsdt'
 					}
 				],
 				price: [{
@@ -201,7 +201,7 @@
 		font-style: normal;
 	}
 	
-	.trade_dcc {
+	.trade_usdt {
 		padding: 22px 0 0 0;
 		background: #040301;
 		height: 100vh;

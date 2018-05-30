@@ -3,7 +3,7 @@
     <pageHead></pageHead>
     <router-view/>
     <alertPage></alertPage>
-    <alertCer></alertCer>
+    <!--<alertCer></alertCer>-->
     <footerNav></footerNav>
   </div>
 </template>
@@ -25,7 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-<<<<<<< .mine
   @import url('//at.alicdn.com/t/font_685934_9mvrgohdqqnz5mi.css');
   @import './assets/scss/reset.scss';
   @import './assets/scss/style.scss';

@@ -83,10 +83,18 @@ export default {
         	name:"合夥人記錄",
         	icon:"icon-jilu2",
         	router:"partnerRecord"
+        },
+        {
+          name:"钱包二维码",
+          icon:"icon-erweima",
+          router:"partnerRecord222"
+        },
+        {
+          name:"等级兑换",
+          icon:"icon-dengji",
+          router:"partnerRecord222"
         }
       ]
-      
-      
     }
   },
   beforeMount () {
@@ -122,16 +130,10 @@ export default {
       })
     },
     seeDetails (index) {
-    	if(index == 2){
-    		this.$bus.$emit('alert', {
-        title: '提示',
-        msg: '系統維護中',
-        btn: '知道了'
-      })
-    	}else{
+
     		this.$router.push({path: this.list[index].router})
-    	}
-        
+
+
     },
     getInfo () {
       this.axios.get('/Users/index').then(({data}) => {

@@ -33,7 +33,7 @@
 					{{item.title}}
 				</div>
 				<p class="listNav_myOrder">
-					<router-link to='/C2CTradeBuyOrder'>
+					<router-link to='/c2cTradeBuyOrder'>
 						我的訂單
 					</router-link>
 

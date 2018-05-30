@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import url('//at.alicdn.com/t/font_640247_uf8t4gbnjsgu8fr.css');
+  @import url('//at.alicdn.com/t/font_685934_sgllstcfptn2vs4i.css');
   @import './assets/scss/reset.scss';
   @import './assets/scss/style.scss';
   #app {

@@ -9,18 +9,18 @@
       <span class="icon iconfont icon-shouji"></span>
       <input class="input" id="phone" type="number" v-model="phone" placeholder="請輸入手機號">
     </label>
-    <label class="label" for="pass">
+    <label class="label" >
       <span class="icon iconfont icon-navicon-dxmbwh"></span>
-      <input class="input" id="pass" type="password" v-model="pass" placeholder="請輸入验证码">
-      <span class="hqyzm">獲取驗證碼</span>
+      <input class="input"  type="password" v-model="code" placeholder="請輸入验证码">
+      <button class="code_button" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : `${codeTime}s後重試`}}</button>
     </label>
-    <label class="label" for="yzm">
+    <label class="label" >
      <span class="icon iconfont icon-AAICon-"></span>
-      <input class="input" id="yzm" type="password"  placeholder="請設置新的登錄密碼">
+      <input class="input"  type="password"  placeholder="請設置新的登錄密碼" v-model="pass">
     </label>
-     <label class="label" for="yzm">
+     <label class="label" >
      <span class="icon iconfont icon-AAICon-"></span>
-      <input class="input" id="yzm" type="password"  placeholder="再次確認新密碼">
+      <input class="input" type="password" placeholder="再次確認新密碼" v-model="pass2">
     </label>
     <button class="submit" @click="submit">登錄</button>
   </div>
@@ -33,9 +33,11 @@ export default {
     return {
       phone: '',
       pass: '',
+      pass2:'',
       show:0,
-      captCha:'',
       img:'',
+      code:'',
+      codeTime:61
     }
   },
   mounted () {
@@ -43,7 +45,27 @@ export default {
     this.getCookie();
   },
   methods: {
-
+    // 獲取驗證碼
+    getCode() {
+      if(this.codeTime !== 61) return false;
+      if(this.phone === '') return this.$bus.$emit('alert', '請輸入手機號碼')
+      this.codeTime = 60
+      let timer = setInterval(() => {
+        if(--this.codeTime === 0) {
+          this.codeTime = 61
+          clearInterval(timer)
+        }
+      }, 1000)
+      this.axios.post('sms', {
+        phoneNo: this.phone
+      }).then(({
+                 data
+               }) => {
+        this.$bus.$emit('alertCer', {
+          msg: data.data
+        });
+      })
+    },
     submit () {
       if (this.phone === '') return this.$bus.$emit('alert', '请输入手机号');
       if (this.pass === '') return this.$bus.$emit('alert', '请输入登录密码');
@@ -60,17 +82,14 @@ export default {
     say(){
       this.show = !this.show;
     },
-
     doLogin() {
       let $that=this;
-      this.axios.post('resetMobilePassword', {
-        token:localStorage.getItem('token'),
+      this.axios.post('getbackPassword', {
         phone:this.phone,
-        password:this.pass,
         code:this.code,
-        captcha:this.captCha,
-        cap:this.cap
+        password:this.pass
       }).then(({data}) => {
+        console.log(data)
         if (data.ret === 0){
           let token=data.data.token;
           window.localStorage.setItem('token',token);

@@ -1,7 +1,7 @@
 <template>
   <div id="shareReward" class="pad_top">
-    <rewardTop :money="allMoney"></rewardTop>
-    <picker></picker>
+    <rewardTop :money="allMoney"> </rewardTop>
+    <picker> </picker>
     <div class="select" :class="[selectTab === 0 ? 'changeLeft': 'changeRight']">
       <p class="option" @click="selectTabFun(0)">直接分享</p>
       <p class="option" @click="selectTabFun(1)">間接分享</p>
@@ -10,6 +10,7 @@
       <p class="month_reward">本月獎勵：{{ selectTab === 0 ? info1.moneyReward : info2.moneyReward }}</p>
       <p class="calendar" @click="getTime">{{ selectTab === 0 ? info1.calendar : info2.calendar }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
     </div>
+
     <div class="data" :class="{'select_ing': selectTabIng}" v-show="selectTab === 0">
       <div class="list" v-show="userList1.length">
         <dl class="every" v-for="(item, index) in userList1" :key="index">
@@ -50,18 +51,18 @@
     data () {
       return {
         // 总金额
-        allMoney: '0.00',
+        allMoney: '100.00',
         // 切换列表
-        selectTab: 0,
+        selectTab: 1,
         // 是否在切换中
         selectTabIng: false,
         // 奖励和时间
         info1: {
-          moneyReward: '0.00',
+          moneyReward: '1.00',
           calendar: ''
         },
         info2: {
-          moneyReward: '0.00',
+          moneyReward: '2.00',
           calendar: ''
         },
         // 列表
@@ -130,6 +131,7 @@
         if (this.selectTabIng || this.selectTab === id) return false
         this.selectTabIng = true
         this.selectTab = id
+       
         setTimeout(() => {
           this.selectTabIng = false
         }, 500)

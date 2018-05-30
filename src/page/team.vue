@@ -6,7 +6,9 @@
     	<div class="tab" v-for="(item,index) in tab" @click="toggle (index)" :class="{ active_tab : active === index}" :key="index">{{item.title}}</div>
     </div>
   </div>
+ 
        <router-view></router-view>
+
   </div>
 </template>
 
@@ -46,6 +48,18 @@ export default {
        this.$router.push({path:this.tab[index].router});
        console.log(this.tab[index].router)
     },
+<<<<<<< .mine
+    toggle (index) {
+    	this.active = index;
+      this.$router.push({path: this.tab[index].router})
+    },
+||||||| .r7
+    toggle (index) {
+    	this.active = index
+      this.$router.push({path: this.tab[index].router})
+    },
+=======
+>>>>>>> .r13
     back(){
     	 this.$router.go(-1)
     }

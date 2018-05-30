@@ -33,6 +33,30 @@ headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 //console.log(err)
 //})
 
+<<<<<<< .mine
+// Vue.prototype.axios.interceptors.response.use(res => {
+//   if (res.data.status === 2000) {
+//     router.push('login')
+//     Vue.prototype.$bus.$emit('alert', '請登錄')
+//   }
+//   return res
+// }, err => {
+//   console.log(err)
+// })
+
+||||||| .r7
+Vue.prototype.axios.interceptors.response.use(res => {
+  if (res.data.status === 2000) {
+    router.push('login')
+    Vue.prototype.$bus.$emit('alert', '請登錄')
+  }
+  return res
+}, err => {
+  console.log(err)
+})
+
+=======
+>>>>>>> .r13
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

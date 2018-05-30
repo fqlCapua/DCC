@@ -144,7 +144,7 @@ export default {
           this.allNum = data.data.usdt
           this.linkUrl = data.data.token_address
         } else if (data.status === 2000) {
-          this.$router.push('login')
+         // this.$router.push('login')
         } else {
           this.$bus.$emit('alert', data.message)
         }

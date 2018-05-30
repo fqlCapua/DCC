@@ -1,19 +1,13 @@
 <template>
-<div class="my_team">
-  <div class="team_body">
-  <div class="head">
-    <div class="back iconfont icon-fanhuijiantou" @click="back"></div>
-    <div class="tab_list">
-      <div class="tab" v-for="(item,index) in tab" @click="toggle (index)" :class="{ active_tab : active === index}" :key="index">{{item.title}}</div>
-    </div>
-  </div>
-  </div>
-
-  <div class="content"></div>
-
-
-</div>
-
+  <ul class="myTeam">
+	    <li class="msg_list" @click="toDetails(2)">
+	    	  <div class="msg_list_title">
+	    	  	 <p>重要！系統升級提示，平台于明日凌晨進行系統維 護，給大家帶來的不便敬請見諒</p>
+	    	  	 <div class="time">2018-04-14 15:23</div>
+	    	  </div>
+	    	  <div class="iconfont" :class="icon"></div>
+	    </li>
+  </ul>
 </template>
 
 <script>
@@ -21,79 +15,63 @@ export default {
   name: 'myTeam',
   data () {
     return {
-      activeRouter: '',
-      active: 0,
-      tab: [
-        {
-          title: '我的團隊',
-        },
-        {
-          title: '我的分享',
-        }
-      ]
+    	icon:"icon-jinrujiantou",
     }
   },
   mounted () {
-
+    this.$bus.$emit('pageHead', '公告')
   },
   destroyed () {
-
+    this.$bus.$emit('pageHead')
   },
-  methods:{
-    toggle(index){
-      this.active =index;
-    },
-  },
+  methods: {
+    //	this.$router.push('login')
+    toDetails (id){
+    	 this.$router.push({path: 'messageDetail', query: { id: id }})
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
   @import '../assets/scss/style.scss';
- .my_team{
-  .team_body {
-    padding-top:100px;
-  .head {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: #000;
-    color: #fff;
-    text-align: center;
-    z-index: 10;
-    border-bottom:1px solid #D7A82B;
-  .back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 14%;
-    height: 100px;
-    line-height: 100px;
-    font-size: 40px;
+  .myTeam {
+      padding-top:100px;
+    .msg_list{
+         height:186px;
+         padding:0 26px;
+         box-sizing: border-box;
+         border-bottom:1px solid #757575;
+         background:#3f3c3c;
+        @include clearFloat;
+         .msg_list_title{
+         	  float: left;
+         	  height: 100%;
+         	  width: 84.44%;
+         	  padding-top: 24px;
+         	  p{
+         	  	color:#fff;
+         	  	font-size: 28px;
+         	  	overflow: hidden;
+							text-overflow: ellipsis;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+							line-height: 48px;
+         	  }
+         	  .time{
+         	  	 color:#a59569;
+         	  	 margin-top: 10px;
+         	  	 font-size: 24px;
+         	  }
+         }
+			  .iconfont{
+			    font-size: 50px;
+			    /*font-weight: 500;*/
+			   float:right;
+			   line-height: 184px;
+			   color:#fff;
+			  }
+    }
   }
-  .tab_list {
-    height:60px;
-    width: 324px;
-    margin: 0 auto;
-    margin-top: 20px;
-    border:1px solid #fff;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-around;
-  .tab{
-    width: 50%;
-    height: 100%;
-    line-height: 58px;
-    font-size:28px;
-    text-align: center;
-    color:#d7a82b;
-  &.active_tab{
-     background: #fff;
-   }
-  }
-  }
-  }
-  }
- }
 </style>

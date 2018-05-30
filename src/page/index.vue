@@ -125,8 +125,8 @@ export default {
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {
-          console.log(data.data)
-          this.totalAmount = this.formatNum(data.data.total,2)  //總市值
+
+          this.totalAmount = this.formatNum(data.data.total_usdt*data.data.price_usdt + data.data.avaliable_dcc*data.data.today_dcc_price+data.data.freeze_dcc*data.data.today_dcc_price,2)  //總市值
           this.totalFrost = this.formatNum(data.data.freeze_dcc,2) // 冻结额度
           this.list = this.list.map((item, index) => {
           if (index === 0) item.num = this.formatNum(data.data.freeze_dcc, 4)  //
@@ -141,7 +141,6 @@ export default {
         })
       })
     },
-
 
     // 数字格式化
     formatNum (s, n) {

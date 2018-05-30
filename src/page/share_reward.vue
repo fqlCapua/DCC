@@ -14,13 +14,16 @@
     <div class="data" :class="{'select_ing': selectTabIng}" v-show="selectTab === 0">
       <div class="list" v-show="userList1.length">
         <dl class="every" v-for="(item, index) in userList1" :key="index">
-          <dt class="pic"><img :src="item.pic" :alt="item.name + '的頭像'" class="head_img"></dt>
+          <dt class="pic">
+          	<img v-if="item.head" :src="item.head" :alt="item.name + '的頭像'" class="head_img">
+          	<img v-else :src="logo" class="head_img"/>
+          </dt>
           <dd class="more">
             <div class="no_money">
-              <p class="name">{{ item.name }}</p>
-              <p class="time">{{ item.time }}</p>
+              <p class="name">{{item.name}}</p>
+              <p class="time">{{item.created}}</p>
             </div>
-            <p class="money">{{ item.price }}</p>
+            <p class="money">{{item.reward}}</p>
           </dd>
         </dl>
       </div>
@@ -29,13 +32,16 @@
     <div class="data" :class="{'select_ing': selectTabIng}" v-show="selectTab === 1">
       <div class="list" v-show="userList2.length">
         <dl class="every" v-for="(item, index) in userList2" :key="index">
-          <dt class="pic"><img :src="item.pic" :alt="item.name + '的頭像'" class="head_img"></dt>
+          <dt class="pic">
+          	<img v-if="item.head" :src="item.head" :alt="item.name + '的頭像'" class="head_img">
+          	<img v-else :src="logo" class="head_img"/>
+          </dt>
           <dd class="more">
             <div class="no_money">
-              <p class="name">{{ item.name }}</p>
-              <p class="time">{{ item.time }}</p>
+              <p class="name">{{ item.name}}</p>
+              <p class="time">{{ item.created}}</p>
             </div>
-            <p class="money">{{ item.price }}</p>
+            <p class="money">{{ item.reward}}</p>
           </dd>
         </dl>
       </div>
@@ -50,10 +56,15 @@
     name: 'shareReward',
     data () {
       return {
+      	logo: require('../assets/images/logo.png'),
+      	newmonth:"",
+      	token:"",
         // 总金额
         allMoney: '100.00',
+        allRelative: '',  //间接
+        allDirect: '',  //直接
         // 切换列表
-        selectTab: 1,
+        selectTab: 0,
         // 是否在切换中
         selectTabIng: false,
         // 奖励和时间
@@ -79,6 +90,8 @@
     },
     mounted () {
       this.init()
+      this.directReward()
+      this.relativeReward()
       this.$bus.$emit('pageHead', '分享獎勵')
     },
     beforeDestroy () {
@@ -86,44 +99,44 @@
     },
     methods: {
       init () {
+      	 
+      	 this.token = localStorage.getItem("token")
         // 更改时间
         let theTime = new Date()
-        this.info2.calendar = this.info1.calendar = theTime.getFullYear() + '-' 
-                              + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1)) + '-'
-                              + (theTime.getDate() >= 10 ? theTime.getDate() : '0' + theTime.getDate())
-        this.getDirectData(this.info1.calendar)
-        this.getIndirectData(this.info2.calendar)
+        this.info2.calendar = this.info1.calendar = this.newmonth =  theTime.getFullYear() + '-' 
+                              + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
+//      this.getDirectData(this.info1.calendar)
+//      this.getIndirectData(this.info2.calendar)
       },
-      getDirectData (time) {
-        this.axios.post('reward/direct', {
-          datetime: time
+        // 直接分享
+      directReward (time){
+      	  this.axios.post('directReward',{
+          token:this.token,
+          month:time||""
         }).then(({data}) => {
-          this.allMoney = data.num.total
-          this.info1.moneyReward = data.num.month
-          this.userList1 = data.data.map(item => {
-            return {
-              pic: this.$bus.baseURL + item.avatar,
-              name: item.username,
-              time: item.created_at,
-              price: item.f_usdt
+            this.allMoney = data.data.total;
+            this.allDirect = data.data.total;
+            this.userList1 = data.data.items;
+            var aa = [];
+            for(var  x in data.data.items){
+            	  aa.push(data.data.items[x].reward)
             }
-          })
+            this.info1.moneyReward =   eval(aa.join("+"))
         })
       },
-      getIndirectData (time) {
-        this.axios.post('reward/indirect', {
-          datetime: time
+       //间接分享
+      relativeReward (time){
+      	  this.axios.post('relativeReward',{
+          token:this.token,
+          month:time||""
         }).then(({data}) => {
-          this.allMoney = data.num.total
-          this.info2.moneyReward = data.num.month
-          this.userList2 = data.data.map(item => {
-            return {
-              pic: this.$bus.baseURL + item.avatar,
-              name: item.username,
-              time: item.created_at,
-              price: item.f_usdt
+            this.allRelative = data.data.total;
+            this.userList2 = data.data.items;
+            var bb = [];
+            for(var  x in data.data.items){
+            	  bb.push(data.data.items[x].reward)
             }
-          })
+            this.info2.moneyReward =   eval(bb.join("+"))
         })
       },
       // 分享切换
@@ -131,7 +144,11 @@
         if (this.selectTabIng || this.selectTab === id) return false
         this.selectTabIng = true
         this.selectTab = id
-       
+        if(id === 0){
+        	 this.allMoney = this.allDirect
+        }else{
+        	 this.allMoney = this.allRelative
+        }
         setTimeout(() => {
           this.selectTabIng = false
         }, 500)
@@ -140,17 +157,19 @@
       getTime () {
         this.$bus.$emit('timerShow', {
           flag: true,
+          type: 'month',
           callBack: this.haveTimeBack
         })
       },
       // 获取时间
       haveTimeBack (data) {
+      	  
         if (this.selectTab === 0) {
-          this.info1.calendar = data
-          this.getDirectData(this.info1.calendar)
+          this.info1.calendar = data.substr(0, 7)
+          this.directReward(this.info1.calendar.replace(/-/g,''))
         } else {
-          this.info2.calendar = data
-          this.getIndirectData(this.info2.calendar)
+          this.info2.calendar = data.substr(0, 7)
+          this.relativeReward(this.info2.calendar.replace(/-/g,''))
         }
       },
       // 查看更多

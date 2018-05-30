@@ -4,43 +4,23 @@
     <picker></picker>
     <div class="type">
       <div class="info">
-        <p class="month_reward"><span class="timer">本周</span>獎勵：{{ info.self }}</p>
+        <p class="month_reward"><span class="timer">本月</span>獎勵：{{ info.self }}</p>
         <p class="calendar" @click="getTime">{{ time }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
       </div>
       <div class="data">
         <div class="list">
           <dl class="every" v-for="(item, index) in nowList" :key="index">
-            <dt class="pic"><img :src="item.pic" :alt="item.name + '的頭像'" class="head_img"></dt>
+            <dt class="pic"><img :src="item.head" :alt="item.name + '的頭像'" class="head_img"></dt>
             <dd class="more">
               <div class="no_money">
                 <p class="name">{{ item.name }}<span class="name_type">{{ item.type }}</span></p>
-                <p class="time">{{ item.time }}</p>
+                <p class="time">{{ item.created}}</p>
               </div>
-              <p class="money">{{ item.price }}</p>
+              <p class="money">{{item.reward}}</p>
             </dd>
           </dl>
         </div>
-        <div class="add_more" @click="addMore('self')">查看更多</div>
-      </div>
-    </div>
-    <div class="type" v-for="(itm, ind) in list" :key="ind">
-      <div class="info">
-        <p class="month_reward"><span class="timer">{{ itm.name }}</span>獎勵：{{ itm.money }}</p>
-      </div>
-      <div class="data">
-        <div class="list">
-          <dl class="every" v-for="(item, index) in itm.data" :key="index">
-            <dt class="pic"><img :src="item.pic" :alt="item.name + '的頭像'" class="head_img"></dt>
-            <dd class="more">
-              <div class="no_money">
-                <p class="name">{{ item.name }}<span class="name_type">{{ item.type }}</span></p>
-                <p class="time">{{ item.time }}</p>
-              </div>
-              <p class="money">{{ item.price }}</p>
-            </dd>
-          </dl>
-        </div>
-        <div class="add_more" @click="addMore(ind)">查看更多</div>
+        <!--<div class="add_more" @click="addMore('self')">查看更多</div>-->
       </div>
     </div>
   </div>
@@ -52,95 +32,20 @@
     name: 'teamReward',
     data () {
       return {
-        allMoney: '25,0000.0000',
+      	token:"",
+        allMoney:'',
         info: {
           self: '4,000.00'
         },
         time: '',
-        nowList: [
-          {
-            pic: require('../assets/images/logo.png'),
-            name: 'good',
-            type: '行長',
-            time: '05-20 12:45:45',
-            price: '5,000.00'
-          },
-          {
-            pic: require('../assets/images/logo.png'),
-            name: 'good',
-            type: '行長',
-            time: '05-20 12:45:45',
-            price: '5,000.00'
-          },
-          {
-            pic: require('../assets/images/logo.png'),
-            name: 'good',
-            type: '行長',
-            time: '05-20 12:45:45',
-            price: '5,000.00'
-          }
-        ],
-        list: [
-          {
-            name: '第一周',
-            money: '8,000.0000',
-            data: [
-              {
-                pic: require('../assets/images/logo.png'),
-                name: 'good',
-                type: '行長',
-                time: '05-20 12:45:45',
-                price: '5,000.00'
-              },
-              {
-                pic: require('../assets/images/logo.png'),
-                name: 'good',
-                type: '行長',
-                time: '05-20 12:45:45',
-                price: '5,000.00'
-              },
-              {
-                pic: require('../assets/images/logo.png'),
-                name: 'good',
-                type: '行長',
-                time: '05-20 12:45:45',
-                price: '5,000.00'
-              }
-            ]
-          },
-          {
-            name: '第二周',
-            money: '8,000.0000',
-            data: [
-              {
-                pic: require('../assets/images/logo.png'),
-                name: 'good',
-                type: '行長',
-                time: '05-20 12:45:45',
-                price: '5,000.00'
-              },
-              {
-                pic: require('../assets/images/logo.png'),
-                name: 'good',
-                type: '行長',
-                time: '05-20 12:45:45',
-                price: '5,000.00'
-              },
-              {
-                pic: require('../assets/images/logo.png'),
-                name: 'good',
-                type: '行長',
-                time: '05-20 12:45:45',
-                price: '5,000.00'
-              }
-            ]
-          }
-        ]
+        nowList: [],
       }
     },
     mounted () {
       this.$bus.$emit('pageHead', '團隊獎勵')
       this.init()
+      this.token = localStorage.getItem("token")
+      this.teamReward()
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')
@@ -160,16 +65,24 @@
           type: 'month'
         })
       },
-      addMore (type) {
-        if (type === 'self') {
-          this.nowList.push(this.nowList[0])
-        } else {
-          this.list[type].data.push(this.list[type].data[0])
-        }
-      },
       haveTimeBack (data) {
         this.time = data.substr(0, 7)
-        console.log(data)
+        this.teamReward(this.time.replace(/-/g,''))
+      },
+      teamReward (time){
+      	  this.axios.post('myTeamReward',{
+          token:this.token,
+          month:time||""
+        }).then(({data}) => {
+            console.log(data)
+            this.allMoney = data.data.total
+            this.nowList =  data.data.items
+            let aa = [];
+            for(var  x in data.data.items){
+            	  aa.push(data.data.items[x].reward)
+            }
+            this.info.self =   eval(aa.join("+"))
+        })
       }
     },
     components: {

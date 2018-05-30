@@ -177,6 +177,15 @@
 
 			}
 		},
+		mounted () {
+		    this.$bus.$emit('footer', {
+		      button: [],
+		      navShow: true
+		    })
+		  },
+		  beforeDestroy () {
+		    this.$bus.$emit('footer', false)
+		  },
 		methods: {
 			tabNav(val, index) {
 				this.addClass = index;

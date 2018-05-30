@@ -102,9 +102,8 @@
             this.$router.push({path:'realPresent'})
           }
         })
-      }
-    },
-    userUpload (img){
+      },
+      userUpload (img){
       let vm =this
       this.axios.post('userUpload', {
         token:localStorage.getItem("token"),
@@ -115,6 +114,9 @@
         console.log(vm.list)
       })
     }
+      
+    }
+    
 
 
   }

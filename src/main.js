@@ -11,7 +11,7 @@ Vue.prototype.$bus = new Vue()
 let protocolStr = document.location.protocol
 console.log(protocolStr)
 Vue.prototype.axios = axios.create({
-  baseURL: protocolStr=== 'https:'? 'https://api.zhongguozhaishi.com/': 'http://api.zhongguozhaishi.com/',
+  baseURL: protocolStr=== 'https:'? 'https://dcc.dahebo.com/': 'http://dcc.dahebo.com/',
   timeout: 10000,
   withCredentials: false,
   // 这时候我们通过Qs.stringify转换为表单查询参数

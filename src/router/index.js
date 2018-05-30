@@ -135,11 +135,11 @@ export default new Router({
     {
       path: '/team',
       name: 'team',
-      component: team,
+      component:team,
       children: [
 		      {
-		        path: 'myTeam',
-		        name: 'myTeam',
+		        path:'myTeam',
+		        name:'myTeam',
 		        component: myTeam
 		      },
 		      {

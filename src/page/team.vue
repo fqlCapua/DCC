@@ -1,15 +1,24 @@
 <template>
-  <div class="team_body">
-    <div class="head">
-    <div class="back iconfont icon-fanhuijiantou" @click="back"></div>
-    <div class="tab_list">
+
+ <div class="head">
+     <div class="back iconfont icon-fanhuijiantou" @click="back"></div>
+     <div class="codeTab">
+      <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">我的团队</span>
+      <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">我的分享</span>
+     </div>
+ </div>
+    <!-- <div class="team_body">
+
+   
+   
+  <div class="tab_list">
     	<div class="tab" v-for="(item,index) in tab" @click="toggle (index)" :class="{ active_tab : active === index}" :key="index">{{item.title}}</div>
     </div>
-  </div>
+
  
        <router-view></router-view>
 
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -17,11 +26,13 @@ export default {
   name: 'team',
   data () {
     return {
+      selectTab: 0,
+      selectTabIng: false,
       activeRouter: '',
-      active: 0,
+      active:0,
       tab: [
         {
-          title: '我的團隊',
+          title:'我的團隊',
           router:'team/myTeam'
         },
         {
@@ -32,35 +43,34 @@ export default {
     }
   },
   beforeMount () {
-//  this.getEvent()
-//    this.getRoute()
+ 
   },
   mounted () {
 
   },
   methods: {
-    getRoute () {
+    getRoute(){
 
   },
-    toggle(index){
-       this.active =index;
-       console.log(this.active);
-       this.$router.push({path:this.tab[index].router});
-       console.log(this.tab[index].router)
+   toggleTabs:function(id){
+        this.selectTab=id;
+       // console.log(this.selectTab);
+     if (this.selectTabIng || this.selectTab === id) return false
+        this.selectTabIng = true;
+        this.selectTab = id;
+     
+        // setTimeout(() => {
+        //   this.selectTabIng = false
+        // }, 500)
     },
-<<<<<<< .mine
-    toggle (index) {
-    	this.active = index;
-      this.$router.push({path: this.tab[index].router})
-    },
-||||||| .r7
-    toggle (index) {
-    	this.active = index
-      this.$router.push({path: this.tab[index].router})
-    },
-=======
->>>>>>> .r13
-    back(){
+   toggle(index){
+        console.log(index);
+       // this.active =index;
+       // console.log(this.active);
+       // this.$router.push({path:this.tab[index].router});
+       // console.log(this.tab[index].router)
+    }, 
+   back(){
     	 this.$router.go(-1)
     }
   }
@@ -114,4 +124,29 @@ export default {
     	}
 		}
   }
+  .codeTab{
+     font-family:"微软雅黑";
+    border:1px solid #CFA12A;
+    border-radius:6px;
+    width:60%;
+    margin:0 auto;
+     .option{
+        display:inline-block;
+        line-height:60px;
+        font-size:30px;
+        color:#AD8621;
+        height:60px;
+        line-hight:60px; 
+        width:49.1%;
+        text-align:center;
+     }
+     .option_active{
+       background-color:$mainColor;
+       color:#000;
+     }
+     .option_normal{
+       background-color:none;
+       color:#AD8621;
+     }
+    }
 </style>

@@ -67,7 +67,7 @@ export default {
         {
         	name:"團隊列表",
         	icon:"icon-tuandui1",
-        	router:"myTeam"
+        	router:"team"
         },
         {
         	name:"我的二維碼",

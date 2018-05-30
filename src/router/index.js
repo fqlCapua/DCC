@@ -39,185 +39,194 @@ import friendList from '@/page/friend_list'
 
 import c2cTradeDcc from '@/page/c2ctrade_dcc'
 import c2cTradeUsdt from '@/page/c2ctrade_usdt'
+import c2cTradeBuyOrder from '@/page/c2ctrade_buyOrder'
+import c2cTradeOfftakeOrder from '@/page/c2ctrade_offtakeOrder'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/register',
-      name: 'register',
-      component: register
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: login
-    },
-    {
-      path: '/changeLanguage',
-      name: 'changeLanguage',
-      component: changeLanguage
-    },
-    {
-      path: '/',
-      name: 'index',
-      component: index
-    },
-    {
-      path: '/index',
-      name: 'index1',
-      component: index
-    },
-    {
-      path: '/buy',
-      name: 'buy',
-      component: buy
-    },
-    {
-      path: '/userCenter',
-      name: 'userCenter',
-      component: userCenter
-    },
-    {
-      path: '/market',
-      name: 'market',
-      component: market
-    },
-    {
-      path: '/submitOrder',
-      name: 'submitOrder',
-      component: submitOrder
-    },
-    {
-      path: '/myCode',
-      name: 'myCode',
-      component: myCode
-    },
-    {
-      path: '/declarationFrom',
-      name: 'declarationFrom',
-      component: declarationFrom
-    },
-    {
-      path: '/waitOpen',
-      name: 'waitOpen',
-      component: waitOpen
-    },
-    {
-      path: '/setting',
-      name: 'setting',
-      component: setting
-    },
-    {
-      path: '/setLoginPsd',
-      name: 'setLoginPsd',
-      component: setLoginPsd
-    },
-    {
-      path: '/setDealPsd',
-      name: 'setDealPsd',
-      component: setDealPsd
-    },
-    {
-      path: '/realName',
-      name: 'realName',
-      component: realName
-    },
-    {
-      path: '/shareReward',
-      name: 'shareReward',
-      component: shareReward
-    },
-    {
-      path: '/c2c',
-      name: 'c2c',
-      component: c2c
-    },
-    {
-      path: '/team',
-      name: 'team',
-      component:team,
-      children: [
-		      {
-		        path:'myTeam',
-		        name:'myTeam',
-		        component: myTeam
-		      },
-		      {
-		        path: 'myShare',
-		        name: 'myShare',
-		        component: myShare
-		      } 
-      ]
-    },
-    {
-      path: '/exchange',
-      name: 'exchange',
-      component: exchange
-    },
-    {
-      path: '/partnerRecord',
-      name: 'partnerRecord',
-      component: partnerRecord
-    },
-    {
-      path: '/rollOut',
-      name: 'rollOut',
-      component: rollOut
-    },
-    {
-      path: '/teamReward',
-      name: 'teamReward',
-      component: teamReward
-    },
-    {
-      path: '/specialReward',
-      name: 'specialReward',
-      component: specialReward
-    },
-    {
-      path: '/assertReward',
-      name: 'assertReward',
-      component: assertReward
-    },
-    {
-      path: '/noticeList',
-      name: 'noticeList',
-      component: noticeList
-    },
-    {
-      path: '/noticeDetail',
-      name: 'noticeDetail',
-      component: noticeDetail
-    },
-    {
-      path: '/walletList',
-      name: 'walletList',
-      component: walletList
-    },
-    {
-      path: '/c2cList',
-      name: 'c2cList',
-      component: c2cList   
-    },
-    {
-      path: '/friendList',
-      name: 'friendList',
-      component: friendList 
-    },
-        {
-      path: '/c2cTradeDcc',
-      name: 'c2cTradeDcc',
-      component: c2cTradeDcc 
-    },
-        {
-      path: '/c2cTradeUsdt',
-      name: 'c2cTradeUsdt',
-      component: c2cTradeUsdt 
-    },
-    
-    
-  ]
+	mode: 'history',
+	routes: [{
+			path: '/register',
+			name: 'register',
+			component: register
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: login
+		},
+		{
+			path: '/changeLanguage',
+			name: 'changeLanguage',
+			component: changeLanguage
+		},
+		{
+			path: '/',
+			name: 'index',
+			component: index
+		},
+		{
+			path: '/index',
+			name: 'index1',
+			component: index
+		},
+		{
+			path: '/buy',
+			name: 'buy',
+			component: buy
+		},
+		{
+			path: '/userCenter',
+			name: 'userCenter',
+			component: userCenter
+		},
+		{
+			path: '/market',
+			name: 'market',
+			component: market
+		},
+		{
+			path: '/submitOrder',
+			name: 'submitOrder',
+			component: submitOrder
+		},
+		{
+			path: '/myCode',
+			name: 'myCode',
+			component: myCode
+		},
+		{
+			path: '/declarationFrom',
+			name: 'declarationFrom',
+			component: declarationFrom
+		},
+		{
+			path: '/waitOpen',
+			name: 'waitOpen',
+			component: waitOpen
+		},
+		{
+			path: '/setting',
+			name: 'setting',
+			component: setting
+		},
+		{
+			path: '/setLoginPsd',
+			name: 'setLoginPsd',
+			component: setLoginPsd
+		},
+		{
+			path: '/setDealPsd',
+			name: 'setDealPsd',
+			component: setDealPsd
+		},
+		{
+			path: '/realName',
+			name: 'realName',
+			component: realName
+		},
+		{
+			path: '/shareReward',
+			name: 'shareReward',
+			component: shareReward
+		},
+		{
+			path: '/c2c',
+			name: 'c2c',
+			component: c2c
+		},
+		{
+			path: '/team',
+			name: 'team',
+			component: team,
+			children: [{
+					path: 'myTeam',
+					name: 'myTeam',
+					component: myTeam
+				},
+				{
+					path: 'myShare',
+					name: 'myShare',
+					component: myShare
+				}
+			]
+		},
+		{
+			path: '/exchange',
+			name: 'exchange',
+			component: exchange
+		},
+		{
+			path: '/partnerRecord',
+			name: 'partnerRecord',
+			component: partnerRecord
+		},
+		{
+			path: '/rollOut',
+			name: 'rollOut',
+			component: rollOut
+		},
+		{
+			path: '/teamReward',
+			name: 'teamReward',
+			component: teamReward
+		},
+		{
+			path: '/specialReward',
+			name: 'specialReward',
+			component: specialReward
+		},
+		{
+			path: '/assertReward',
+			name: 'assertReward',
+			component: assertReward
+		},
+		{
+			path: '/noticeList',
+			name: 'noticeList',
+			component: noticeList
+		},
+		{
+			path: '/noticeDetail',
+			name: 'noticeDetail',
+			component: noticeDetail
+		},
+		{
+			path: '/walletList',
+			name: 'walletList',
+			component: walletList
+		},
+		{
+			path: '/c2cList',
+			name: 'c2cList',
+			component: c2cList
+		},
+		{
+			path: '/friendList',
+			name: 'friendList',
+			component: friendList
+		},
+		{
+			path: '/c2cTradeDcc',
+			name: 'c2cTradeDcc',
+			component: c2cTradeDcc
+		},
+		{
+			path: '/c2cTradeUsdt',
+			name: 'c2cTradeUsdt',
+			component: c2cTradeUsdt
+		},
+		{
+			path: '/c2cTradeBuyOrder',
+			name: 'c2cTadeBuyOrder',
+			component: c2cTradeBuyOrder
+		},
+		{
+			path: '/c2cTradeOfftakeOrder',
+			name: 'c2cTradeOfftakeOrder',
+			component: c2cTradeOfftakeOrder
+		},
+
+	]
 })

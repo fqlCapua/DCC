@@ -21,7 +21,7 @@ export default {
       form: {
       	phone: {
           placeholder: '我的手機號',
-          num: '17719883432',
+          num: '15993055572',
           readOnly: true
         },
         newsCode: {
@@ -46,7 +46,6 @@ export default {
   },
   mounted () {
     this.$bus.$emit('pageHead', '修改交易密碼')
-    this.init()
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -63,30 +62,24 @@ export default {
     }
   },
   methods: {
-    init () {
-      this.axios.post('users/login_pass').then(({data}) => {
-        this.form.phone.num = data.phone
-      })
-    },
-    getCode () {
-      if (this.codeTime !== 61) return false
-      if (this.form.phone.num === '') return this.$bus.$emit('alert', '請輸入手機號碼')
+    getCode() {
+      if(this.codeTime !== 61) return false;
+      if(this.phone === '') return this.$bus.$emit('alert', '請輸入手機號碼')
       this.codeTime = 60
       let timer = setInterval(() => {
-        if (--this.codeTime === 0) {
-          clearInterval(timer)
+        if(--this.codeTime === 0) {
           this.codeTime = 61
+          clearInterval(timer)
         }
       }, 1000)
-      this.axios.post('Sms/send', {
-        type: 2,
-        phone: this.form.phone.num
-      }).then(({data}) => {
-        if (data.status !== 200) {
-          clearInterval(timer)
-          this.codeTime = 61
-          this.$bus.$emit('alert', data.message)
-        }
+      this.axios.post('sms', {
+        phoneNo: this.form.phone.num
+      }).then(({
+                 data
+               }) => {
+        this.$bus.$emit('alertCer', {
+          msg: data.data
+        });
       })
     },
     submit () {
@@ -94,22 +87,17 @@ export default {
       if (this.form.newsPsd.num === '') return this.$bus.$emit('alert', '請輸入密碼')
       if (this.form.confirmPsd.num.length !== 6) return this.$bus.$emit('alert', '交易密碼為6位數字')
       if (this.form.confirmPsd.num != this.form.newsPsd.num) return this.$bus.$emit('alert', '兩次輸入的密碼不一致')
-      this.axios.post('users/payReset', {
-        pass: this.form.newsPsd.num,
-        repass: this.form.confirmPsd.num,
+      this.axios.post('setPayPassword', {
+        token:localStorage.getItem('token'),
+        pay_password: this.form.newsPsd.num,
         code: this.form.newsCode.num
       }).then(({data}) => {
-        if (data.status === 200) {
-          this.$bus.$emit('alert', {
-            title: '修改成功',
-            msg: '恭喜您修改成功，請妥善保管',
-            btn: '知道了',
-            cb:function(){
-              this.$router.go(-1)
-            }
-          })
-        } else {
-          this.$bus.$emit('alert', data.message)
+        console.log(data)
+        if(data.msg = '操作成功'){
+          this.$bus.$emit('alertCer', {
+            msg: data.msg
+          });
+          this.$router.go(-1)
         }
       })
     }

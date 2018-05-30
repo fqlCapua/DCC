@@ -80,8 +80,8 @@ export default {
   name: 'myCode',
   data () {
     return {
-        card: require('../../static/img/idbg.jpg'),
-        code: '',
+        card:require('../assets/images/idbg.jpg'),
+        code:'',
       // 切换列表
          selectTab: 0,
          formTitle2:'上傳二維碼',

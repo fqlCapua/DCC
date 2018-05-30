@@ -21,7 +21,7 @@ export default {
       form: {
       	phone: {
           placeholder: '我的手機號',
-          num: '',
+          num: '17719883432',
           readOnly: true
         },
         newsCode: {
@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '../assets/scss/style.scss';
   .setDealPsd_order {
     .head {

@@ -34,7 +34,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   #noticeList {
     .notice {
       background: #3f3c3c;

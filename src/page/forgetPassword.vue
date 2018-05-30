@@ -1,34 +1,34 @@
 <template>
-  <div class="login">
+  <div class="forgetPssword">
     <!-- 頭部 -->
     <div class="head">
-      <h2 class="title">登錄</h2>
+    		<i class="icon iconfont icon-fanhuijiantou returnBtn" @click="bock"></i>
+      <h2 class="title">忘记密码</h2>
     </div>
-    <!-- logo -->
-    <img class="logo" src="../assets/images/logo.png" alt="">
     <label class="label" for="phone">
       <span class="icon iconfont icon-shouji"></span>
       <input class="input" id="phone" type="number" v-model="phone" placeholder="請輸入手機號">
     </label>
     <label class="label" for="pass">
-      <span class="icon iconfont icon-mima54"></span>
-      <input class="input" id="pass" type="password" v-model="pass" placeholder="請輸入登錄密碼">
+      <span class="icon iconfont icon-navicon-dxmbwh"></span>
+      <input class="input" id="pass" type="password" v-model="pass" placeholder="請輸入验证码">
+      <span class="hqyzm">獲取驗證碼</span>
     </label>
     <label class="label" for="yzm">
-     <span class="icon iconfont icon-theearth2diqiu"></span>
-      <input class="input" id="yzm" type="password" v-model="captCha" placeholder="请输入验证码">
-      <span class="yzmBox" @click="tab"><img :src="img" alt="" width="100%" height="100%"></span>
+     <span class="icon iconfont icon-AAICon-"></span>
+      <input class="input" id="yzm" type="password"  placeholder="請設置新的登錄密碼">
     </label>
-    <div class="option">
-      <router-link to="forgetPassword" tag="span" class="route">忘記密碼?</router-link>
-      <router-link to="register" tag="span" class="route">快速注冊</router-link>
-    </div>
+     <label class="label" for="yzm">
+     <span class="icon iconfont icon-AAICon-"></span>
+      <input class="input" id="yzm" type="password"  placeholder="再次確認新密碼">
+    </label>
     <button class="submit" @click="submit">登錄</button>
   </div>
 </template>
+
 <script>
 export default {
-  name: 'login',
+  name: 'forgetPassword',
   data () {
     return {
       phone: '',
@@ -63,9 +63,11 @@ export default {
 
     doLogin() {
       let $that=this;
-      this.axios.post('userLogin', {
-        username: this.phone,
-        password: this.pass,
+      this.axios.post('resetMobilePassword', {
+        token:localStorage.getItem('token'),
+        phone:this.phone,
+        password:this.pass,
+        code:this.code,
         captcha:this.captCha,
         cap:this.cap
       }).then(({data}) => {
@@ -116,6 +118,9 @@ export default {
     tab(){
       this.imgCaptcha();
     },
+    bock(){
+      this.$router.go(-1)
+    },
     //设置cookie
     setCookie(c_name,c_pwd,exdays) {
       var exdate=new Date();//获取时间
@@ -149,10 +154,20 @@ export default {
 
 <style lang="scss">
   @import '../assets/scss/style.scss';
-  .login {
+  .forgetPssword {
     padding-top: 160px;
     .head {
+    	position:relative;
       @include headBlack;
+      a{
+      	color: #fff;
+      }
+      .returnBtn{
+      	position: absolute;
+      	left: 35px;
+      	top: 0;
+      	font-size: 48px;
+      }
     }
     .logo {
       width: 120px;
@@ -175,7 +190,7 @@ export default {
         top: 0;
         left: 0;
         width: 60px;
-        color: #fff;
+        color: #D7A82B;
         font-size: 40px;
         &.number {
           font-size: 28px;
@@ -183,13 +198,26 @@ export default {
       }
       .input {
         background: none;
-        color: #fff;
+        color: rgb(104,107,111);
         font-size: 28px;
+         color:#fff;
         &.number {
           border-left: 1px solid #fff;
           padding-left: 16px;
         }
       }
+   ::-webkit-input-placeholder { /* WebKit browsers */
+     color:    #999;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #999;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #999;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #999;
+}
       .code_button {
         position: absolute;
         top: 0;
@@ -208,6 +236,10 @@ export default {
       	top: 12px;
       	right:10px;
       }
+      .hqyzm{
+      	color: #D7A82B;
+      	float: right;
+      }
     }
     .option {
       color: #fff;
@@ -220,6 +252,7 @@ export default {
     .submit {
       @include submitButton;
       width: 530px;
+      color: #000;
     }
   }
 </style>

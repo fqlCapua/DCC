@@ -75,7 +75,7 @@
       }
     },
     mounted () {
-      this.$bus.$emit('pageHead', '考核獎勵')
+      this.$bus.$emit('pageHead', '考核獎勵');
       this.init()
     },
     beforeDestroy () {

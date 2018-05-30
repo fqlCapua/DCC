@@ -50,6 +50,9 @@ export default {
       navShow: true
     })
     this.init()
+    if(!localStorage.getItem('token')){
+      this.$router.push('/login')
+    }
   },
   beforeDestroy () {
     this.$bus.$emit('footer')
@@ -76,7 +79,7 @@ export default {
       .all_money {
         padding-top: 150px;
         font-size: 62px;
-        font-style: italic; 
+        font-style: italic;
         .small {
           font-size: 24px;
         }

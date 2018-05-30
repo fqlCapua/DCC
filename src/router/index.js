@@ -37,6 +37,9 @@ import walletList from '@/page/wallet_list'
 import c2cList from '@/page/c2c_list'
 import friendList from '@/page/friend_list'
 
+import c2cTradeDcc from '@/page/c2ctrade_dcc'
+import c2cTradeUsdt from '@/page/c2ctrade_usdt'
+
 Vue.use(Router)
 
 export default new Router({
@@ -203,6 +206,18 @@ export default new Router({
       path: '/friendList',
       name: 'friendList',
       component: friendList 
-    }
+    },
+        {
+      path: '/c2cTradeDcc',
+      name: 'c2cTradeDcc',
+      component: c2cTradeDcc 
+    },
+        {
+      path: '/c2cTradeUsdt',
+      name: 'c2cTradeUsdt',
+      component: c2cTradeUsdt 
+    },
+    
+    
   ]
 })

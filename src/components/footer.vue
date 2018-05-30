@@ -40,6 +40,11 @@ export default {
           router: 'declarationFrom'
         },
         {
+          baseClass: 'icon-jiaoyidating-xuanzhong',
+          title: 'C2C交易',
+          router: 'c2cTradeDcc'
+        },
+        {
           baseClass: 'icon-jianglijin',
           title: '獎勵',
           router: 'market'

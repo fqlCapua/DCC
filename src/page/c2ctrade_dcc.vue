@@ -112,7 +112,7 @@
 
 <script>
 	export default {
-		name: 'c2cTradeDdcc',
+		name: 'c2cTradeDcc',
 		data() {
 			return {
 				addClass: 0,
@@ -122,7 +122,7 @@
 				titleNav: [
 				{
 						title: 'DCC',
-						router: 'c2cTradeDdcc'
+						router: 'c2cTradeDcc'
 					},
 					{
 						title: 'USDT',

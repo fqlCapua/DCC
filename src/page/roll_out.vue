@@ -24,7 +24,15 @@
       }
     },
     mounted () {
-      this.$bus.$emit('pageHead', '轉出至錢包');
+      let $that
+      this.$bus.$emit('pageHead',{
+        title:"轉出至錢包",
+        rightShow: true,
+        rightText: '轉出記錄',
+        rightBack:function(){
+          $that.$router.push('walletList')
+        }
+      }),
       this.num()
     },
     destroyed () {
@@ -86,19 +94,18 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../assets/scss/style.scss';
   .declaration{
-
     padding-top:100px;
   .declaration-form{
     margin-top:12px;
-
     height:auto;
     margin-bottom:335px;
   label{
     height:93px;
     width: 100%;
     line-height: 93px;
-    margin-top:10px;
+    margin-top:30px;
     padding-left: 18px;
     display: flex;
     background: #3f3c3c;
@@ -117,7 +124,7 @@
   }
   }
   .amount{
-    height:108px;
+
     line-height: 108px;
   input{
     width:30%;
@@ -134,7 +141,7 @@
     width:50%;
   }
   span{
-    color:#ff9800;
+    color:#D7A82B;
     font-size: 26px;
     text-align: right;
   }
@@ -144,12 +151,13 @@
     width:590px;
     height:87px;
     line-height:87px;
-    background: #2d8afd;
+    background: #D7A82B;
     color: #fff;
     font-size: 34px;
     text-align: center;
     margin:0 auto;
-    border-radius: 10px;
+    border-radius:70px 70px;
   }
+
   }
 </style>

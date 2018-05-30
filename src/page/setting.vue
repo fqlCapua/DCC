@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     toggle (index) {
+      console.log(index)
     	if (index === 3) {
     		 this.logOut() // 退出登录
     	} else {
@@ -53,13 +54,18 @@ export default {
     },
     logOut () {
     	// 退出登录
-    	this.axios.get('/auth/unlogin').then(({data}) => {
-        if (data.status === 200) {
-           	    this.$router.push('login')
-        }
-      })
+        window.localStorage.removeItem('token')
+       if(!localStorage.getItem('token')){
+          let $that =this;
+         this.$bus.$emit('alertCer',{
+           msg:'退出成功'
+         })
+          setTimeout(function(){
+            $that.$router.push('login')
+          },2000)
+       }
     }
-  }
+  },
 }
 </script>
 

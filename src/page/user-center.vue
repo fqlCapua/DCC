@@ -4,8 +4,8 @@
       <i class="iconfont  icon-shezhishedingpeizhichilun" @click="setting"></i>
       <div class="logo"></div>
       <span class="name">
-        <span>賬號</span>
-        <span class="phone">{{showPhone}}</span>
+        <p style="text-align: center;margin-bottom: 5px">{{name}}</p>
+        <p class="phone" style="text-align: center">{{phone}}</p>
       </span>
     </div>
     <div class="section">
@@ -24,13 +24,6 @@
       <span class="name">今日收益USDT</span>
       <span class="num">{{ todayNum }}</span>
     </div>
-    <!--<div class="link">
-      <div class="link_top">
-        <span class="name">錢包地址</span>
-        <button class="copy btn" :data-clipboard-text="linkUrl" ref="copy" @click="copyLink">複製地址</button>
-      </div>
-      <span class="show_link">{{linkUrl}}</span>
-    </div>-->
     <ul class="list">
       <li class="item" v-for="(item, index) in list" :key="index" @click="seeDetails(index)">
         <!--<img :src="imgArr[index]" alt="">-->
@@ -52,7 +45,8 @@ export default {
       allNum: '',
       dccNum: '',
       activeNum: '',
-      todayNum: '0.00',
+      todayNum: '',
+      name:'',
       list:[
         {
         	name:"轉出至錢包",
@@ -105,7 +99,10 @@ export default {
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
-    })
+    });
+    if(!localStorage.getItem('token')){
+      this.$router.push('/login')
+    }
   },
   beforeDestroy () {
     this.$bus.$emit('footer', false)
@@ -136,18 +133,15 @@ export default {
 
     },
     getInfo () {
-      this.axios.get('/Users/index').then(({data}) => {
-        if (data.status === 200) {
-          this.activeNum = data.data.active_pool
-          this.dccNum = data.data.pool
-          this.phone = data.data.mobile
-          this.allNum = data.data.usdt
-          this.linkUrl = data.data.token_address
-        } else if (data.status === 2000) {
-         // this.$router.push('login')
-        } else {
-          this.$bus.$emit('alert', data.message)
-        }
+      this.axios.post('userHomePage', {
+       token:localStorage.getItem('token')
+      }).then(({data}) => {
+        this.name = data.data.name;
+        this.phone = data.data.phone;
+        this.allNum = data.data.price_usdt;
+        this.todayNum =data.data.usdt_today_profit;
+        this.dccNum =data.data.freeze_dcc;
+        this.activeNum=data.data.avaliable_dcc
       })
     },
     setting () {

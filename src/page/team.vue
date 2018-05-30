@@ -6,7 +6,6 @@
     	<div class="tab" v-for="(item,index) in tab" @click="toggle (index)" :class="{ active_tab : active === index}" :key="index">{{item.title}}</div>
     </div>
   </div>
-  
        <router-view></router-view>
   </div>
 </template>
@@ -17,43 +16,35 @@ export default {
   data () {
     return {
       activeRouter: '',
-      active: 0, 
+      active: 0,
       tab: [
         {
           title: '我的團隊',
-          router: 'team/myTeam'
+          router:'team/myTeam'
         },
         {
           title: '我的分享',
-          router: 'team/myShare'
+          router:'team/myShare'
         }
       ]
     }
   },
   beforeMount () {
 //  this.getEvent()
-    this.getRoute()
+//    this.getRoute()
   },
-  watch: {
-    $route (to, from) {
-      if (to.name === 'team1') {
-        this.activeRouter = 'team'
-        this.$router.push('/')
-      } else {
-        this.activeRouter = to.name
-      }
-      console.log(this.activeRouter)
-    }
+  mounted () {
+
   },
   methods: {
     getRoute () {
-      this.activeRouter = (this.$route.name === 'team' ? 'team/myTeam' : this.$route.name)
-      this.$router.push('team/myTeam')
-      console.log(this.activeRouter)
-    },
-    toggle (index) {
-    	this.active = index
-      this.$router.push({path: this.tab[index].router})
+
+  },
+    toggle(index){
+       this.active =index;
+       console.log(this.active);
+       this.$router.push({path:this.tab[index].router});
+       console.log(this.tab[index].router)
     },
     back(){
     	 this.$router.go(-1)

@@ -59,8 +59,10 @@ export default {
   },
   methods: {
     init () {
-      this.axios.post('reward/index').then(({data}) => {
-        this.allMoney = data.data
+      this.axios.post('rewardIndex',{
+      	token:localStorage.getItem("token")
+      }).then(({data}) => {
+        this.allMoney = data.data.total
       })
     }
   }

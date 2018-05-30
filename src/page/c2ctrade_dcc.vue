@@ -105,7 +105,7 @@
 				</div>
 			</div>
 
-		</div>-->
+		</div>
 
 	</div>
 </template>
@@ -181,6 +181,17 @@
 
 			}
 		},
+		
+		mounted () {
+		    this.$bus.$emit('footer', {
+		      button: [],
+		      navShow: true
+		    })
+		  },
+		  beforeDestroy () {
+		    this.$bus.$emit('footer', false)
+		  },
+		
 		methods: {
 			tabNav(val, index) {
 				this.addClass = index;

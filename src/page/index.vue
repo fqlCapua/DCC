@@ -11,8 +11,15 @@
     </header>
     <!--<div class="circle"></div>-->
     <div class="bearing">
-      <div class="total-value" id="box"></div>
-      <div class="total-title">總市值</div>
+    	<div id="">
+    		<div class="total-value" id="box">{{totalAmount}}</div>
+        <div class="total-title">總市值(CNY)</div>
+    	</div>
+      <div id="">
+      	<div class="total-value" id="box1">{{totalFrost}}</div>
+        <div class="total-title">凍結額度(CNY)</div>
+      </div>
+      
     </div>
     <!--<img :src="circle" alt="" class="circle">-->
     <!--<div class="btns">
@@ -40,46 +47,47 @@ export default {
       logo: require('../assets/images/logo.png'),
       circle: require('../assets/images/bearing.png'),
       hasMessage: true,
-      totalAmount: '', // 總數量
+      totalAmount: '', // 總市值
+      totalFrost: '', // 凍結額度(CNY)
       list: [
         {
-          icon: 'icon-shuliang',
-          name: 'USDT持幣量',
+          icon: 'icon-jiedong',
+          name: '今日解凍DCC',
           num: '--'
         },
         {
-          icon: 'icon-kedanjia',
-          name: 'USDT單價(CNY)',
+          icon: 'icon-jiangli',
+          name: '今日新增獎勵 (USDT)',
           num: '--'
-        },
-        {
-          icon: 'icon-dongjiejine',
-          name: '凍結DCC數量',
-          num: '--'
-        },
-        {
-          icon: 'icon-shichangfenxi',
-          name: 'DCC今日價(CNY)',
-          num: '0.00'
         },
         {
           icon: 'icon-tixianedu0101',
-          name: '可用DCC數量',
+          name: '可用DCC',
+          num: '--'
+        },
+        {
+          icon: 'icon-danjia',
+          name: '單價 (CNY)',
           num: '0.00'
         },
         {
-          icon: 'icon-licaishouyi',
-          name: '今日收益(CNY)',
+          icon: 'icon-USDT',
+          name: '可用USDT',
+          num: '0.00'
+        },
+        {
+          icon: 'icon-danjia',
+          name: '單價 (CNY)',
           num: '0.00'
         },
         {
           icon: 'icon-zuigao',
-          name: 'DCC最高價(CNY)',
+          name: '最高價 (CNY)',
           num: '1.0'
         },
         {
           icon: 'icon-zuidi',
-          name: 'DCC最低價(CNY)',
+          name: '最低價 (CNY)',
           num: '0.7'
         }
       ]
@@ -110,36 +118,27 @@ export default {
       
     },
     getInfo () {
-      this.axios.get('Quotation/index').then(({data}) => {
-        this.totalAmount = (data.data.userinfo.pool - 0) + (data.data.userinfo.active_pool - 0)
-        this.list = this.list.map((item, index) => {
-          if (index === 0) item.num = this.formatNum(data.data.userinfo.usdt, 4)
-          if (index === 1) item.num = data.data.info.value
-          // if (index === 1) item.num = ((data.data.userinfo.active_pool - 0) + (data.data.userinfo.pool - 0)) * data.data.info.value
-          if (index === 2) item.num = data.data.userinfo.pool
-          if (index === 3) item.num = data.data.userinfo.total_bonus
-          if (index === 4) item.num = data.data.userinfo.active_pool
+    	let token = localStorage.getItem("token")
+      this.axios.post('/home',{
+      	token:token
+      }).then(({data}) => {
+          console.log(data.data) 
+          this.totalAmount = this.formatNum(data.data.total,2)  //總市值
+          this.totalFrost = this.formatNum(data.data.freeze_dcc,2) // 冻结额度
+          this.list = this.list.map((item, index) => {
+          if (index === 0) item.num = this.formatNum(data.data.freeze_dcc, 4)  // 
+          if (index === 1) item.num = this.formatNum(data.data.today_profit,4)
+          if (index === 2) item.num = data.data.avaliable_dcc
+          if (index === 3) item.num = data.data.today_dcc_price
+          if (index === 4) item.num = data.data.total_usdt
+          if (index === 5) item.num = data.data.price_usdt
+          if (index === 6) item.num = data.data.max_dcc_price
+          if (index === 7) item.num = data.data.min_dcc_price
           return item
         })
-        this.countUp() // 数字滚动
       })
     },
-    // 数字滚动
-    countUp () {
-      let options = {
-        useEasing: true,
-        useGrouping: true,
-        separator: ',',
-        decimal: '.'
-      }
-      let num = this.totalAmount
-      let countNum = new CountUp('box', 0, num, 4, 0.6, options)
-      if (!countNum.error) {
-        countNum.start()
-      } else {
-        console.error(countNum.error)
-      }
-    },
+   
 
     // 数字格式化
     formatNum (s, n) {
@@ -236,18 +235,20 @@ export default {
       /*background-size: 50%;
       background-repeat: no-repeat;
       background-position: 50%;*/
+      display: flex;
+      justify-content: space-around;
       padding-top:160px;
       .total-value{
         text-align: center;
-        font-size:60px;
+        font-size:50px;
         color:#fff;
         margin-bottom: 55px;
-        font-weight: 700;
+        font-weight: 600;
         font-style: italic;
       }
       .total-title{
         text-align: center;
-        font-size:34px;
+        font-size:28px;
         color:#fff;
       }
     }

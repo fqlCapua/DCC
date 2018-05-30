@@ -19,7 +19,7 @@
       	<div class="total-value" id="box1">{{totalFrost}}</div>
         <div class="total-title">凍結額度(CNY)</div>
       </div>
-      
+
     </div>
     <!--<img :src="circle" alt="" class="circle">-->
     <!--<div class="btns">
@@ -100,7 +100,10 @@ export default {
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
-    })
+    });
+    if(!localStorage.getItem('token')){
+        this.$router.push('/login')
+    }
   },
   beforeDestroy () {
     this.$bus.$emit('footer', false)
@@ -112,21 +115,21 @@ export default {
 //      msg: '正在测试中，敬请期待。',
 //      btn: '知道了'
 //    })
-      
+
       //公告
       this.$router.push('message')
-      
+
     },
     getInfo () {
     	let token = localStorage.getItem("token")
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {
-          console.log(data.data) 
+          console.log(data.data)
           this.totalAmount = this.formatNum(data.data.total,2)  //總市值
           this.totalFrost = this.formatNum(data.data.freeze_dcc,2) // 冻结额度
           this.list = this.list.map((item, index) => {
-          if (index === 0) item.num = this.formatNum(data.data.freeze_dcc, 4)  // 
+          if (index === 0) item.num = this.formatNum(data.data.freeze_dcc, 4)  //
           if (index === 1) item.num = this.formatNum(data.data.today_profit,4)
           if (index === 2) item.num = data.data.avaliable_dcc
           if (index === 3) item.num = data.data.today_dcc_price
@@ -138,7 +141,7 @@ export default {
         })
       })
     },
-   
+
 
     // 数字格式化
     formatNum (s, n) {
@@ -156,7 +159,8 @@ export default {
         t += l[i] + ((i + 1) % 3 === 0 && (i + 1) !== l.length ? ',' : '')
       }
       return t.split('').reverse().join('') + '.' + r
-    }
+    },
+
   }
 }
 </script>

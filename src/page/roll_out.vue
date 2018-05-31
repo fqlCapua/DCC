@@ -24,7 +24,7 @@
       }
     },
     mounted () {
-      let $that
+      let $that =this;
       this.$bus.$emit('pageHead',{
         title:"轉出至錢包",
         rightShow: true,

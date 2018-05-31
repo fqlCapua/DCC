@@ -1,147 +1,155 @@
 <template>
-  <div class="submit_order">
-    <div class="form">
-      <label class="label" :for="index" v-for="(item, index) in form" :key="index">
-        <span class="name">{{ item.name }}</span>
-        <input class="input" :id="index" :type="item.type || 'text'" v-if="index !== 'newsCode'" :placeholder="item.placeholder"  v-model="item.num" :readonly="item.readOnly">
-        <button class="input_button" v-if="index === 'newsCode'" @click="getCode">{{ codeTime === 61 ? '獲取' : codeTime + 's后重試' }}</button>
-        <input class="input_code" :id="index" type="text" v-if="index === 'newsCode'" v-model="item.num" :placeholder="item.placeholder">
-      </label>
+  <div class="declaration">
+    <div action="" class="declaration-form">
+      <label for="" class="amount"><div>售價USTD</div><input type="text" name=""v-model="ustd" readonly value="" placeholder="DCC數量"/><span>USDT</span></label>
+      <label for=""><div>USTD提款嗎</div><input type="text" name=""  value="" v-model="usdt_code" placeholder="請輸入USTD提款嗎"/></label>
+      <label for="" class="code"><div>验证码</div><input type="text" name=""  value="" v-model="code"  placeholder="請輸入手機驗證碼"/><span @click="getCode">{{ codeTime === 61 ? '获取验证码' : `${codeTime}s后重试`}}</span></label>
     </div>
-    <button class="submit" @click="submit">提交</button>
+    <div class="submit" @click="submit">提交</div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'submitOrder',
-  data () {
-    return {
-      form: {
-        usdt: {
-          name: '售價USDT',
-          placeholder: '請輸入購幣數量',
-          num: '',
-//        type: 'number',
-          readOnly: true
-        },
-        //      exchange: {
-        //        name: '可兌換',
-        //        placeholder: '',
-        //        num: '0.0000 DCC',
-        //        readOnly: true
-        //      },
-        backCode: {
-          name: 'USDT提款碼',
-          placeholder: '請輸入提款碼',
-          num: ''
-        },
-        phone: {
-          name: '手機號碼',
-          placeholder: '我的手機號',
-          num: '',
-          readOnly: true
-        },
-        newsCode: {
-          name: '短信驗證碼',
-          placeholder: '請輸入驗證碼',
-          num: ''
+  export default {
+    name: 'personal',
+    data () {
+      return {
+        phone:localStorage.getItem("phone"),
+        code: '',
+        codeTime: 61,
+        usdt_code:'',
+        ustd:'',
+      }
+    },
+    mounted () {
+      let $that =this;
+      this.$bus.$emit('pageHead',{
+        title:"支付頁面" ,
+        rightShow: true,
+        rightBack:function(){
+          $that.$router.push('walletList')
         }
+      }),
+        this.num()
+    },
+    destroyed () {
+      this.$bus.$emit('pageHead');
+    },
+    methods: {
+
+      num(){
+        this.axios.post('userHomePage', {
+          token:localStorage.getItem("token")
+        }).then(({data}) => {
+          console.log(data)
+          this.ustd = data.data.price_usdt
+        })
       },
-      codeTime: 61
-    }
-  },
-  mounted () {
-    this.$bus.$emit('pageHead', '支付頁面')
-    this.init()
-    this.form.usdt.num = this.$route.query.money
-  },
-  destroyed () {
-    this.$bus.$emit('pageHead')
-  },
-  methods: {
-    init () {
-      this.axios.post('quotation/decl_from_page').then(({data}) => {
-        this.form.phone.num = data.data.mobile
-        //      this.form.exchange.num = (this.form.usdt.num * data.data.rmb_dcc * data.data.usdt_rmb) + ' DCC'
-      })
+      getCode(){
+        if (this.codeTime !== 61) return false;
+        this.codeTime = 60
+        let timer = setInterval(() => {
+          if (--this.codeTime === 0) {
+            this.codeTime = 61
+            clearInterval(timer)
+          }
+        }, 1000)
+        this.axios.post('sms', {
+          phoneNo:this.phone
+        }).then(({data}) => {
+        })
+      },
+      submit(){
+     let $that= this;
+          this.axios.post('coparntnerBuy', {
+              token:localStorage.getItem("token"),
+              copartner_id:localStorage.getItem('id'),
+              usdt_code:this.usdt_code,
+              code:this.code
+          }).then(({data}) => {
+            console.log(data)
+            this.$bus.$emit('alertCer', data.msg)
+            setTimeout(function () {
+              $that.$router.go(-1)
+            },2000)
+
+          })
+
+
+// 			this.$router.push({path:'intoDetails' })
+      }
     },
-    getCode () {
-      if (this.codeTime !== 61) return false
-      if (this.form.phone.num === '') return this.$bus.$emit('alert', '請輸入手機號碼')
-      this.codeTime = 60
-      let timer = setInterval(() => {
-        if (--this.codeTime === 0) {
-          clearInterval(timer)
-          this.codeTime = 61
-        }
-      }, 1000)
-      this.axios.post('Sms/send', {
-        type: 3,
-        phone: '18337131078'
-        //      phone: "this.form.phone.num"
-      }).then(({data}) => {
-        if (data.status !== 200) this.$bus.$emit('alert', data.message)
-      })
-    },
-    submit () {
-      if (this.form.usdt.num === '') return this.$bus.$emit('alert', '請輸入購買USDT數量')
-      if (this.form.backCode.num === '') return this.$bus.$emit('alert', '請輸入USDT提款碼')
-      if (this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
-      this.axios.post('quotation/decl_from', {
-        usdt: this.form.usdt.num,
-        carry_usdt: this.form.backCode.num,
-        code: this.form.newsCode.num,
-        type: 1
-      }).then(({data}) => {
-        this.$bus.$emit('alert', data.message)
-        if (data.status === 200) this.$router.go(-1)
-      })
+    components: {
+
     }
   }
-}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '../assets/scss/style.scss';
-  .submit_order {
-    .head {
-      @include headBlack;
-    }
+  .declaration{
     padding-top:100px;
-    .form {
-      padding: 0 45px;
-      .label {
-        height: 128px;
-        display: block;
-        border-bottom: 1px solid #424652;
-        padding-top: 50px;
-        .name {
-          float: left;
-          color: #d1cece;
-          font-size: 28px;
-        }
-        .input, .input_code {
-          float: right;
-          background: none;
-          color: #d7a72e;
-          text-align: right;
-          padding-right: 10px;
-          height: 50px;
-        }
-        .input_button {
-          float: right;
-          padding: 0 10px;
-          background: none;
-          color: #d7a72e;
-          font-size: 28px;
-          height: 50px;
-        }
-      }
-    }
-    .submit {
-      @include submitButton;
-      width: 80%;
-    }
+  .declaration-form{
+    margin-top:12px;
+    height:auto;
+    margin-bottom:335px;
+  label{
+    height:93px;
+    width: 100%;
+    line-height: 93px;
+    margin-top:30px;
+    padding-left: 18px;
+    display: flex;
+    background: #3f3c3c;
+  //justify-content: space-between;
+  div{
+    font-size: 28px;
+    color:#fff;
+    width:176px;
+  }
+  input{
+    font-size: 26px;
+    background: none;
+    color:#fff;
+    width: 70%;
+
+  }
+  }
+  .amount{
+
+    line-height: 108px;
+  input{
+    width:30%;
+  }
+  span{
+    color:#fff;
+    position:absolute;
+    right:40px;
+    font-size: 27px;
+  }
+  }
+  .code{
+  input{
+    width:50%;
+  }
+  span{
+    color:#D7A82B;
+    font-size: 26px;
+    text-align: right;
+  }
+  }
+  }
+  .submit{
+    width:590px;
+    height:87px;
+    line-height:87px;
+    background: #D7A82B;
+    color: #fff;
+    font-size: 34px;
+    text-align: center;
+    margin:0 auto;
+    border-radius:70px 70px;
+  }
+
   }
 </style>

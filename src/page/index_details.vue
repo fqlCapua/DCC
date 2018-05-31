@@ -2,11 +2,11 @@
   <div class="index_details" v-if="content.show === true">
     <div class="show_box">
       <p class="iconfont icon-guanbijiantou" @click="close"></p>
-      <img class="shop_pic" :src="content.pic" />
+      <img class="shop_pic" :src="content.logo" />
       <p class="name pad_l">{{ content.name }}</p>
-      <p class="price pad_l">售價：{{ content.price }}</p>
-      <p class="small pad_l">分享獎勵：直接分享{{ content.direct }}DCC, 間接分享{{ content.indirect }}DCC</p>
-      <p class="small pad_l">靜態收益：{{ content.forzen }}</p>
+      <p class="price pad_l">售價：{{ content.amount }}</p>
+      <p class="small pad_l">分享獎勵：{{content.comment}}</p>
+      <!--<p class="small pad_l">靜態收益：{{ content.forzen }}</p>-->
       <!--<p class="small pad_l">庫存：{{ content.number }}</p>-->
       <button class="pay" @click="pay">立即購買</button>
     </div>
@@ -32,14 +32,15 @@ export default {
   props: {
     content: {
       show: false,
-      name: '',
+      amount: '',
       pic: '',
       price: '',
       everyHourMin: '',
       allTime: '',
       number: '',
       id: '',
-      forzen: ''
+      forzen: '',
+      comment:''
     }
   }
 }

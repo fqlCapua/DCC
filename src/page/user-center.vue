@@ -2,7 +2,10 @@
   <div class="user_wrap">
     <div class="top">
       <i class="iconfont  icon-shezhishedingpeizhichilun" @click="setting"></i>
-      <div class="logo"></div>
+      <div class="logo">
+      	<img alt="" :src="card" width="100%" height="100%" style="border-radius: 50%;">
+				<input type="file" class="file" @change="fileImage">
+      </div>
       <span class="name">
         <p style="text-align: center;margin-bottom: 5px">{{name}}</p>
         <p class="phone" style="text-align: center">{{phone}}</p>
@@ -47,6 +50,7 @@ export default {
       activeNum: '',
       todayNum: '',
       name:'',
+      card:require('../assets/images/logo.png'),
       list:[
         {
         	name:"轉出至錢包",
@@ -147,7 +151,20 @@ export default {
     setting () {
     	//設置
       this.$router.push('setting')
-    }
+    },
+    //上传头像
+    fileImage: function(e) {
+				let $that = this
+				var file = e.target.files[0];
+				var reader = new FileReader();
+				reader.readAsDataURL(file); // 读出 base64
+				reader.onloadend = function() {
+					// 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+					var dataURL = reader.result;
+					$that.card = dataURL;
+				}
+			}
+
   }
 }
 </script>
@@ -167,12 +184,23 @@ export default {
       font-size: 28px;
       margin-bottom: 60px;
       .logo{
-        width: 82px;
+        width: 88px;
         height: 100px;
         margin: 60px auto 40px;
         display: block;
-        background-image: url(../assets/images/logo.png);
+        /*background-image: url(../assets/images/logo.png);*/
         background-size: 100% 100%;
+        image{
+        	border-radius: 50%;
+        }
+        .file {
+					outline: none;
+					opacity: 0;
+					width: 100%;
+					height: 100%;
+					position: relative;
+					top: -108px;
+				}
       }
       .iconfont{
         position: absolute;
@@ -221,7 +249,7 @@ export default {
           background-color: transparent;
         }
       }
-      >.show_link{
+      .show_link{
         display: flex;
         font-size: 26px;
         padding: 10px 40px;

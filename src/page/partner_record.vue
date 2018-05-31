@@ -24,6 +24,7 @@ export default {
   data () {
     return {
        imgList:{
+       	 token:"",
        	  high: require('../assets/images/mills_pic0.png'),
        	  middle:require('../assets/images/mills_pic1.png'),
        	  low:require('../assets/images/mills_pic2.png')
@@ -71,9 +72,11 @@ export default {
   },
   methods: {
     init () {
-      this.axios.post('quotation/decl_from_page').then(({data}) => {
-        this.form.phone.num = data.data.mobile
-        //      this.form.exchange.num = (this.form.usdt.num * data.data.rmb_dcc * data.data.usdt_rmb) + ' DCC'
+    	 this.token = localStorage.getItem("token")
+      this.axios.post('coparntnerBuyList',{
+      	 token:this.token
+      }).then(({data}) => {
+         console.log(data)
       })
     }
   }

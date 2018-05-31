@@ -6,7 +6,7 @@
         <span>DCC</span>
       </div>
       <router-link tag="span" to="noticeList" class="header_right" :class="{'has_msg': hasMessage}">
-        <i class="iconfont icon-gonggao"></i>
+        <i class="iconfont icon-gonggao " ></i>
       </router-link>
     </header>
     <!--<div class="circle"></div>-->
@@ -46,7 +46,7 @@ export default {
     return {
       logo: require('../assets/images/logo.png'),
       circle: require('../assets/images/bearing.png'),
-      hasMessage: true,
+      hasMessage: '',
       totalAmount: '', // 總市值
       totalFrost: '', // 凍結額度(CNY)
       list: [
@@ -104,6 +104,7 @@ export default {
     if(!localStorage.getItem('token')){
         this.$router.push('/login')
     }
+    this.ures()
   },
   beforeDestroy () {
     this.$bus.$emit('footer', false)
@@ -125,7 +126,6 @@ export default {
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {
-
           this.totalAmount = this.formatNum(data.data.total_usdt*data.data.price_usdt + data.data.avaliable_dcc*data.data.today_dcc_price+data.data.freeze_dcc*data.data.today_dcc_price,2)  //總市值
           this.totalFrost = this.formatNum(data.data.freeze_dcc,2) // 冻结额度
           this.list = this.list.map((item, index) => {
@@ -141,7 +141,16 @@ export default {
         })
       })
     },
+     ures(){
+       let token = localStorage.getItem("token")
+       this.axios.post('/userHomePage',{
+         token:token
+       }).then(({data}) => {
+           this.hasMessage =data.data.new_msg
 
+         })
+
+     },
     // 数字格式化
     formatNum (s, n) {
     /*

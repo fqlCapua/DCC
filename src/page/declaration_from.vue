@@ -46,15 +46,15 @@
         合夥人套餐
         <span class="right_point point"><i></i><i></i><i></i></span>
       </h4>
-      <dl class="mac" v-for="(item, index) in macInner" :key="item.id">
+      <dl class="mac" v-for="(item, index) in list" :key="item.id">
         <dt class="pic">
-          <img class="photo" :src="item.pic" alt="">
+          <img class="photo" :src="item.logo" alt="">
         </dt>
         <dd class="info">
           <h3 class="name">{{ item.name }}</h3>
           <!--<p class="number">庫存：{{ item.number }}</p>-->
-          <p class="price">售價：{{ item.price }} USDT</p>
-          <button class="details" @click="showInfo(item.id, index)">詳情</button>
+          <p class="price">售價：{{ item.amount }} USDT</p>
+          <button class="details" @click="showInfo(item)">詳情</button>
         </dd>
       </dl>
     </div>
@@ -113,48 +113,12 @@ export default {
         ]
       },
       // 礦區內容
-      macInner: {
-        one: {
-          name: '决策合夥人',
-          // 庫存
-          number: 999,
-          // 價格
-          price: '20,000.0000',
-          // 圖片
-          pic: require('../assets/images/mills_pic0.png'),
-          // 總時長
-          forzen: '',
-          // 分享獎勵
-          direct: '', // 直接獎勵
-          indirect: '', // 間接獎勵
-          id: 1
-        },
-        two: {
-          name: '核心合夥人',
-          number: 999,
-          price: '6,000.0000',
-          pic: require('../assets/images/mills_pic1.png'),
-          forzen: '',
-          // 分享獎勵
-          direct: '', // 直接獎勵
-          indirect: '', // 間接獎勵
-          id: 2
-        },
-        three: {
-          name: '一般合夥人',
-          number: 999,
-          price: '1,000.0000',
-          pic: require('../assets/images/mills_pic2.png'),
-          forzen: '',
-          // 分享獎勵
-          direct: '', // 直接獎勵
-          indirect: '', // 間接獎勵
-          id: 3
-        }
-      },
+      list:[],
+
+
       indexDetails: {
         show: false,
-        name: '',
+        amount: '',
         pic: '',
         price: '',
         everyHourMin: '',
@@ -173,7 +137,10 @@ export default {
       navShow: true
     })
     // 監聽關閉事件
-    this.$bus.$on('closeIndexDetails', this.closeDetails)
+    this.$bus.$on('closeIndexDetails', this.closeDetails);
+    if(!localStorage.getItem('token')){
+      this.$router.push('/login')
+    }
   },
   destroyed () {
     this.$bus.$off('closeIndexDetails')
@@ -181,8 +148,9 @@ export default {
   },
   methods: {
     // 跳轉詳情頁
-    showInfo (id, index) {
-      this.indexDetails = this.macInner[index]
+    showInfo (item) {
+      this.indexDetails = item
+       window.localStorage.setItem('id',item.id);
       this.indexDetails.show = true
     },
     // 關閉詳情事件
@@ -190,21 +158,26 @@ export default {
       this.indexDetails = {
         show: false,
         name: '',
-        pic: '',
+        logo: '',
         price: '',
         everyHourMin: '',
         allTime: '',
         number: '',
-        id: 1
+        comment:''
       }
     },
     declFromPage () {
-      this.axios.post('quotation/decl_from_page').then(({data}) => {
-        for (var item in this.macInner) {
-          this.macInner[item].direct = data.data.direct
-          this.macInner[item].indirect = data.data.indirect
-          this.macInner[item].forzen = data.data.forzen
-        }
+       let $that =this
+      this.axios.post('coparntner',{
+        token:localStorage.getItem('token')
+      }).then(({data}) => {
+         console.log(data)
+        $that.list=data.data;
+         for(let item in  $that.list){
+           $that.list[item].logo = document.location.protocol+'//'+$that.list[item].logo
+
+         }
+
       })
     }
   },
@@ -262,7 +235,7 @@ export default {
       position: relative;
       top: -44px;
       height: 88px;
-      box-shadow: 0 2px 30px 0 rgba(71, 147, 241, 0.4);
+      /*box-shadow: 0 2px 30px 0 rgba(71, 147, 241, 0.4);*/
       border-radius: 5px;
       z-index: 6;
       background: #3f3c3c;
@@ -344,7 +317,7 @@ export default {
         height: 220px;
         overflow: hidden;
         background: #3f3c3c;
-        box-shadow: 0 0 20px 2px rgba(71, 147, 241, 0.4);
+        /*box-shadow: 0 0 20px 2px rgba(71, 147, 241, 0.4);*/
         border-radius: 10px;
         .pic {
           float: left;

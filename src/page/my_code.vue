@@ -160,7 +160,7 @@ export default {
     position: relative;
     .icon-fanhuijiantou {
       position: absolute;
-      top: 0;
+      top: 10px;
       left: 0;
       color: #fff;
       width: 100px;
@@ -170,7 +170,7 @@ export default {
     }
     .header_top{
 
-      padding:16px 0 16px 0;
+      padding:20px 0 16px 0;
     }
     .data{
       

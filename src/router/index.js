@@ -19,6 +19,11 @@ import setLoginPsd from '@/page/setLoginPsd'
 import setDealPsd from '@/page/setDealPsd'
 import realName from '@/page/realName'
 import shareReward from '@/page/share_reward'
+ 
+import levelChange from '@/page/levelChange'
+import subSuccess from '@/page/subSuccess'
+
+ 
 import myTeam from '@/page/my_team'
 import myShare from '@/page/my_share'
 import teamReward from '@/page/team_reward'
@@ -90,7 +95,7 @@ export default new Router({
 			component: changeLanguage
 		},
 		{
-			path: '/',
+			path: '/index',
 			name: 'index',
 			component: index
 		},
@@ -123,6 +128,16 @@ export default new Router({
 			path: '/myCode',
 			name: 'myCode',
 			component: myCode
+		},
+		{
+			path: '/levelChange',
+			name: 'levelChange',
+			component: levelChange
+		},
+		{
+			path: '/subSuccess',
+			name: 'subSuccess',
+			component: subSuccess
 		},
 		{
 			path: '/declarationFrom',

@@ -45,7 +45,7 @@
 <style lang="scss" scoped>
 	@import '../assets/scss/style.scss';
 	.walletEwm {
-		padding-top: 160px;
+		padding-top: 60px;
 		.head {
 			position: relative;
 			@include headBlack;

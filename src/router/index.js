@@ -24,12 +24,12 @@ import myShare from '@/page/my_share'
 import teamReward from '@/page/team_reward'
 import specialReward from '@/page/special_reward'
 import assertReward from '@/page/assert_reward'
-import c2c from '@/page/c2c'
+import accounts from '@/page/accounts'
 import team from '@/page/team'
 import rollOut from '@/page/roll_out'
 import exchange from '@/page/exchange'
 import walletList from '@/page/wallet_list'
-import c2cList from '@/page/c2c_list'
+import accountsList from '@/page/accounts_list'
 import friendList from '@/page/friend_list'
 import pageTab from '@/page/page_tab'
 import forgetPassword from '@/page/forgetPassword'
@@ -160,9 +160,9 @@ export default new Router({
 			component: shareReward
 		},
 		{
-			path: '/c2c',
-			name: 'c2c',
-			component: c2c
+			path: '/accounts',
+			name: 'accounts',
+			component: accounts
 		},
 		{
 			path: '/team',
@@ -226,9 +226,9 @@ export default new Router({
 			component: walletList
 		},
 		{
-			path: '/c2cList',
-			name: 'c2cList',
-			component: c2cList
+			path: '/accountsList',
+			name: 'accountsList',
+			component: accountsList
 		},
 		{
 			path: '/friendList',

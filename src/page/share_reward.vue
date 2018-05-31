@@ -77,14 +77,20 @@
           calendar: ''
         },
         // 列表
-        userList1: [],
+        userList1: [
+          {
+            pic: require('../assets/images/logo.png'),
+            name: 'good',
+            time: '05-20 12:45:45',
+            price: '4,000.00'
+          }],
         userList2: [
-          // {
-          //   pic: require('../assets/images/logo.png'),
-          //   name: 'good',
-          //   time: '05-20 12:45:45',
-          //   price: '5,000.00'
-          // }
+          {
+            pic: require('../assets/images/logo.png'),
+            name: 'good',
+            time: '05-20 12:45:45',
+            price: '5,000.00'
+          }
         ]
       }
     },
@@ -144,11 +150,17 @@
         if (this.selectTabIng || this.selectTab === id) return false
         this.selectTabIng = true
         this.selectTab = id
+<<<<<<< .mine
+
+||||||| .r19
+       
+=======
         if(id === 0){
         	 this.allMoney = this.allDirect
         }else{
         	 this.allMoney = this.allRelative
         }
+>>>>>>> .r42
         setTimeout(() => {
           this.selectTabIng = false
         }, 500)
@@ -329,7 +341,7 @@
     @keyframes goLeft {
       0% {
         left: 75%;
-        transform-origin: left top;
+        transform-origin:left top;
         transform: scaleX(1)
       }
       30% {

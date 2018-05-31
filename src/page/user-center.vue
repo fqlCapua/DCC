@@ -76,7 +76,7 @@ export default {
         {
           name:"等级兑换",
           icon:"icon-dengji",
-          router:"levelChange"
+          router:"partnerRecord222"
         },
         {
           name:"钱包二维码",

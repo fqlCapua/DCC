@@ -84,7 +84,7 @@
         }
 
 
-// 			this.$router.push({path:'intoDetails' })
+//			this.$router.push({path:'submitSuccess' })
       }
     },
     components: {

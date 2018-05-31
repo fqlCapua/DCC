@@ -48,7 +48,7 @@
 								<img :src="item.tx" alt="" class="tx_img"/>
 								<i class="name">{{item.name}}</i>
 							</div>
-							<router-link to="orderSuccess">
+							<router-link to="c2cTradeBuy">
 								<p class="buyBtn">{{item.buyBtn}}</p>
 							</router-link>
 							

@@ -61,7 +61,7 @@ export default {
         {
         	name:"用戶轉賬",
         	icon:"icon-CC1",
-        	router:"c2c"
+        	router:"accounts"
         },
         {
         	name:"團隊列表",

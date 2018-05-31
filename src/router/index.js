@@ -46,6 +46,9 @@ import c2cTradeOfftakeOrder from '@/page/c2ctrade_offtakeOrder'
 import orderSuccess from '@/page/orderSuccess'
 import c2cTradeBuy from '@/page/c2ctrade_buy'
 import walletEwm from '@/page/wallet_ewm'
+import c2ctradeOrderCompletion from '@/page/c2ctrade_orderCompletion'
+import submitSuccess from '@/page/submitSuccess'
+
 Vue.use(Router)
 export default new Router({
 	mode: 'history',
@@ -83,6 +86,11 @@ export default new Router({
 			path: '/c2cTradeBuy',
 			name: 'c2cTradeBuy',
 			component: c2cTradeBuy
+		},
+			{
+			path: '/c2ctradeOrderCompletion',
+			name: '	c2ctradeOrderCompletion',
+			component: c2ctradeOrderCompletion
 		},
 		{
 			path: '/login',
@@ -255,5 +263,12 @@ export default new Router({
 			name: '	walletEwm',
 			component: walletEwm
 		},
+			{
+			path: '/submitSuccess',
+			name: '	submitSuccess',
+			component: submitSuccess
+		},
+		
+		
 	]
 })

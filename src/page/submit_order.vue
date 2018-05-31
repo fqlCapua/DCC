@@ -1,8 +1,8 @@
 <template>
   <div class="declaration">
     <div action="" class="declaration-form">
-      <label for="" class="amount"><div>售價USTD</div><input type="text" name=""v-model="ustd" readonly value="" placeholder="DCC數量"/><span>USDT</span></label>
-      <label for=""><div>USTD提款嗎</div><input type="text" name=""  value="" v-model="usdt_code" placeholder="請輸入USTD提款嗎"/></label>
+      <label for="" class="amount"><div>售價USDT</div><input type="text" name=""v-model="ustd" readonly value="" placeholder="DCC數量"/><span>USDT</span></label>
+      <label for=""><div>USDT提款嗎</div><input type="text" name=""  value="" v-model="usdt_code" placeholder="請輸入USTD提款嗎"/></label>
       <label for="" class="code"><div>验证码</div><input type="text" name=""  value="" v-model="code"  placeholder="請輸入手機驗證碼"/><span @click="getCode">{{ codeTime === 61 ? '获取验证码' : `${codeTime}s后重试`}}</span></label>
     </div>
     <div class="submit" @click="submit">提交</div>

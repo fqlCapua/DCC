@@ -9,17 +9,17 @@
     <div class="data">
       <div class="list">
         <dl class="every" v-for="(item, index) in userList" :key="index">
-          <dt class="pic"><img :src="item.pic" :alt="item.name + '的頭像'" class="head_img"></dt>
+          <dt class="pic"><img :src="item.head" :alt="item.name + '的頭像'" class="head_img"></dt>
           <dd class="more">
             <div class="no_money">
               <p class="name">{{ item.name }}</p>
-              <p class="time">{{ item.time }}</p>
+              <p class="time">{{ item.created }}</p>
             </div>
-            <p class="money">{{ item.price }}</p>
+            <p class="money">{{ item.reward }}</p>
           </dd>
         </dl>
       </div>
-      <div class="add_more" @click="addMore">查看更多</div>
+      <!--<div class="add_more" @click="addMore">查看更多</div>-->
     </div>
   </div>
 </template>
@@ -30,43 +30,27 @@
     name: 'shareReward',
     data () {
       return {
+      	token:"",
         // 总金额
-        allMoney: '10000.0000',
+        allMoney: '',
         // 切换列表
         selectTab: 0,
         // 是否在切换中
         selectTabIng: false,
         // 奖励和时间
         info: {
-          moneyReward: '8,000.00',
+          moneyReward: '',
           calendar: ''
         },
         // 列表
-        userList: [
-          {
-            pic: require('../assets/images/logo.png'),
-            name: 'good',
-            time: '05-20 12:45:45',
-            price: '5,000.00'
-          },
-          {
-            pic: require('../assets/images/logo.png'),
-            name: 'good',
-            time: '05-20 12:45:45',
-            price: '5,000.00'
-          },
-          {
-            pic: require('../assets/images/logo.png'),
-            name: 'good',
-            time: '05-20 12:45:45',
-            price: '5,000.00'
-          }
-        ]
+        userList: []
       }
     },
     mounted () {
       this.init()
       this.$bus.$emit('pageHead', '特別獎勵')
+      this.token = localStorage.getItem("token")
+      this.specialReward ()
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')
@@ -77,6 +61,21 @@
         let theTime = new Date()
         this.info.calendar = theTime.getFullYear() + '-' 
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
+      },
+      specialReward (time){
+      	 this.axios.post('specialReward',{
+	      	token:this.token,
+	      	month:time||""
+	      }).then(({data}) => {
+	          this.userList = data.data.items 
+	          this.allMoney = data.data.total    
+	          var ary1 = [];
+            for(var  x in data.data.items){
+            	  ary1.push(data.data.items[x].reward)
+            }
+            this.info.moneyReward =   eval(ary1.join("+"))
+	          
+	      })
       },
       // 触发时间选择器
       getTime () {
@@ -89,11 +88,13 @@
       // 获取时间
       haveTimeBack (data) {
         this.info.calendar = data.substr(0, 7)
+        let time1 = data.substr(0, 7).replace(/-/g,'')
+        this.specialReward (time1)
       },
       // 查看更多
-      addMore () {
-        this.userList.push(this.userList[0])
-      }
+//    addMore () {
+//      this.userList.push(this.userList[0])
+//    }
     },
     components: {
       rewardTop,

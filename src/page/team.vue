@@ -2,7 +2,7 @@
   <div class="head1">
     <div class="back iconfont icon-fanhuijiantou" @click="back"></div>
     <div class="codeTab">
-      <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">我的团队</span>
+      <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">我的團隊</span>
       <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">我的分享</span>
     </div>
     <div class="data" v-show="selectTab === 0">
@@ -59,7 +59,7 @@
         <div class="select tab_child2" id="select">
           <div class="select_content">
             <p class="option1" @click="selectTabFun1(0)" :class="{option_child_active:selectTabChild2==0}">直接分享</p>
-            <p class="option1" @click="selectTabFun1(1)" :class="{option_child_active:selectTabChild2==1}">间接分享</p>
+            <p class="option1" @click="selectTabFun1(1)" :class="{option_child_active:selectTabChild2==1}">間接分享</p>
           </div>
         </div>
         <!--  <div class="info">

@@ -33,7 +33,7 @@
       		rightText:'轉出記錄',
           rightColor:'#2d8afd',
           rightBack:function(){
-            vm.$router.push({path:'c2cList'})
+            vm.$router.push({path:'accountsList'})
           }
         });
       this.num()

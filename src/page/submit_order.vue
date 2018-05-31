@@ -10,15 +10,18 @@
 </template>
 
 <script>
+  import orderSuccess from './orderSuccess'
   export default {
     name: 'personal',
     data () {
       return {
         phone:localStorage.getItem("phone"),
         code: '',
+        price_usdt:'',
         codeTime: 61,
         usdt_code:'',
         ustd:'',
+        mac:[]
       }
     },
     mounted () {
@@ -31,6 +34,7 @@
         }
       }),
         this.num()
+        this.macd()
     },
     destroyed () {
       this.$bus.$emit('pageHead');
@@ -41,8 +45,23 @@
         this.axios.post('userHomePage', {
           token:localStorage.getItem("token")
         }).then(({data}) => {
-          console.log(data)
-          this.ustd = data.data.price_usdt
+        })
+      },
+      macd(){
+        this.axios.post('coparntner', {
+          token:localStorage.getItem("token")
+        }).then(({data}) => {
+          this.mac=data.data;
+          console.log(this.mac[0].amount)
+          if( localStorage.getItem('id') == 1){
+            this.ustd =this.mac[0].amount
+          }
+          if( localStorage.getItem('id') == 2){
+            this.ustd =this.mac[1].amount
+          }
+          if( localStorage.getItem('id') == 3){
+            this.ustd =this.mac[1].amount
+          }
         })
       },
       getCode(){
@@ -60,23 +79,27 @@
         })
       },
       submit(){
-     let $that= this;
+           let $that= this;
           this.axios.post('coparntnerBuy', {
               token:localStorage.getItem("token"),
               copartner_id:localStorage.getItem('id'),
               usdt_code:this.usdt_code,
               code:this.code
           }).then(({data}) => {
-            console.log(data)
             this.$bus.$emit('alertCer', data.msg)
-            setTimeout(function () {
-              $that.$router.go(-1)
-            },2000)
+            this.$bus.$emit('aaa',"你好")
+           if(data.msg ==="操作成功"){
+             setTimeout(function () {
+               $that.$router.push({path:'orderSuccess' })
+
+             },2000)
+           }
+
+
 
           })
 
 
-// 			this.$router.push({path:'intoDetails' })
       }
     },
     components: {

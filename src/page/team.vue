@@ -69,7 +69,7 @@
         <div class="data" :class="{dataChild:selectTabChild2 ===0}" v-show="selectTabChild2 === 0">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList1" :key="index">
-              <div>{item.nickname}<span>{{item.type}}</span></div>
+              <div>{{item.nickname}}<span class="usertype">({{item.usertype}})</span></div>
               <div>{{item.Num}}</div>
               <div>{{item.time}}</div>
               <section style="clear:both;"></section>

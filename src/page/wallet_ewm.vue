@@ -7,44 +7,45 @@
 			</router-link>
 			<h2 class="title">钱包二维码</h2>
 		</div>
-		
-			<!--二维码-->
-	<div class="ewmBox" v-for="(item,index) in ewmInfo">
-		<div class="infoBox">
-			<p class="name">{{item.name}}</p>
-			<p class="number">{{item.number}}</p>
+
+		<!--二维码-->
+		<div class="ewmBox" v-for="(item,index) in ewmInfo">
+			<div class="infoBox">
+				<p class="name">{{item.name}}</p>
+				<p class="number">{{item.number}}</p>
+			</div>
+			<img :src="item.ewmImg" alt="" />
+
+			<p class="saveImg">保存為圖片</p>
 		</div>
-		<img :src="item.ewmImg" alt="" />
-		
-		<p class="saveImg">保存為圖片</p>
-	</div>
-		
+
 	</div>
 </template>
 
 <script>
 	export default {
-		name:'walletEwm',
-		data(){
-			return{
-				ewmInfo:[
-				{name:'劉洋',number:'415asdsad56465asd',ewmImg:require('../assets/images/wallet_ewm.png')}
-				
+		name: 'walletEwm',
+		data() {
+			return {
+				ewmInfo: [{
+						name: '劉洋',
+						number: '415asdsad56465asd',
+						ewmImg: require('../assets/images/wallet_ewm.png')
+					}
+
 				]
-				
-				
+
 			}
-			
+
 		}
-		
-		
+
 	}
 </script>
 
 <style lang="scss" scoped>
 	@import '../assets/scss/style.scss';
 	.walletEwm {
-		padding-top:160px;
+		padding-top: 160px;
 		.head {
 			position: relative;
 			@include headBlack;
@@ -55,44 +56,44 @@
 				position: absolute;
 				left: 35px;
 				top: 0;
-				font-size: 48px;
+				font-size: 30px;
+			}
+			.title {
+				font-size: 30px;
 			}
 		}
-		.ewmBox{
+		.ewmBox {
 			background: #fff;
 			width: 674px;
 			height: 874px;
-			margin:180px auto;
+			margin: 180px auto;
 			border-radius: 10px;
-			.infoBox{
+			.infoBox {
 				padding: 65px 0;
 				text-align: center;
-				p{
+				p {
 					margin-bottom: 20px;
 					font-size: 28px;
 				}
-				p:first-child{
+				p:first-child {
 					font-weight: bold;
 				}
-				P:last-child{
+				P:last-child {
 					margin-bottom: 0;
 				}
 			}
-			img{
+			img {
 				display: block;
 				width: 496px;
 				height: 496px;
 				margin: 0 auto;
 			}
-			.saveImg{
+			.saveImg {
 				text-align: center;
 				margin: 60px 0;
 				font-size: 26px;
-				color: rgb(215,168,43);
+				color: rgb(215, 168, 43);
 			}
 		}
-		
-		
-		
 	}
 </style>

@@ -3,8 +3,8 @@
     <div class="top">
       <i class="iconfont  icon-shezhishedingpeizhichilun" @click="setting"></i>
       <div class="logo">
-      	<img alt="" :src="card" width="100%" height="100%" style="border-radius: 50%;">
-				<input type="file" class="file" @change="fileImage">
+      	<img alt="" :src="img" width="100%" height="100%" style="border-radius:50%;">
+				<input type="file" class="file" @change="onFileChange">
       </div>
       <span class="name">
         <p style="text-align: center;margin-bottom: 5px">{{name}}</p>
@@ -50,7 +50,8 @@ export default {
       activeNum: '',
       todayNum: '',
       name:'',
-      card:require('../assets/images/logo.png'),
+      image:'', //64
+      img:'',
       list:[
         {
         	name:"轉出至錢包",
@@ -107,6 +108,7 @@ export default {
     if(!localStorage.getItem('token')){
       this.$router.push('/login')
     }
+    this.userHomePage()
   },
   beforeDestroy () {
     this.$bus.$emit('footer', false)
@@ -131,10 +133,7 @@ export default {
       })
     },
     seeDetails (index) {
-
     		this.$router.push({path: this.list[index].router})
-
-
     },
     getInfo () {
       this.axios.post('userHomePage', {
@@ -152,19 +151,54 @@ export default {
     	//設置
       this.$router.push('setting')
     },
-    //上传头像
-    fileImage: function(e) {
-				let $that = this
-				var file = e.target.files[0];
-				var reader = new FileReader();
-				reader.readAsDataURL(file); // 读出 base64
-				reader.onloadend = function() {
-					// 图片的 base64 格式, 可以直接当成 img 的 src 属性值
-					var dataURL = reader.result;
-					$that.card = dataURL;
-				}
-			}
+    onFileChange(e){
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file){
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+        this.upLoad()
+      };
+      reader.readAsDataURL(file);
+    },
+//			上傳
+    upLoad(){
+      this.axios.post('userUpload', {
+        token:localStorage.getItem("token"),
+        img:this.image
+      }).then(({data})=>{
+        this.img=data.data.server_url;
+        localStorage.setItem("imgUrl",this.img);
+        this.postUserInfo();
+        if(data.ret === 401) this.$router.push('login')
+      })
 
+    },
+//    保存接口
+    postUserInfo (){
+      this.axios.post('postUserInfo', {
+        token:localStorage.getItem("token"),
+        phone:this.phone,
+        head:this.img
+      }).then(({data}) => {
+        if(data.ret === 401) this.$router.push('login')
+      })
+    },
+//    獲取頭像
+    userHomePage (){
+      this.axios.post('userHomePage', {
+        token:localStorage.getItem("token"),
+      }).then(({data}) => {
+        this.img = data.data.head
+        console.log(this.img)
+      })
+    }
   }
 }
 </script>
@@ -184,12 +218,13 @@ export default {
       font-size: 28px;
       margin-bottom: 60px;
       .logo{
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         margin: 60px auto 40px;
         display: block;
-        /*background-image: url(../assets/images/logo.png);*/
+        background-image: url(../assets/images/logo.png);
         background-size: 100% 100%;
+        border-radius: 50%;
         image{
         	border-radius: 50%;
         }

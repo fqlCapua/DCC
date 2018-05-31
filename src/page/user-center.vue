@@ -59,7 +59,7 @@ export default {
         	router:"rollOut"
         },
         {
-        	name:"轉出C2C交易",
+        	name:"用戶轉賬",
         	icon:"icon-CC1",
         	router:"c2c"
         },
@@ -74,14 +74,9 @@ export default {
         	router:"myCode"
         },
         {
-        	name:"好友互轉",
-        	icon:"icon-CC",
-        	router:"exchange"
-        },
-        {
-        	name:"合夥人記錄",
-        	icon:"icon-jilu2",
-        	router:"partnerRecord"
+          name:"等级兑换",
+          icon:"icon-dengji",
+          router:"partnerRecord222"
         },
         {
           name:"钱包二维码",
@@ -89,10 +84,11 @@ export default {
           router:"walletEwm"
         },
         {
-          name:"等级兑换",
-          icon:"icon-dengji",
-          router:"partnerRecord222"
-        }
+        	name:"合夥人記錄",
+        	icon:"icon-jilu2",
+        	router:"partnerRecord"
+        },
+
       ]
     }
   },

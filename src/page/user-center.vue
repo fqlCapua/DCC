@@ -85,7 +85,7 @@ export default {
         {
           name:"钱包二维码",
           icon:"icon-erweima",
-          router:"partnerRecord222"
+          router:"walletEwm"
         },
         {
           name:"等级兑换",
@@ -184,7 +184,7 @@ export default {
       font-size: 28px;
       margin-bottom: 60px;
       .logo{
-        width: 88px;
+        width: 100px;
         height: 100px;
         margin: 60px auto 40px;
         display: block;

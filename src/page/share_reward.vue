@@ -150,17 +150,11 @@
         if (this.selectTabIng || this.selectTab === id) return false
         this.selectTabIng = true
         this.selectTab = id
-<<<<<<< .mine
-
-||||||| .r19
-       
-=======
         if(id === 0){
         	 this.allMoney = this.allDirect
         }else{
         	 this.allMoney = this.allRelative
         }
->>>>>>> .r42
         setTimeout(() => {
           this.selectTabIng = false
         }, 500)

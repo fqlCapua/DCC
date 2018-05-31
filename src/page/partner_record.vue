@@ -5,7 +5,12 @@
       	 <img v-if="item.grade === 2 " :src="imgList.middle"/>
       	 <img v-if="item.grade === 1 " :src="imgList.low"/>
       	 <div class="rank">
-      	 	   <div class="rank_title">{{item.title}}</div>
+      	 	   <div class="rank_title">
+      	 	   	  <span>{{item.title}}</span>
+      	 	   	  <span :class="{'achieve': item.status === 1 }" v-if="item.status === 1">已完成</span>
+      	 	   	  <span :class="{'audit': item.status === 2 }" v-if="item.status === 2">審核中</span>
+      	 	   	  <span :class="{'reject': item.status === 3 }" v-if="item.status === 3">已駁回</span>
+      	 	   </div>
       	 	   <div class="rank_sum">售賣: {{item.sum}}  USDT</div>
       	 </div>
       	 <div class="_time">{{item.time}}</div>
@@ -28,25 +33,29 @@ export default {
          	title:"決策合夥人",
          	sum:"20,000.0000",
          	time:"2018-4-16  10:20",
-         	grade:3
+         	grade:3,
+         	status:1
          },
          {
          	title:"核心合夥人",
          	sum:"20,000.0000",
          	time:"2018-4-16  10:20",
-         	grade:2
+         	grade:2,
+         	status:2
          },
          {
          	title:"一般合夥人",
          	sum:"20,000.0000",
          	time:"2018-4-16  10:20",
-         	grade:1
+         	grade:1,
+         	status:3
          },
          {
          	title:"一般合夥人",
          	sum:"20,000.0000",
          	time:"2018-4-16  10:20",
-         	grade:2
+         	grade:2,
+         	status:1
          }
        ]
            
@@ -94,6 +103,20 @@ export default {
     		.rank_title{
     			font-size:28px;
     			color:#fff;
+    			display: flex;
+    			justify-content: space-between;
+    			.achieve{
+    				color:#4793f1;
+    				margin-right:30px;
+    			}
+    			.audit{
+    				color:#ff8631;
+    				margin-right:30px;
+    			}
+    			.reject{
+    				color:#fc6e89;
+    				margin-right:30px;
+    			}
     		}
     		.rank_sum{
     			font-size:24px;

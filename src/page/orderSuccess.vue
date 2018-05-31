@@ -8,12 +8,23 @@
 		</div>
 		<!--订单成功列表-->
 		<ul class="orderList">
-			<li v-for="(item,index) in orderList">
-				<span class="listTitle_common">{{item.title}}</span>
-				<span>{{item.listInfo}}</span>
+			<li>
+				<span class="listTitle_common">訂單號：</span>
+				<span>{{content.order_id}}</span>
+			</li>
+			<li>
+				<span class="listTitle_common">支付時間：</span>
+				<span>{{content.created}}</span>
+			</li>
+			<li>
+				<span class="listTitle_common">訂單金額：</span>
+				<span>{{content.trans_amount}} USDT</span>
+			</li>
+			<li>
+				<span class="listTitle_common">訂單名稱：</span>
+				<span>{{content.name}}</span>
 			</li>
 		</ul>
-<div>{{content}}</div>
 		<!--返回首页-->
 		<router-link to="/index">
 			<p class="fhsyBtn">返回首页</p>
@@ -29,12 +40,6 @@
 	  data(){
 	  	return{
         ordeInfo:require("../assets/images/ordeInfo_bg.png"),
-	  		orderList:[
-	  		{ title:'訂單號：' ,listInfo:'564545'},
-	  		{ title:'支付時間：' ,listInfo:'2018-05-16 14:24:50'},
-	  		{ title:'訂單金額：' ,listInfo:'20000USDT'},
-	  		{ title:'訂單名稱：' ,listInfo:'决策合作人'}
-	  		],
         show:false,
 	  	}
 	},
@@ -42,13 +47,15 @@
 
     },
     methods:{
-        props:{
-          cpntent:{
-            show:false,
-
-          }
+        goHome(){
+        	this.$router.push("/index")
         }
-    }
+    },
+    props:{
+      content:{
+        show:false,
+      }
+     }
 }
 </script>
 
@@ -56,11 +63,17 @@
 	@import '../assets/scss/style.scss';
 	.orderSuccess {
 		padding-top:65px;
+		width: 100vw;
+	    height: 100vh;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    z-index: 120;
+	    background: #000;
 		.bgImg {
 			display:block;
-			width: 282px;
-			height: 379px;
-			margin: 0 auto 65px;
+			width: 200px;
+			margin: 0 auto 40px;
 		}
 		.promptBox {
 			color: #fff;

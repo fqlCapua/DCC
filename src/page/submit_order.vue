@@ -6,22 +6,26 @@
       <label for="" class="code"><div>验证码</div><input type="text" name=""  value="" v-model="code"  placeholder="請輸入手機驗證碼"/><span @click="getCode">{{ codeTime === 61 ? '获取验证码' : `${codeTime}s后重试`}}</span></label>
     </div>
     <div class="submit" @click="submit">提交</div>
+    <orderSuccess :content ="orderSuccess"></orderSuccess>
   </div>
 </template>
 
 <script>
-  import orderSuccess from './orderSuccess'
+import orderSuccess from './orderSuccess'
   export default {
     name: 'personal',
     data () {
       return {
-        phone:localStorage.getItem("phone"),
+        phone:"",
         code: '',
         price_usdt:'',
         codeTime: 61,
         usdt_code:'',
         ustd:'',
-        mac:[]
+        mac:[],
+        orderSuccess:{
+        	show:false,
+        }
       }
     },
     mounted () {
@@ -35,9 +39,11 @@
       }),
         this.num()
         this.macd()
+        this.phone = localStorage.getItem("phone");
     },
     destroyed () {
       this.$bus.$emit('pageHead');
+      this.$bus.$off('orderSuccess')
     },
     methods: {
 
@@ -86,11 +92,12 @@
               usdt_code:this.usdt_code,
               code:this.code
           }).then(({data}) => {
-            this.$bus.$emit('alertCer', data.msg)
-            this.$bus.$emit('aaa',"你好")
+             this.$bus.$emit('alertCer', data.msg)
+             this.orderSuccess = data.data
+             this.orderSuccess.show = true
            if(data.msg ==="操作成功"){
              setTimeout(function () {
-               $that.$router.push({path:'orderSuccess' })
+//             $that.$router.push({path:'orderSuccess' })
 
              },2000)
            }
@@ -103,7 +110,7 @@
       }
     },
     components: {
-
+       orderSuccess
     }
   }
 </script>

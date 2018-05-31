@@ -171,7 +171,6 @@ export default {
       this.axios.post('coparntner',{
         token:localStorage.getItem('token')
       }).then(({data}) => {
-         console.log(data)
         $that.list=data.data;
          for(let item in  $that.list){
            $that.list[item].logo = document.location.protocol+'//'+$that.list[item].logo

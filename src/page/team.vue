@@ -329,7 +329,7 @@
 			.teamNumber {
 				text-align: center;
 				color: #fff;
-				font-size: 3.8em;
+				font-size: 3.4em;
 				font-weight: 500;
 				line-height: 120px;
 				padding-top: 30px;
@@ -338,7 +338,7 @@
 				text-align: center;
 				color: #fff;
 				font-size: 1.4em;
-				letter-spacing: 1px;
+				letter-spacing:3px;
 			}
 		}
 	}

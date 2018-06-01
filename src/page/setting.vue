@@ -30,7 +30,7 @@ export default {
         },
         {
           	title: '退出登录',
-          	icon: 'icon-jinrujiantou',
+//          	icon: 'icon-jinrujiantou',
           	router: ''
         }
       ]
@@ -54,8 +54,8 @@ export default {
     },
     logOut () {
     	// 退出登录
-        window.localStorage.removeItem('token')
-       if(!localStorage.getItem('token')){
+       this.delCookie('token');
+       if(!this.getCookie("token")){
           let $that =this;
          this.$bus.$emit('alertCer',{
            msg:'退出成功'

@@ -60,7 +60,7 @@ export default {
         },
         {
         	name:"用戶轉賬",
-        	icon:"icon-CC1",
+        	icon:"icon-zhuanzhang",
         	router:"accounts"
         },
         {

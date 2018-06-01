@@ -136,6 +136,7 @@ export default {
       this.axios.post('userHomePage', {
        token:token
       }).then(({data}) => {
+        window.localStorage.setItem('phone',data.data.phone);
         this.name = data.data.name;
         this.phone = data.data.phone;
         this.allNum = this.formatNum(data.data.price_usdt,4);

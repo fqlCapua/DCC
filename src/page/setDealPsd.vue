@@ -21,7 +21,7 @@ export default {
       form: {
       	phone: {
           placeholder: '我的手機號',
-          num: '15993055572',
+          num: '',
           readOnly: true
         },
         newsCode: {
@@ -46,11 +46,13 @@ export default {
   },
   mounted () {
     this.$bus.$emit('pageHead', '修改交易密碼')
+    this.form.phone.num = localStorage.getItem("phone");
   },
   destroyed () {
     this.$bus.$emit('pageHead')
   },
   computed: {
+//     let token=this.getCookie('token')
     showPhone () {
       let phoneStr
       if (typeof (this.form.phone.num) !== 'string') {
@@ -59,7 +61,7 @@ export default {
         phoneStr = this.form.phone.num
       }
       return phoneStr.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
-    }
+   }
   },
   methods: {
     getCode() {

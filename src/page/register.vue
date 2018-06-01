@@ -31,7 +31,7 @@
     </label>
 		<label class="label" for="password">
       <span class="icon iconfont icon-mima54"></span>
-      <input class="input specialWidth" id="password" v-model="psd" type="text"  placeholder="請設置您的登錄密碼">
+      <input class="input specialWidth" id="password" v-model="psd" type="password"  placeholder="請設置您的登錄密碼">
     </label>
     <p class="toLoginBox">
     	已有賬號 <router-link to="/" class="toLogin">去登陸</router-link>
@@ -95,7 +95,7 @@
 					if(data.ret === 0) {
             let token=data.data.token;
             let $that = this;
-            this.setCookie('koken',token,7);
+            this.setCookie('token',token);
 						this.$bus.$emit('alertCer',{
 							msg: '恭喜您登錄成功',
 						});
@@ -195,7 +195,7 @@
 				font-size: 28px;
 				width: 60%;
 				&.number {
-					border-left: 1px solid #fff;
+					/*border-left: 1px solid #fff;*/
 					padding-left: 16px;
 				}
 			}

@@ -1,7 +1,7 @@
 <template>
   <div class="market">
     <div class="top">
-      <h3 class="all_money">{{ allMoney }}<span class="small">USTD</span></h3>
+      <h3 class="all_money">{{ allMoney }}<span class="small">USDT</span></h3>
       <p class="info">獎勵總金額</p>
     </div>
     <div class="select">

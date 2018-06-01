@@ -11,19 +11,24 @@
    </div>-->
     <div class="data"  v-show="selectTab === 0">
       <div class="extend_code qrcode" >
-          <img src="https://wx1.sinaimg.cn/mw690/005zpxwhly1frtd72s518j307s07st8j.jpg" alt="推广下级二维码" />
+      	 <div class="img_box">
+      	   	<img  :src="myCodeImg" alt="推广下级二维码" />
+      	 </div>
+          
           <div class="img_tips">推广下级二维码</div>
           <div class=" img_extend_code">
               <span>您的推广码：</span>
-              <span>452315</span>
+              <span>{{myCode}}</span>
           </div>
       </div>
        <div class="vip_code qrcode" >
-          <img src="https://wx1.sinaimg.cn/mw690/005zpxwhly1frtd72s518j307s07st8j.jpg" alt="会员二维码" />
+          <div class="img_box">
+      	   	<img  :src="TeamCodeImg"  alt="会员二维码" />
+      	 </div>
           <div class="img_tips">会员二维码</div>
           <div class=" img_extend_code">
               <span>您的推广码：</span>
-              <span>452315</span>
+              <span>{{TeamCode}}</span>
           </div>
         </div>
     </div>
@@ -76,12 +81,19 @@
 </template>
 
 <script>
+import QRCode from 'qrcode'
 export default {
   name: 'myCode',
   data () {
     return {
-        card:require('../assets/images/idbg.jpg'),
+    	token:"",
+        zhanwei:require('../assets/images/zwimg.png'),
         code:'',
+        myCodeImg:"",
+        myCode:"",
+        TeamCodeImg:"",
+        TeamCode:"",
+        card:"",
       // 切换列表
          selectTab: 0,
          formTitle2:'上傳二維碼',
@@ -102,20 +114,40 @@ export default {
         },
     }
   },
+  beforeMount(){
+  	this.init()
+  },
   mounted () {
   	this.$bus.$emit('pageHead', '推广二维码')
-    this.init()
   },
   destroyed () {
     this.$bus.$emit('pageHead')
   },
   methods: {
     init () {
-      this.axios.get('Users/mine_qrocde').then(({data}) => {
-         this.code = data.data;
-       //this.code="https://avatar.csdn.net/2/5/E/3_weixin_40292626.jpg";
+    	let $that = this;
+    	this.token = this.getCookie("token")
+      this.axios.post("myShareCode",{
+      	 token:this.token
+      }).then(({data}) => {
+          this.myCode = data.data.r_code
+          this.myCodeImg =   this.toQrCode(data.data.r_code_encrypt)
+          
+      });
+      this.axios.post("myShareTeamCode",{
+      	 token:this.token
+      }).then(({data}) => {
+          this.TeamCode = data.data.com_code
+          this.TeamCodeImg = this.toQrCode(data.data.com_code_encrypt)
       })
-
+    },
+    // 生成二维码
+    toQrCode(dataUrl){
+       let CodeUrl;
+      QRCode.toDataURL(dataUrl, function (err, url) {
+			    CodeUrl = url;
+			})
+      return CodeUrl;
     },
      fileImage:function(e){
         let $that = this
@@ -139,9 +171,6 @@ export default {
             $that.card = dataURL;
           };
       },
-    back () {
-      this.$router.go(-1)
-    },
     toggleTabs:function(id){
         this.selectTab=id;
        // console.log(this.selectTab);
@@ -191,11 +220,21 @@ export default {
        .qrcode{
         padding:50px 0 25px 0;
          text-align:center;
-       }
-       .qrcode img{
-        display:block;
-        width:40%;
-        margin:0 auto;
+         .img_box{
+         	  width:40vw;
+         	  height:40vw;
+            margin:0 auto;
+            border:1px solid #fff;
+            background-image:url(../assets/images/zwimg.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            img{
+            	width: 100%;
+            	height: 100%;
+            	display: block;
+            }
+         }
        }
        .img_extend_code{
         font-size:1.3em;

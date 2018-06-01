@@ -138,7 +138,7 @@ export default {
     })
     // 監聽關閉事件
     this.$bus.$on('closeIndexDetails', this.closeDetails);
-    if(!localStorage.getItem('token')){
+    if(!this.getCookie("token")){
       this.$router.push('/login')
     }
   },
@@ -169,7 +169,7 @@ export default {
     declFromPage () {
        let $that =this
       this.axios.post('coparntner',{
-        token:localStorage.getItem('token')
+        token:this.getCookie("token")
       }).then(({data}) => {
         $that.list=data.data;
          for(let item in  $that.list){

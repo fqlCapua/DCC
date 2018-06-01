@@ -97,12 +97,16 @@ export default {
     this.getInfo()
   },
   mounted () {
+
+    let $that =this;
+//    console.log($that.getCookie('token'))
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    if(!localStorage.getItem('token')){
+    if(!$that.getCookie('token')){
         this.$router.push('/login')
+
     }
     this.ures()
   },
@@ -119,10 +123,9 @@ export default {
 
       //公告
       this.$router.push('message')
-
     },
     getInfo () {
-    	let token = localStorage.getItem("token")
+    	let token = this.getCookie('token');
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {
@@ -142,9 +145,9 @@ export default {
       })
     },
      ures(){
-       let token = localStorage.getItem("token")
+         let $that=this;
        this.axios.post('/userHomePage',{
-         token:token
+         token:$that.getCookie("token")
        }).then(({data}) => {
            this.hasMessage =data.data.new_msg
 

@@ -93,14 +93,17 @@
 					data
 				}) => {
 					if(data.ret === 0) {
+            let token=data.data.token;
+            let $that = this;
+            this.setCookie('koken',token,7);
 						this.$bus.$emit('alertCer',{
 							msg: '恭喜您登錄成功',
-							cb: () => {
-								this.$router.push('index')
-							}
-						})
+						});
+            setTimeout(function () {
+              $that.$router.push('/index');
+            },2000)
 					} else {
-						this.$bus.$emit('alert', data.message)
+						this.$bus.$emit('alert', data.msg)
 					}
 				})
 			},

@@ -182,7 +182,7 @@ export default {
 
   $grid-opacity: 0.15;
   .index_wrap{
-    padding: 90px 0 90px;
+    padding: 10px 0 90px;
     height: 100vh;
     overflow: auto;
     background-image: url(../assets/images/banner.png);

@@ -1,14 +1,14 @@
 <template>
 
   <div class="my_code">
-    <p class="iconfont icon-fanhuijiantou" @click="back"></p>
+   <!--<p class="iconfont icon-fanhuijiantou" @click="back"></p>
    <div class="header_top">
-    <!-- :class="[selectTab === 0 ?'option_active':'option_normal']" -->
+     :class="[selectTab === 0 ?'option_active':'option_normal']" 
     <div class="codeTab"  >
       <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">推广二维码</span>
-      <!--<span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">收款二维码</span>-->
+      <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">收款二维码</span>
     </div>
-   </div>
+   </div>-->
     <div class="data"  v-show="selectTab === 0">
       <div class="extend_code qrcode" >
           <img src="https://wx1.sinaimg.cn/mw690/005zpxwhly1frtd72s518j307s07st8j.jpg" alt="推广下级二维码" />
@@ -103,7 +103,11 @@ export default {
     }
   },
   mounted () {
+  	this.$bus.$emit('pageHead', '推广二维码')
     this.init()
+  },
+  destroyed () {
+    this.$bus.$emit('pageHead')
   },
   methods: {
     init () {
@@ -157,7 +161,7 @@ export default {
 @import '../assets/scss/style.scss';
 
   .my_code {
-    position: relative;
+    padding-top:100px;
     .icon-fanhuijiantou {
       position: absolute;
       top: 10px;
@@ -185,12 +189,12 @@ export default {
         line-height:65px;
       }
        .qrcode{
-        padding:90px 0 25px 0;
+        padding:50px 0 25px 0;
          text-align:center;
        }
        .qrcode img{
         display:block;
-        width:50%;
+        width:40%;
         margin:0 auto;
        }
        .img_extend_code{

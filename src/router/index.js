@@ -103,7 +103,7 @@ export default new Router({
 			component: changeLanguage
 		},
 		{
-			path: '/index',
+			path: '/',
 			name: 'index',
 			component: index
 		},

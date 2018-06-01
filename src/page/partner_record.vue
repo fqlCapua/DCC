@@ -6,15 +6,16 @@
       	 <img v-if="item.grade === 1 " :src="imgList.low"/>
       	 <div class="rank">
       	 	   <div class="rank_title">
-      	 	   	  <span>{{item.title}}</span>
-      	 	   	  <span :class="{'achieve': item.status === 1 }" v-if="item.status === 1">已完成</span>
+      	 	   	  <span>{{item.trans_type_name}}</span>
+      	 	   	  <span :class="{'achieve': item.status == '待确认' }">{{item.status}}</span>
       	 	   	  <span :class="{'audit': item.status === 2 }" v-if="item.status === 2">審核中</span>
       	 	   	  <span :class="{'reject': item.status === 3 }" v-if="item.status === 3">已駁回</span>
       	 	   </div>
-      	 	   <div class="rank_sum">售賣: {{item.sum}}  USDT</div>
+      	 	   <div class="rank_sum">售賣: {{item.trans_amount}}  USDT</div>
       	 </div>
-      	 <div class="_time">{{item.time}}</div>
+      	 <div class="_time">{{item.created}}</div>
       </li>
+      <li v-if="" style="line-height: 50px;color: #fff;text-align: center;font-size: 16px;">暂无记录</li>
   </ul>
 </template>
 
@@ -23,44 +24,14 @@ export default {
   name: 'partnerRecord',
   data () {
     return {
+    	isShow:false,
+    	token:"",
        imgList:{
-       	 token:"",
        	  high: require('../assets/images/mills_pic0.png'),
        	  middle:require('../assets/images/mills_pic1.png'),
        	  low:require('../assets/images/mills_pic2.png')
        },
-       list:[
-         {
-         	title:"決策合夥人",
-         	sum:"20,000.0000",
-         	time:"2018-4-16  10:20",
-         	grade:3,
-         	status:1
-         },
-         {
-         	title:"核心合夥人",
-         	sum:"20,000.0000",
-         	time:"2018-4-16  10:20",
-         	grade:2,
-         	status:2
-         },
-         {
-         	title:"一般合夥人",
-         	sum:"20,000.0000",
-         	time:"2018-4-16  10:20",
-         	grade:1,
-         	status:3
-         },
-         {
-         	title:"一般合夥人",
-         	sum:"20,000.0000",
-         	time:"2018-4-16  10:20",
-         	grade:2,
-         	status:1
-         }
-       ]
-           
-       
+       list:[]
     }
   },
   mounted () {
@@ -76,7 +47,10 @@ export default {
       this.axios.post('coparntnerBuyList',{
       	 token:this.token
       }).then(({data}) => {
-         console.log(data)
+         if(data.data.length == 0){
+         	 this.isShow = true
+         }
+         this.list = data.data
       })
     }
   }

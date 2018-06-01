@@ -33,9 +33,9 @@
         <div class="data" :class="{dataChild:selectTabChild === 1}" v-show="selectTabChild === 1">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList2" :key="index">
-              <div>{{item.nickname}}</div>
-              <div>{{item.Num}}</div>
-              <div>{{item.time}}</div>
+              <div>{{item.name}}名字<span class="usertype">(零食)</span></div>
+              <div>{{item.phone}}</div>
+              <div>{{item.last_login_time}}</div>
               <section style="clear:both;"></section>
             </div>
             <div class="add_more" v-show="!userList2.length">暫無獎勵</div>
@@ -340,7 +340,6 @@ export default {
 
 #select {
   color: $mainColor;
-
   margin: 35px auto;
   background: $bgColorLow;
   line-height: 63px;
@@ -380,32 +379,39 @@ export default {
   animation: listChange .5s ease-in-out;
   .dataChild_ele {
     margin: 14px auto;
-    font-size: 1.3em;
-    line-height: 100px;
+    font-size:1.3em;
     border-radius: 10px;
     background-color: #3F3C3C;
     &>div {
 
-      width: 33%;
-      padding: 10px 0;
+          padding: 10px 0;
     }
 
     div:nth-child(1) {
-
-     padding-left:30px;
+      line-height:70px;
+      width: 49%;
+      padding-left:15px;
       color: #fff;
       float: left;
     }
     div:nth-child(2) {
+      line-height:70px;
+      font-size:1.2em;
+      padding-right:10px;
+      width: 49%;
       color: #fff;
       float: left;
-      text-align: center;
+      text-align: right;
     }
     div:nth-child(3) {
-      padding-right:15px;
-      color: $mainColor;
+      width:99%;
+      padding-bottom:20px;
+      line-height:40px;
+      padding-left:15px;
+      font-size:15px;
+      color:$mainColor;
       float: left;
-      text-align: right
+
     }
     .usertype{
     	font-size:14px;

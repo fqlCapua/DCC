@@ -49,7 +49,7 @@
     mounted () {
       this.init()
       this.$bus.$emit('pageHead', '特別獎勵')
-      this.token = localStorage.getItem("token")
+      this.token = this.getCookie("token")
       this.specialReward ()
     },
     beforeDestroy () {
@@ -59,7 +59,7 @@
       init () {
         // 更改时间
         let theTime = new Date()
-        this.info.calendar = theTime.getFullYear() + '-' 
+        this.info.calendar = theTime.getFullYear() + '-'
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
       },
       specialReward (time){
@@ -67,14 +67,14 @@
 	      	token:this.token,
 	      	month:time||""
 	      }).then(({data}) => {
-	          this.userList = data.data.items 
-	          this.allMoney = data.data.total    
+	          this.userList = data.data.items
+	          this.allMoney = data.data.total
 	          var ary1 = [];
             for(var  x in data.data.items){
             	  ary1.push(data.data.items[x].reward)
             }
             this.info.moneyReward =   eval(ary1.join("+"))
-	          
+
 	      })
       },
       // 触发时间选择器

@@ -42,7 +42,7 @@
 
       num(){
         this.axios.post('userHomePage', {
-          token:localStorage.getItem("token")
+          token:this.getCookie("token")
         }).then(({data}) => {
          this.zNum = data.data.DCC_total
         })
@@ -69,7 +69,7 @@
           return false;
         }else if((/0x[0-9a-zA-Z]{40}/.test(this.address))){
           this.axios.post('withDrawDcc', {
-            token:localStorage.getItem("token"),
+            token:this.getCookie("token"),
 //        钱包地址
             wallet_address:this.address,
 //        数量

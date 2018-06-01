@@ -73,9 +73,9 @@
 				}).then(({
 					data
 				}) => {
-					this.$bus.$emit('alertCer', {
-						msg: data.data
-					});
+//					this.$bus.$emit('alertCer', {
+//						msg: data.data
+//					});
 				})
 			},
 

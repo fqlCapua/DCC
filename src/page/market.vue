@@ -50,7 +50,7 @@ export default {
       navShow: true
     })
     this.init()
-    if(!localStorage.getItem('token')){
+    if(!this.getCookie("token")){
       this.$router.push('/login')
     }
   },
@@ -60,7 +60,7 @@ export default {
   methods: {
     init () {
       this.axios.post('rewardIndex',{
-      	token:localStorage.getItem("token")
+      	token:this.getCookie("token")
       }).then(({data}) => {
         this.allMoney = data.data.total
       })

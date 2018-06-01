@@ -44,7 +44,7 @@
     mounted () {
       this.$bus.$emit('pageHead', '團隊獎勵')
       this.init()
-      this.token = localStorage.getItem("token")
+      this.token =this.getCookie("token")
       this.teamReward()
     },
     beforeDestroy () {
@@ -54,7 +54,7 @@
       init () {
         // 更改时间
         let theTime = new Date()
-        this.time = theTime.getFullYear() + '-' 
+        this.time = theTime.getFullYear() + '-'
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
       },
       // 触发时间选择器

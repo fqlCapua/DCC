@@ -19,10 +19,6 @@
             <p class="option" @click="selectTabFun(1)" :class="{option_child_active:selectTabChild==1}">會員</p>
           </div>
         </div>
-        <!-- 	<div class="info">
-					<p class="month_reward">本月獎勵：{{ selectTab === 0 ? info1.moneyReward : info2.moneyReward }}</p>
-					<p class="calendar" @click="getTime">{{ selectTab === 0 ? info1.calendar : info2.calendar }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
-				</div> -->
         <div class="data" :class="{dataChild:selectTabChild ===0}" v-show="selectTabChild === 0">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList1" :key="index">
@@ -42,10 +38,10 @@
               <div>{{item.time}}</div>
               <section style="clear:both;"></section>
             </div>
-            <div class="add_more" v-show="!userList2.length">暫無獎勵2</div>
+            <div class="add_more" v-show="!userList2.length">暫無獎勵</div>
           </div>
         </div>
-  
+
       </div>
     </div>
     <div class="data " v-show="selectTab === 1">
@@ -62,30 +58,26 @@
             <p class="option1" @click="selectTabFun1(1)" :class="{option_child_active:selectTabChild2==1}">間接分享</p>
           </div>
         </div>
-        <!--  <div class="info">
-          <p class="month_reward">本月獎勵：{{ selectTab === 0 ? info1.moneyReward : info2.moneyReward }}</p>
-          <p class="calendar" @click="getTime">{{ selectTab === 0 ? info1.calendar : info2.calendar }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
-        </div> -->
         <div class="data" :class="{dataChild:selectTabChild2 ===0}" v-show="selectTabChild2 === 0">
           <div class="eleBox">
-            <div class="dataChild_ele" v-for="(item,index) in userList1" :key="index">
+            <div class="dataChild_ele" v-for="(item,index) in userList3" :key="index">
               <div>{{item.nickname}}<span class="usertype">({{item.usertype}})</span></div>
               <div>{{item.Num}}</div>
               <div>{{item.time}}</div>
               <section style="clear:both;"></section>
             </div>
-            <div class="add_more" v-show="!userList1.length">暫無獎勵 </div>
+            <div class="add_more" v-show="!userList3.length">暫無獎勵</div>
           </div>
         </div>
         <div class="data" :class="{dataChild:selectTabChild2 === 1}" v-show="selectTabChild2 === 1">
           <div class="eleBox">
-            <div class="dataChild_ele" v-for="(item,index) in userList2" :key="index">
+            <div class="dataChild_ele" v-for="(item,index) in userList4" :key="index">
               <div>{{item.nickname}}</div>
               <div>{{item.Num}}</div>
               <div>{{item.time}}</div>
               <section style="clear:both;"></section>
             </div>
-            <div class="add_more" v-show="!userList2.length">暫無獎勵2</div>
+            <div class="add_more" v-show="!userList4.length">暫無獎勵</div>
           </div>
         </div>
       </div>
@@ -111,21 +103,24 @@ export default {
       // 是否在切换中
       selectTabIng: false,
       // 列表
-      userList1: [{
+      userList1: [
+        {
         nickname: 'Tom',
         usertype:"领士",
         Num: '13527845511',
         time: '2018-05-20'
 
-      }, {
+      },
+        {
         nickname: 'Tom',
         usertype:"领士",
         Num: '13527845511',
         time: '2018-05-21'
 
       }],
-      userList2: []
-      
+      userList2: [],
+      userList3: [],
+      userList4: [],
 
 
     }
@@ -134,7 +129,7 @@ export default {
 
   },
   mounted() {
-
+    this.subordinate()
   },
   methods: {
     getRoute() {
@@ -142,33 +137,76 @@ export default {
     },
 
     toggleTabs: function(id) {
-      this.selectTab = id;
+    if(id == 1){
 
+    }
+    if(id == 0){
+
+    }
+      this.selectTab = id;
       if (this.selectTabIng || this.selectTab === id) return false
       this.selectTabIng = true;
       this.selectTab = id;
       setTimeout(() => {
         this.selectTabIng = false
       }, 500)
+
     },
-    // 分享切换
+    // 我的團隊二級切换
     selectTabFun(id) {
 
       if (this.selectTabChild == id) return false
       this.selectTabIng = true;
       this.selectTabChild = id;
-
+      if(this.selectTabChild == 0){
+        this.subordinate()
+      }
+       if(this.selectTabChild == 1){
+         this.vipSub()
+       }
     },
-    // 分享切换
+    // 我的分享 二級切换
     selectTabFun1(id) {
-
       if (this.selectTabChild2 == id) return false
       this.selectTabIng = true;
       this.selectTabChild2 = id;
-
     },
     back() {
       this.$router.go(-1)
+    },
+//    会员
+    vipSub(){
+      let $that = this;
+      this.axios.post('myTuanDui', {
+      token:this.getCookie('token')
+      }).then(({data}) => {
+        console.log(data)
+        $that.userList2 =data.data
+        console.log($that.userList2)
+      })
+    },
+//    下級
+    subordinate(){
+      let $that = this;
+      this.axios.post('myEMP', {
+        token:this.getCookie('token')
+      }).then(({data}) => {
+        console.log(data)
+        $that.userList1 =data.data
+        console.log($that.userList1)
+      })
+    },
+
+//     我的分享
+//    直接分享
+    direct(){
+      this.axios.post('myEMP', {
+        token:this.getCookie('token')
+      }).then(({data}) => {
+        console.log(data)
+        $that.userList1 =data.data
+        console.log($that.userList1)
+      })
     }
   }
 }
@@ -347,7 +385,7 @@ export default {
     border-radius: 10px;
     background-color: #3F3C3C;
     &>div {
-     
+
       width: 33%;
       padding: 10px 0;
     }

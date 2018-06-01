@@ -49,13 +49,14 @@ import orderSuccess from './orderSuccess'
 
       num(){
         this.axios.post('userHomePage', {
-          token:localStorage.getItem("token")
+          token:this.getCookie("token")
         }).then(({data}) => {
+
         })
       },
       macd(){
         this.axios.post('coparntner', {
-          token:localStorage.getItem("token")
+          token:this.getCookie("token")
         }).then(({data}) => {
           this.mac=data.data;
           console.log(this.mac[0].amount)
@@ -66,7 +67,7 @@ import orderSuccess from './orderSuccess'
             this.ustd =this.mac[1].amount
           }
           if( localStorage.getItem('id') == 3){
-            this.ustd =this.mac[1].amount
+            this.ustd =this.mac[2].amount
           }
         })
       },
@@ -87,7 +88,7 @@ import orderSuccess from './orderSuccess'
       submit(){
            let $that= this;
           this.axios.post('coparntnerBuy', {
-              token:localStorage.getItem("token"),
+              token:this.getCookie("token"),
               copartner_id:localStorage.getItem('id'),
               usdt_code:this.usdt_code,
               code:this.code

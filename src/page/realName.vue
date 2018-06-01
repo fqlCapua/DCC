@@ -91,7 +91,7 @@ export default {
     submit() {
       if (this.form[1].value === "") return this.$bus.$emit('alert', '姓名或身份证号不能为空');
       this.axios.post('idNameCert', {
-        token: localStorage.getItem("token"),
+        token: this.getCookie("token"),
         idfront: this.list[0],
         idback: this.list[1],
         idcard: this.form[1].value,
@@ -106,7 +106,7 @@ export default {
     userUpload(img) {
       let vm = this
       this.axios.post('userUpload', {
-        token: localStorage.getItem("token"),
+        token: this.getCookie("token"),
         img: img,
       }).then(({ data }) => {
         if (data.ret === 401) this.$router.push('login')

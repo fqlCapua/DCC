@@ -68,7 +68,7 @@
       init () {
         let theTime = new Date()
         this.month = theTime.getMonth() + 1;
-        this.token = localStorage.getItem("token")
+        this.token = this.getCookie("token")
       },
 //    addMore () {
 //      this.list.data.push(this.list.data[0])
@@ -78,20 +78,20 @@
 	      	token:this.token,
 	      	month:time||""
 	      }).then(({data}) => {
-	          this.list.data = data.data.items 
-	          
-	          this.money.all = data.data.total    
-	          this.money.month = data.data.total_month 
-	          
-	          this.needTo.all = data.data.goal    
-	          this.needTo.month = data.data.goal_month  
-	          
+	          this.list.data = data.data.items
+
+	          this.money.all = data.data.total
+	          this.money.month = data.data.total_month
+
+	          this.needTo.all = data.data.goal
+	          this.needTo.month = data.data.goal_month
+
 	          var ary = [];
             for(var  x in data.data.items){
             	  ary.push(data.data.items[x].amount)
             }
             this.list.money =   eval(ary.join("+"))
-	          
+
 	      })
       },
       // 触发时间选择器

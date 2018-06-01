@@ -150,9 +150,7 @@ export default {
          token:$that.getCookie("token")
        }).then(({data}) => {
            this.hasMessage =data.data.new_msg
-
          })
-
      },
     // 数字格式化
     formatNum (s, n) {

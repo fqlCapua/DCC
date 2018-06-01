@@ -77,9 +77,9 @@ export default {
       }).then(({
                  data
                }) => {
-        this.$bus.$emit('alertCer', {
-          msg: data.data
-        });
+//        this.$bus.$emit('alertCer', {
+//          msg: data.data
+//        });
       })
     },
     submit () {
@@ -88,7 +88,7 @@ export default {
       if (this.form.confirmPsd.num.length !== 6) return this.$bus.$emit('alert', '交易密碼為6位數字')
       if (this.form.confirmPsd.num != this.form.newsPsd.num) return this.$bus.$emit('alert', '兩次輸入的密碼不一致')
       this.axios.post('setPayPassword', {
-        token:localStorage.getItem('token'),
+        token:this.getCookie("token"),
         pay_password: this.form.newsPsd.num,
         code: this.form.newsCode.num
       }).then(({data}) => {

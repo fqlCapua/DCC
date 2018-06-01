@@ -7,7 +7,7 @@
         <input class="input" :id="index" :type="item.type || 'text'" v-if="index == 'phone'" :placeholder="item.placeholder"  v-model="showPhone" :readonly="item.readOnly">
         <button class="input_button" v-if="index === 'newsCode'" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : codeTime + 's后重試' }}</button>
         <input class="input_code" :id="index" type="text" v-if="index === 'newsCode'" v-model="item.num" :placeholder="item.placeholder">
-        
+
         <button class="img_button" v-if="index === 'captcha'" @click=""><img :src="captchaImg" @click="captchaInfo" /></button>
         <input class="input_code" :id="index" type="text" v-if="index === 'captcha'" v-model="item.num" :placeholder="item.placeholder">
       </label>
@@ -78,7 +78,7 @@ export default {
   methods: {
     init () {
       this.form.phone.num = localStorage.getItem("phone");
-      this.token = localStorage.getItem("token");
+      this.token = this.getCookie("token");
       this.captchaInfo()
     },
     getCode () {
@@ -112,9 +112,9 @@ export default {
       })
     },
     submit () {
-    	
+
     	//this.checkCaptcha ()  //图片验证
-    	
+
       if (this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
       if(this.form.captcha.num === '') return this.$bus.$emit('alert', '图片驗證碼为空')
       if (this.form.newsPsd.num === '') return this.$bus.$emit('alert', '請輸入密碼')

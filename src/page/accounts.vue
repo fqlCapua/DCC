@@ -45,7 +45,7 @@
 
       num(){
         this.axios.post('userHomePage', {
-          token:localStorage.getItem("token")
+          token:this.getCookie("token")
         }).then(({data}) => {
           this.zNum = data.data.DCC_total
         })
@@ -72,7 +72,7 @@
           return false;
         }else{
           this.axios.post('withDrawDcc',{
-            token:localStorage.getItem("token"),
+            token:this.getCookie("token"),
             amount:this.zcNum,
             sn:this.code,
             to_uid:this.phone

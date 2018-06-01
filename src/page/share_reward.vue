@@ -105,11 +105,11 @@
     },
     methods: {
       init () {
-      	 
-      	 this.token = localStorage.getItem("token")
+
+      	 this.token = this.getCookie("token")
         // 更改时间
         let theTime = new Date()
-        this.info2.calendar = this.info1.calendar = this.newmonth =  theTime.getFullYear() + '-' 
+        this.info2.calendar = this.info1.calendar = this.newmonth =  theTime.getFullYear() + '-'
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
 //      this.getDirectData(this.info1.calendar)
 //      this.getIndirectData(this.info2.calendar)
@@ -169,7 +169,7 @@
       },
       // 获取时间
       haveTimeBack (data) {
-      	  
+
         if (this.selectTab === 0) {
           this.info1.calendar = data.substr(0, 7)
           this.directReward(this.info1.calendar.replace(/-/g,''))

@@ -6,8 +6,8 @@
       	 <img v-if="item.grade === 1 " :src="imgList.low"/>
       	 <div class="rank">
       	 	   <div class="rank_title">
-      	 	   	  <span>{{item.trans_type_name}}</span>
-      	 	   	  <span :class="{'achieve': item.status == '待确认' }">{{item.status}}</span>
+      	 	   	  <span>{{item.title}}</span>
+      	 	   	  <span :class="{'achieve': item.status === 1 }" v-if="item.status === 1">已完成</span>
       	 	   	  <span :class="{'audit': item.status === 2 }" v-if="item.status === 2">審核中</span>
       	 	   	  <span :class="{'reject': item.status === 3 }" v-if="item.status === 3">已駁回</span>
       	 	   </div>
@@ -32,6 +32,7 @@ export default {
        	  low:require('../assets/images/mills_pic2.png')
        },
        list:[]
+
     }
   },
   mounted () {
@@ -43,7 +44,7 @@ export default {
   },
   methods: {
     init () {
-    	 this.token = localStorage.getItem("token")
+    	 this.token = this.getCookie("token")
       this.axios.post('coparntnerBuyList',{
       	 token:this.token
       }).then(({data}) => {

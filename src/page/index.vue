@@ -134,9 +134,9 @@ export default {
           this.list = this.list.map((item, index) => {
           if (index === 0) item.num = this.formatNum(data.data.freeze_dcc, 4)  //
           if (index === 1) item.num = this.formatNum(data.data.today_profit,4)
-          if (index === 2) item.num = data.data.avaliable_dcc
+          if (index === 2) item.num = this.formatNum(data.data.avaliable_dcc,4)
           if (index === 3) item.num = data.data.today_dcc_price
-          if (index === 4) item.num = data.data.total_usdt
+          if (index === 4) item.num = this.formatNum(data.data.total_usdt,4)
           if (index === 5) item.num = data.data.price_usdt
           if (index === 6) item.num = data.data.max_dcc_price
           if (index === 7) item.num = data.data.min_dcc_price
@@ -182,7 +182,7 @@ export default {
 
   $grid-opacity: 0.15;
   .index_wrap{
-    padding: 10px 0 90px;
+    /*padding: 150px 0 90px;*/
     height: 100vh;
     overflow: auto;
     background-image: url(../assets/images/banner.png);

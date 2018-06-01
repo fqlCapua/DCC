@@ -101,7 +101,7 @@ export default {
       button: [],
       navShow: true
     });
-    if(!localStorage.getItem('token')){
+    if(!this.getCookie('token')){
       this.$router.push('/login')
     }
     this.userHomePage()
@@ -132,8 +132,9 @@ export default {
     		this.$router.push({path: this.list[index].router})
     },
     getInfo () {
+      let token = this.getCookie('token')
       this.axios.post('userHomePage', {
-       token:localStorage.getItem('token')
+       token:token
       }).then(({data}) => {
         this.name = data.data.name;
         this.phone = data.data.phone;
@@ -166,7 +167,7 @@ export default {
 //			上傳
     upLoad(){
       this.axios.post('userUpload', {
-        token:localStorage.getItem("token"),
+        token:this.getCookie("token"),
         img:this.image
       }).then(({data})=>{
         this.img=data.data.server_url;
@@ -179,7 +180,7 @@ export default {
 //    保存接口
     postUserInfo (){
       this.axios.post('postUserInfo', {
-        token:localStorage.getItem("token"),
+        token:this.getCookie("token"),
         phone:this.phone,
         head:this.img
       }).then(({data}) => {
@@ -189,7 +190,7 @@ export default {
 //    獲取頭像
     userHomePage (){
       this.axios.post('userHomePage', {
-        token:localStorage.getItem("token"),
+        token:this.getCookie("token"),
       }).then(({data}) => {
         this.img = data.data.head
         console.log(this.img)

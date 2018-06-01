@@ -6,7 +6,7 @@
     <!-- :class="[selectTab === 0 ?'option_active':'option_normal']" -->
     <div class="codeTab"  >
       <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">推广二维码</span>
-      <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">收款二维码</span>
+      <!--<span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">收款二维码</span>-->
     </div>
    </div>
     <div class="data"  v-show="selectTab === 0">
@@ -25,18 +25,18 @@
               <span>您的推广码：</span>
               <span>452315</span>
           </div>
-        </div> 
+        </div>
     </div>
      <div class="data"  v-show="selectTab === 1">
       <div class="real-name">
-     
+
   <div class="cert">
-   <div class="tips1">  
+   <div class="tips1">
      <span  class="iconfont icon-shangchuan1"></span>
      <span class="attention_tips">{{formTitle2}}</span>
    </div>
    <div>
-  
+
 
       <div class="center_box">
      <!--實名認證-->
@@ -54,22 +54,22 @@
       <p class="code_tips">微信收款碼</p>
          </div>
     </div>
-  
+
   </div>
-   
-      <div style="background: #3F3C3C;"> 
-        
-         <div class="tip2">  
+
+      <div style="background: #3F3C3C;">
+
+         <div class="tip2">
             <span class="iconfont icon-zhifuxinxi" ></span>
             <span class="attention_tips">{{formTitle3}}</span>
          </div>
-       
+
           <div class="label" v-for="(item, index) in form" :key="index">
             <span class="name">{{item.name}}</span>
              <input class="input" type="text" v-model="item.value">
           </div>
        </div>
-    <button class="submit"  >保存</button>   
+    <button class="submit"  >保存</button>
     </div>
      </div>
   </div>
@@ -89,7 +89,7 @@ export default {
       // 是否在切换中
          selectTabIng: false,
          form: {
-          
+
           name: {
             name: '支付寶賬戶名',
             value: "Cap"
@@ -98,7 +98,7 @@ export default {
             name: "微信賬戶名",
             value: "410221199"
           },
-        
+
         },
     }
   },
@@ -111,7 +111,7 @@ export default {
          this.code = data.data;
        //this.code="https://avatar.csdn.net/2/5/E/3_weixin_40292626.jpg";
       })
-    
+
     },
      fileImage:function(e){
         let $that = this
@@ -144,7 +144,7 @@ export default {
      if (this.selectTabIng || this.selectTab === id) return false
         this.selectTabIng = true;
         this.selectTab = id;
-     
+
         // setTimeout(() => {
         //   this.selectTabIng = false
         // }, 500)
@@ -173,11 +173,11 @@ export default {
       padding:20px 0 16px 0;
     }
     .data{
-      
+
        color:#fff;
       .extend_code{
         border-bottom:1px solid #454544;
-         
+
       }
       .img_tips{
         margin-top:10px;
@@ -210,7 +210,7 @@ export default {
     }
    .codeTab{
      font-family:"微软雅黑";
-    border:1px solid #CFA12A;
+    /*border:1px solid #CFA12A;*/
     border-radius:6px;
     width:60%;
     margin:0 auto;
@@ -220,13 +220,18 @@ export default {
         font-size:30px;
         color:#AD8621;
         height:60px;
-        line-hight:60px; 
+        line-hight:60px;
         width:49.1%;
         text-align:center;
      }
      .option_active{
-       background-color:$mainColor;
-       color:#000;
+       /*background-color:$mainColor;*/
+       color:#fff;
+       position: absolute;
+       top:20px;
+       left:50%;
+       transform: translate(-50%);
+       font-size:35px;
      }
      .option_normal{
        background-color:none;
@@ -254,8 +259,8 @@ export default {
     .tip2 span:nth-child(2){
       font-size:1.2em;
       letter-spacing:1px;
-      
-    } 
+
+    }
 
   .cert{
     background:#3f3c3c;
@@ -284,9 +289,9 @@ export default {
     .tips1 span:nth-child(2){
       font-size:1.2em;
       letter-spacing:1px;
-      
-    } 
-   
+
+    }
+
     .center_box{
       padding:50px;
       display:inline-block;
@@ -316,13 +321,13 @@ export default {
         height: 100%;
       }
     }
-    
+
   }
      .label {
         height:128px;
         border-bottom: 1px solid #A7A6A6;
         padding-top:50px;
-       
+
         .name {
           float: left;
           color: #fff;

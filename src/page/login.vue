@@ -63,7 +63,8 @@ export default {
       }).then(({data}) => {
         if (data.ret === 0){
           let token=data.data.token;
-          window.localStorage.setItem('token',token);
+//          window.localStorage.setItem('token',token);
+            this.setCookie('token',token);
           this.$bus.$emit('alertCer', {
             msg:"登录成功"
           });

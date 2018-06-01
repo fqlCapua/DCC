@@ -5,16 +5,16 @@
 			<router-link to="userCenter">
 				<span class="icon iconfont icon-fanhuijiantou returnBtn"></span>
 			</router-link>
-			<h2 class="title">钱包二维码</h2>
+			<h2 class="title">錢包二維碼</h2>
 		</div>
 
 		<!--二维码-->
-		<div class="ewmBox" v-for="(item,index) in ewmInfo">
+		<div class="ewmBox">
 			<div class="infoBox">
-				<p class="name">{{item.name}}</p>
-				<p class="number">{{item.number}}</p>
+				<p class="name">{{ewmInfo.name}}</p>
+				<p class="number">{{ewmInfo.number}}</p>
 			</div>
-			<img :src="item.ewmImg" alt="" />
+			<img :src="ewmInfo.ewmImg" alt="" />
 
 			<p class="saveImg">保存為圖片</p>
 		</div>
@@ -27,14 +27,11 @@
 		name: 'walletEwm',
 		data() {
 			return {
-				ewmInfo: [{
+				ewmInfo: {
 						name: '劉洋',
 						number: '415asdsad56465asd',
 						ewmImg: require('../assets/images/wallet_ewm.png')
 					}
-
-				]
-
 			}
 
 		}
@@ -55,11 +52,8 @@
 			.returnBtn {
 				position: absolute;
 				left: 35px;
-				top: 0;
-				font-size: 30px;
-			}
-			.title {
-				font-size: 30px;
+				top: 5px;
+				font-size: 38px;
 			}
 		}
 		.ewmBox {

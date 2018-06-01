@@ -138,10 +138,10 @@ export default {
       }).then(({data}) => {
         this.name = data.data.name;
         this.phone = data.data.phone;
-        this.allNum = data.data.price_usdt;
-        this.todayNum =data.data.usdt_today_profit;
-        this.dccNum =data.data.freeze_dcc;
-        this.activeNum=data.data.avaliable_dcc
+        this.allNum = this.formatNum(data.data.price_usdt,4);
+        this.todayNum =this.formatNum(data.data.usdt_today_profit,4);
+        this.dccNum =this.formatNum(data.data.freeze_dcc,4);
+        this.activeNum=this.formatNum(data.data.avaliable_dcc,4);
       })
     },
     setting () {
@@ -195,7 +195,24 @@ export default {
         this.img = data.data.head
         console.log(this.img)
       })
-    }
+    },
+    // 数字格式化
+    formatNum (s, n) {
+      /*
+       * 参数说明：
+       * s：要格式化的数字
+       * n：保留几位小数
+       * */
+      n = n > 0 && n <= 20 ? n : 2
+      s = parseFloat((s + '').replace(/[^\d.-]/g, '')).toFixed(n) + ''
+      let l = s.split('.')[0].split('').reverse()
+      let r = s.split('.')[1]
+      let t = ''
+      for (let i = 0; i < l.length; i++) {
+        t += l[i] + ((i + 1) % 3 === 0 && (i + 1) !== l.length ? ',' : '')
+      }
+      return t.split('').reverse().join('') + '.' + r
+    },
   }
 }
 </script>

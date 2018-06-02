@@ -3,7 +3,8 @@
     <pageHead></pageHead>
     <router-view/>
     <alertPage></alertPage>
-    <!--<alertCer></alertCer>-->
+    <alertCer></alertCer>
+    <!--<orderSuccess></orderSuccess>-->
     <footerNav></footerNav>
   </div>
 </template>
@@ -13,13 +14,15 @@ import alertPage from './components/alert'
 import footerNav from './components/footer'
 import pageHead from './components/page_head'
 import alertCer from './components/alert-cer'
+//import orderSuccess from './components/success'
 export default {
   name: 'App',
   components: {
     alertPage,
     footerNav,
     pageHead,
-    alertCer
+    alertCer,
+//    orderSuccess
   }
 }
 </script>

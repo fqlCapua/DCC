@@ -41,7 +41,6 @@ Vue.prototype.setCookie = function(c_name,value,expiredays) {
     ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
 };
 
-
 //获取cookie
 Vue.prototype.getCookie=function(c_name) {
   if (document.cookie.length>0)
@@ -57,7 +56,13 @@ Vue.prototype.getCookie=function(c_name) {
   }
   return ""
 };
-
+  Vue.prototype.delCookie=function (c_name) {
+  var exp = new Date();
+  exp.setTime(exp.getTime() - 1);
+  let cval = this.getCookie(c_name);
+  if (cval != null)
+    document.cookie = c_name + "=" + cval + ";expires=" + exp.toGMTString();
+}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

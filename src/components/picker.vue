@@ -38,10 +38,10 @@
             name: '月',
             data: []
           },
-          day: {
-            name: '日',
-            data: []
-          }
+//        day: {
+//          name: '日',
+//          data: []
+//        }
         },
         // 设置全局倒计时，方便清除
         setTime: {
@@ -87,13 +87,13 @@
         }
         // 产生年份
         this.data.year.data = []
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 5; i++) {
           this.data.year.data.push(this.defaultData.year - i)
         }
         this.data.year.data.reverse()
         this.$nextTick(() => {
           if (!this.$refs.year[0]) return false
-          this.$refs.year[0].scrollTop = parseInt(getComputedStyle(this.$refs.year[0].childNodes[0], null)['line-height']) * 19
+          this.$refs.year[0].scrollTop = parseInt(getComputedStyle(this.$refs.year[0].childNodes[0], null)['line-height']) * 4
           if (this.type !== 'year') this.changeMonths(this.getData.year)
         })
       },
@@ -237,6 +237,7 @@
       text-align: center;
       display: flex;
       justify-content: space-around;
+      padding:0 100px;
       padding-top: 60px;
       .picker_title {
         font-size: 34px;
@@ -276,7 +277,7 @@
           .picker_data {
             height: 260px;
             overflow: scroll;
-            line-height: 60px;
+            line-height: 66px;
             font-size: 28px;
             color: #666;
             padding: 100px 0;

@@ -10,6 +10,7 @@
 <script>
   export default {
     name: 'noticeDetail',
+    detailId:'',
     data () {
       return {
         title: '系統陞級',
@@ -23,6 +24,19 @@
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')
+    },
+    methods:{
+      sub(){
+        let  $that = this;
+        this.axios.post('newMsgDetail', {
+          token:this.getCookie('token'),
+          id:this.this.detailId
+        }).then(({data}) =>{
+          $that.list =data.data;
+          console.log($that.list)
+        })
+      }
+
     }
   }
 </script>

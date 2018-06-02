@@ -5,9 +5,9 @@
       <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">我的團隊</span>
       <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">我的分享</span>
     </div>
-    <div class="data1" v-show="selectTab === 0">
+    <div class="data" v-show="selectTab === 0">
       <div id="shareReward">
-        <div id="rewardTop1">
+        <div id="rewardTop">
           <div class="inner">
             <h3 class="teamNumber">{{ teamNumber }} </h3>
             <p class="teamtitle">團隊總數</p>
@@ -22,18 +22,18 @@
         <div class="data" :class="{dataChild:selectTabChild ===0}" v-show="selectTabChild === 0">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList1" :key="index">
-              <div>{{item.name}}<span class="usertype">({{item.position}})</span></div>
-              <div>{{item.phone}}</div>
-              <div>{{item.last_login_time}}</div>
+              <div>{{item.nickname}}<span class="usertype">({{item.usertype}})</span></div>
+              <div>{{item.Num}}</div>
+              <div>{{item.time}}</div>
               <section style="clear:both;"></section>
             </div>
             <div class="add_more" v-show="!userList1.length">暫無獎勵 </div>
           </div>
         </div>
-        <div class="data1" :class="{dataChild:selectTabChild === 1}" v-show="selectTabChild === 1">
+        <div class="data" :class="{dataChild:selectTabChild === 1}" v-show="selectTabChild === 1">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList2" :key="index">
-              <div>{{item.name}}<span class="usertype">({{item.position}})</span></div>
+              <div>{{item.name}}名字<span class="usertype">(零食)</span></div>
               <div>{{item.phone}}</div>
               <div>{{item.last_login_time}}</div>
               <section style="clear:both;"></section>
@@ -41,11 +41,12 @@
             <div class="add_more" v-show="!userList2.length">暫無獎勵</div>
           </div>
         </div>
+
       </div>
     </div>
-    <div class="data1" v-show="selectTab === 1">
+    <div class="data " v-show="selectTab === 1">
       <div id="shareReward">
-        <div id="rewardTop1">
+        <div id="rewardTop">
           <div class="inner">
             <h3 class="teamNumber">{{ shareNumber }} </h3>
             <p class="teamtitle">{{shareText}}</p>
@@ -57,23 +58,23 @@
             <p class="option1" @click="selectTabFun1(1)" :class="{option_child_active:selectTabChild2==1}">間接分享</p>
           </div>
         </div>
-        <div class="data1" :class="{dataChild:selectTabChild2 ===0}" v-show="selectTabChild2 === 0">
+        <div class="data" :class="{dataChild:selectTabChild2 ===0}" v-show="selectTabChild2 === 0">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList3" :key="index">
-              <div>{{item.name}}<span class="usertype">({{item.position}})</span></div>
-              <div>{{item.phone}}</div>
-              <div>{{item.last_login_time}}</div>
+              <div>{{item.nickname}}<span class="usertype">({{item.usertype}})</span></div>
+              <div>{{item.Num}}</div>
+              <div>{{item.time}}</div>
               <section style="clear:both;"></section>
             </div>
             <div class="add_more" v-show="!userList3.length">暫無獎勵</div>
           </div>
         </div>
-        <div class="data1" :class="{dataChild:selectTabChild2 === 1}" v-show="selectTabChild2 === 1">
+        <div class="data" :class="{dataChild:selectTabChild2 === 1}" v-show="selectTabChild2 === 1">
           <div class="eleBox">
             <div class="dataChild_ele" v-for="(item,index) in userList4" :key="index">
-              <div>{{item.name}}<span class="usertype">({{item.position}})</span></div>
-              <div>{{item.phone}}</div>
-              <div>{{item.last_login_time}}</div>
+              <div>{{item.nickname}}</div>
+              <div>{{item.Num}}</div>
+              <div>{{item.time}}</div>
               <section style="clear:both;"></section>
             </div>
             <div class="add_more" v-show="!userList4.length">暫無獎勵</div>
@@ -128,8 +129,7 @@ export default {
 
   },
   mounted() {
-    this.vipSub();
-    this.indirect();
+    this.subordinate()
   },
   methods: {
     getRoute() {
@@ -137,6 +137,12 @@ export default {
     },
 
     toggleTabs: function(id) {
+    if(id == 1){
+
+    }
+    if(id == 0){
+
+    }
       this.selectTab = id;
       if (this.selectTabIng || this.selectTab === id) return false
       this.selectTabIng = true;
@@ -148,19 +154,22 @@ export default {
     },
     // 我的團隊二級切换
     selectTabFun(id) {
+
       if (this.selectTabChild == id) return false
       this.selectTabIng = true;
       this.selectTabChild = id;
-      this.vipSub()
-
+      if(this.selectTabChild == 0){
+        this.subordinate()
+      }
+       if(this.selectTabChild == 1){
+         this.vipSub()
+       }
     },
     // 我的分享 二級切换
     selectTabFun1(id) {
       if (this.selectTabChild2 == id) return false
       this.selectTabIng = true;
       this.selectTabChild2 = id;
-        this.indirect()
-
     },
     back() {
       this.$router.go(-1)
@@ -171,22 +180,34 @@ export default {
       this.axios.post('myTuanDui', {
       token:this.getCookie('token')
       }).then(({data}) => {
-     $that.userList2 =data.data.member;
-        $that.userList1 =data.data.employee
-     this.teamNumber = data.data.employee_count + data.data.member_count;
+        console.log(data)
+        $that.userList2 =data.data
+        console.log($that.userList2)
       })
     },
-//     我的分享
-    indirect(){
-     this.axios.post('myShareMembers', {
-       token:this.getCookie('token')
-     }).then(({data}) => {
-       this.userList3 =data.data.direct;
-       this.userList4=data.data.relative;
-       this.shareNumber =data.data.direct_count+data.data.relative_count
-     })
+//    下級
+    subordinate(){
+      let $that = this;
+      this.axios.post('myEMP', {
+        token:this.getCookie('token')
+      }).then(({data}) => {
+        console.log(data)
+        $that.userList1 =data.data
+        console.log($that.userList1)
+      })
     },
 
+//     我的分享
+//    直接分享
+    direct(){
+      this.axios.post('myEMP', {
+        token:this.getCookie('token')
+      }).then(({data}) => {
+        console.log(data)
+        $that.userList1 =data.data
+        console.log($that.userList1)
+      })
+    }
   }
 }
 
@@ -283,7 +304,7 @@ export default {
   }
 }
 
-.data1 {
+.data {
   padding: 25px 0;
   .add_more {
     color: #fff;
@@ -291,7 +312,7 @@ export default {
   .option_child_active {
     border-bottom: 1px solid $mainColor;
   }
-  #rewardTop1 {
+  #rewardTop {
     width: 100vw;
   }
   .inner {

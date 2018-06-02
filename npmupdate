@@ -1,0 +1,11 @@
+#!/bin/bash 
+
+git stash ;
+git pull;
+npm install;
+npm run build;
+rsync -razvH --progress dist root@k151://export/api.zhongguozhaishi.com/public;
+echo "OK";
+
+
+

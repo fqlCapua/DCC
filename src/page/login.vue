@@ -79,11 +79,6 @@ export default {
         if(data.msg === '用户名和密码不匹配'){
           $that.pass =''
         }
-        if(data.msg === '验证码已过期'){
-          this.$bus.$emit('alertCer', {
-            msg:"验证码已过期"
-          });
-        }
         if(data.ret === 1){
           //this.$bus.$emit('alertCer', data.msg);
           this.$bus.$emit('alertCer', {

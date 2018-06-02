@@ -27,7 +27,6 @@ export default {
   data () {
     return {
        time:'',
-       token:"",
        timeIcon:"icon-kongtiaoguankong-",
        list:[
 	          {
@@ -64,7 +63,6 @@ export default {
   mounted () {
     this.$bus.$emit('pageHead','轉出記錄'),
     this.init()
-    this.withDrawDccList()
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -73,18 +71,10 @@ export default {
   methods: {
   	
   	init () {
-  		   this.token = this.getCookie("token");
         // 更改时间
         let theTime = new Date()
         this.time = theTime.getFullYear() + '-' 
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
-      },
-      withDrawDccList (){
-	      this.axios.post('withDrawDccList', {
-	       token:this.token
-	      }).then(({data}) => {
-	           console.log(data)
-	      })
       },
     // 触发时间选择器
     getTime () {

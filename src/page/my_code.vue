@@ -130,13 +130,16 @@ export default {
       this.axios.post("myShareCode",{
       	 token:this.token
       }).then(({data}) => {
-          this.myCode = data.data.ShareCode.r_code
-          this.myCodeImg =   this.toQrCode(data.data.ShareCode.r_code)
-          
-          this.TeamCode = data.data.TeamCode.com_code
-          this.TeamCodeImg = this.toQrCode(data.data.TeamCode.com_code)
+          this.myCode = data.data.r_code
+          this.myCodeImg =   this.toQrCode(data.data.r_code_encrypt)
           
       });
+      this.axios.post("myShareTeamCode",{
+      	 token:this.token
+      }).then(({data}) => {
+          this.TeamCode = data.data.com_code
+          this.TeamCodeImg = this.toQrCode(data.data.com_code_encrypt)
+      })
     },
     // 生成二维码
     toQrCode(dataUrl){

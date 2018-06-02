@@ -76,17 +76,19 @@
             amount:this.zcNum,
             sn:this.code
           }).then(({data}) => {
-          	if(!data.ret){
-          		 this.$router.push({path:'submitSuccess' })
-          	}else{
-          		this.$bus.$emit('alertCer', data.msg)
-          	}
-            
+            console.log(data)
+            this.$bus.$emit('alertCer', data.data.msg)
           })
         }else{
           this.$bus.$emit('alert', '钱包地址必须为0x开头的42位英文或者数字')
         }
+
+
+//			this.$router.push({path:'submitSuccess' })
       }
+    },
+    components: {
+
     }
   }
 </script>

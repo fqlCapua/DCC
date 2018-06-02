@@ -19,11 +19,11 @@ import setLoginPsd from '@/page/setLoginPsd'
 import setDealPsd from '@/page/setDealPsd'
 import realName from '@/page/realName'
 import shareReward from '@/page/share_reward'
- 
+
 import levelChange from '@/page/levelChange'
 import subSuccess from '@/page/subSuccess'
 
- 
+
 import myTeam from '@/page/my_team'
 import myShare from '@/page/my_share'
 import teamReward from '@/page/team_reward'
@@ -51,7 +51,7 @@ import submitSuccess from '@/page/submitSuccess'
 
 Vue.use(Router)
 export default new Router({
-	mode: 'history',
+//	mode: 'history',
 	routes: [{
 			path: '/register',
 			name: 'register',
@@ -268,7 +268,7 @@ export default new Router({
 			name: '	submitSuccess',
 			component: submitSuccess
 		},
-		
-		
+
+
 	]
 })

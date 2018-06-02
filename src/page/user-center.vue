@@ -78,11 +78,11 @@ export default {
           icon:"icon-dengji",
           router:"levelChange"
         },
-        {
-          name:"钱包二维码",
-          icon:"icon-erweima",
-          router:"walletEwm"
-        },
+//      {
+//        name:"钱包二维码",
+//        icon:"icon-erweima",
+//        router:"walletEwm"
+//      },
         {
         	name:"合夥人記錄",
         	icon:"icon-jilu2",

@@ -1,52 +1,42 @@
 <template>
 	<div class="main">
-		<div class="back iconfont icon-fanhuijiantou" @click="back"></div>
 		<div class="exchange">
 			<div class="form">
 				<label class="label">
-        <span class="name">地区</span>
-        <input class="input"  type="text"  disabled="true"  placeholder="選擇省市區"   />
-        <span class="iconfont icon-zhuanchu"></span>
-        <areaSelect></areaSelect> 
-      </label>
+		        <span class="name">地区</span>
+		        <input class="input"  type="text"  readonly v-model="addr" placeholder="選擇省市區"   />
+		        <span class="iconfont icon-zhuanchu" @click="getAddress"></span>
+		     </label>
 				<label class="label">
-        <span class="name">等級</span>
-        <input class="input"  type="text"  disabled="true"  placeholder="選擇等級"   />
-         <span class="iconfont icon-zhuanchu"></span>
-      </label>
-
-				<label class="label" :for="index" v-for="(item, index) in form" :key="index">
-        <span class="name">{{ item.name }}</span>
-        <input class="input" :id="index" :type="item.type || 'text'" v-if="index !== 'newsCode'&& index !== 'phone' && index !== 'dccNum' " :placeholder="item.placeholder"  v-model="item.num" :readonly="item.readOnly">
-        <input class="input" :id="index" :type="item.type || 'text'" v-if="index == 'phone'" :placeholder="item.placeholder"  v-model="Phone"  >
-        <button class="input_button" v-if="index === 'newsCode'"  @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : codeTime + 's后重試' }}</button>
-        <input class="input_code" :id="index" :type="item.type || 'text'" v-if="index === 'newsCode'" v-model="item.num" :placeholder="item.placeholder">
-        <input class="input_code" :id="index" :type="item.type || 'text'" v-if="index === 'dccNum'" v-model="item.num" :placeholder="item.placeholder">
-        
-      </label>
+		        <span class="name">等級</span>
+		        <input class="input"  type="text"  disabled="true" v-model="grade" placeholder="選擇等級"   />
+		         <span class="iconfont icon-zhuanchu"></span>
+		     </label>
+			<label class="label" :for="index" v-for="(item, index) in form" :key="index">
+		        <span class="name">{{ item.name }}</span>
+		        <button class="input_button"  @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : codeTime + 's后重試' }}</button>
+		        <input class="input_code" type="text" v-model="PhoneCode" :placeholder="item.placeholder">
+		    </label>
 			</div>
 			<button class="submit" @click="submit">提交</button>
 		</div>
+		<myAddress></myAddress>
 	</div>
 </template>
 
 <script>
-	import picker from '../components/picker.vue'
-	import areaSelect from "../components/area_select.vue"
+	import myAddress from '../components/address'
 	export default {
     submitStatus:false,
 		name: 'levelChange',
 		data() {
 			return {
+				addr:"",
+				getAddressCode:"",
 				Phone: '',
+				grade:"",
+				PhoneCode:"",
 				form: {
-
-					phone: {
-						name: '手機號碼',
-						placeholder: '请输入手機號',
-						num: '18845678899',
-						readOnly: true
-					},
 					newsCode: {
 						name: '短信驗證碼',
 						placeholder: '請輸入驗證碼',
@@ -57,19 +47,9 @@
 			}
 		},
 		mounted() {
-			let vm = this;
-			this.$bus.$emit('pageHead', {
-				title: "等级兑换",
-				// rightShow:true,
-				// rightText:'转入对方账户',
-				rightColor: '#2d8afd',
-				rightBack: function() {
-					vm.$router.push({
-						path: ''
-					})
-				}
-			});
-
+		   let vm = this;
+		   this.$bus.$emit('pageHead',"等级兑换")
+		   this.Phone =  this.getCookie("userName")
 		},
 		destroyed() {
 			this.$bus.$emit('pageHead');
@@ -78,19 +58,9 @@
 			back() {
 				this.$router.go(-1)
 			},
-			showPhone() {
-				let phoneStr;
-				if(typeof(this.form.phone.num) !== 'string') {
-					phoneStr = this.form.phone.num.toString()
-				} else {
-					phoneStr = this.form.phone.num
-				}
-				return phoneStr.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
-			},
+			
 			getCode() {
-
 				if(this.codeTime !== 61) return false
-				if(this.form.phone.num === '') return this.$bus.$emit('alert', '請輸入手機號碼')
 				this.codeTime = 60
 				let timer = setInterval(() => {
 					if(--this.codeTime === 0) {
@@ -98,20 +68,16 @@
 						this.codeTime = 61
 					}
 				}, 1000)
-				this.axios.post('Sms/send', {
-					type: 3,
-					phone: '18337131078'
-					//      phone: "this.form.phone.num"
-				}).then(({
-					data
-				}) => {
-					if(data.status !== 200) this.$bus.$emit('alert', data.message)
+				this.axios.post('sms', {
+					phone:this.Phone
+				}).then(({data}) => {
+					
 				})
 			},
 			submit() {
-				if(this.form.dccNum.num === '') return this.$bus.$emit('alert', '請輸入轉出數量')
-				if(this.form.wallet.num === '') return this.$bus.$emit('alert', '請輸入錢包地址')
-				if(this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
+				if(this.addr === '') return this.$bus.$emit('alert', '請選擇地區')
+				if(this.grade === '') return this.$bus.$emit('alert', '請選擇等級')
+				if(this.PhoneCode === '') return this.$bus.$emit('alert', '請輸入驗證碼')
 
 				this.axios.post('quotation/decl_from', {
 					usdt: this.form.usdt.num,
@@ -123,8 +89,22 @@
 					if(data.status === 200) this.$router.go(-1)
 				})
 
-			}
+			},
+			// 触发时间选择器
+		     getAddress () {
+		        this.$bus.$emit('myAddress', {
+		          flag: true,
+		          callBack: this.haveAddress
+		        })
+		     },
+		     haveAddress (data){
+		     	this.addr = data.addressStr
+		     	this.getAddressCode = data.code
+		     }
 
+		},
+		components: {
+		   myAddress
 		}
 	}
 </script>

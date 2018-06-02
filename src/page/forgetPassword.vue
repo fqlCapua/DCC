@@ -69,6 +69,7 @@ export default {
     submit () {
       if (this.phone === '') return this.$bus.$emit('alert', '请输入手机号');
       if (this.pass === '') return this.$bus.$emit('alert', '请输入登录密码');
+      if (this.pass = this.pass2) return this.$bus.$emit('alertCer', '兩次密碼不匹配');
       this.doLogin()
     },
     say(){

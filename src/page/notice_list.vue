@@ -38,7 +38,7 @@
       sub(){
         let  $that = this;
         this.axios.post('newMsgList', {
-          token:localStorage.getItem('token')
+          token:this.getCookie('token')
         }).then(({data}) =>{
           $that.list =data.data;
           console.log($that.list)

@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import QRCode from 'qrcode'
+//import QRCode from 'qrcode'
 export default {
   name: 'myCode',
   data () {
@@ -130,22 +130,23 @@ export default {
       this.axios.post("myShareCode",{
       	 token:this.token
       }).then(({data}) => {
+      	let base64Data = "data:image/png;base64,";
           this.myCode = data.data.ShareCode.r_code
-          this.myCodeImg =   this.toQrCode(data.data.ShareCode.r_code)
+          this.myCodeImg = base64Data + data.data.ShareCode.img
           
           this.TeamCode = data.data.TeamCode.com_code
-          this.TeamCodeImg = this.toQrCode(data.data.TeamCode.com_code)
+          this.TeamCodeImg = base64Data + data.data.TeamCode.img
           
       });
     },
     // 生成二维码
-    toQrCode(dataUrl){
-       let CodeUrl;
-      QRCode.toDataURL(dataUrl, function (err, url) {
-			    CodeUrl = url;
-			})
-      return CodeUrl;
-    },
+//  toQrCode(dataUrl){
+//     let CodeUrl;
+//    QRCode.toDataURL(dataUrl, function (err, url) {
+//			    CodeUrl = url;
+//			})
+//    return CodeUrl;
+//  },
      fileImage:function(e){
         let $that = this
         var file = e.target.files[0];

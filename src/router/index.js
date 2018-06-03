@@ -48,7 +48,7 @@ import c2cTradeBuy from '@/page/c2ctrade_buy'
 import walletEwm from '@/page/wallet_ewm'
 import c2ctradeOrderCompletion from '@/page/c2ctrade_orderCompletion'
 import submitSuccess from '@/page/submitSuccess'
-
+import authentication from '@/page/authentication'
 Vue.use(Router)
 export default new Router({
 //	mode: 'history',
@@ -57,6 +57,17 @@ export default new Router({
 			name: 'register',
 			component: register
 		},
+    {
+      path: '/authentication',
+      name: 'authentication',
+      component: authentication
+    },
+    {
+
+      path: '/forgetPassword',
+      name: 'forgetPassword',
+      component: forgetPassword
+    },
 		{
 			path: '/c2cTradeUsdt',
 			name: 'c2cTradeUsdt',

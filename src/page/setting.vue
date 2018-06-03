@@ -30,7 +30,7 @@ export default {
           	router: 'realName'
         },
         {
-          	title: '退出登录',
+          	title: '退出登錄',
 //          	icon: 'icon-jinrujiantou',
           	router: ''
         }

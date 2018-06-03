@@ -11,7 +11,7 @@
     </label>
     <label class="label" >
       <span class="icon iconfont icon-navicon-dxmbwh"></span>
-      <input class="input"  type="password" v-model="code" placeholder="請輸入验证码">
+      <input class="input"  type="text" v-model="code" placeholder="請輸入验证码">
       <button class="code_button" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : `${codeTime}s後重試`}}</button>
     </label>
     <label class="label" >
@@ -69,7 +69,7 @@ export default {
     submit () {
       if (this.phone === '') return this.$bus.$emit('alert', '请输入手机号');
       if (this.pass === '') return this.$bus.$emit('alert', '请输入登录密码');
-      if (this.pass = this.pass2) return this.$bus.$emit('alertCer', '兩次密碼不匹配');
+      if (this.pass !== this.pass2) return this.$bus.$emit('alertCer', '兩次密碼不匹配');
       this.doLogin()
     },
     say(){

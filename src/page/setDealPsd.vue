@@ -94,7 +94,7 @@ export default {
         pay_password: this.form.newsPsd.num,
         code: this.form.newsCode.num
       }).then(({data}) => {
-        console.log(data)
+        //console.log(data)
         if(data.msg = '操作成功'){
           this.$bus.$emit('alertCer', {
             msg: data.msg

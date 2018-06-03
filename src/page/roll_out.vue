@@ -62,8 +62,8 @@
         })
       },
       submit(){
-        console.log(this.zNum)
-        console.log(this.zcNum)
+        //console.log(this.zNum)
+        //console.log(this.zcNum)
         if( this.zNum < this.zcNum ){
           this.$bus.$emit('alert', '数量不能大于可用dcc的数值')
           return false;

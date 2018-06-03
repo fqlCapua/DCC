@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     toggle (index) {
-      console.log(index)
+      //console.log(index)
     	if (index === 3) {
     		 this.logOut() // 退出登录
     	} else {

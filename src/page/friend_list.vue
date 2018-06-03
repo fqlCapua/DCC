@@ -176,10 +176,10 @@ export default {
 	  haveTimeBack (data) {
 	  	if(this.isShow){
 	  		this.shiftTo.sumUp.date_time = data.substr(0, 7)
-        console.log(data)
+        //console.log(data)
 	  	}else{
 	  		this.rollOut.sumUp.date_time = data.substr(0, 7)
-        console.log(data)
+        //console.log(data)
 	  	}
         
    },

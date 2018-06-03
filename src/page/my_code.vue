@@ -171,7 +171,7 @@ export default {
       },
     toggleTabs:function(id){
         this.selectTab=id;
-       // console.log(this.selectTab);
+       // //console.log(this.selectTab);
      if (this.selectTabIng || this.selectTab === id) return false
         this.selectTabIng = true;
         this.selectTab = id;

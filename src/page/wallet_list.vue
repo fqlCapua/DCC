@@ -83,7 +83,7 @@ export default {
 	      this.axios.post('withDrawDccList', {
 	       token:this.token
 	      }).then(({data}) => {
-	           console.log(data)
+	           //console.log(data)
 	      })
       },
     // 触发时间选择器
@@ -96,7 +96,7 @@ export default {
     },
     haveTimeBack (data) {
         this.time = data.substr(0, 7)
-        console.log(data)
+        //console.log(data)
       }
   },
   components: {

@@ -99,7 +99,7 @@ export default {
   mounted () {
 
     let $that =this;
-//    console.log($that.getCookie('token'))
+//    //console.log($that.getCookie('token'))
     this.$bus.$emit('footer', {
       button: [],
       navShow: true

@@ -82,7 +82,7 @@ export default {
         code:this.code,
         password:this.pass
       }).then(({data}) => {
-        console.log(data)
+        //console.log(data)
         if (data.ret === 0){
           let token=data.data.token;
           this.setCookie("token",token)
@@ -124,7 +124,7 @@ export default {
         cap: $that.cap,
         captcha:$that.captCha
       }).then(({data}) => {
-        console.log(data)
+        //console.log(data)
       })
     },
     tab(){

@@ -41,7 +41,7 @@
           token:this.getCookie('token')
         }).then(({data}) =>{
           $that.list =data.data;
-          console.log($that.list)
+          //console.log($that.list)
         })
       }
 

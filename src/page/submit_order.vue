@@ -59,7 +59,7 @@ import orderSuccess from './orderSuccess'
           token:this.getCookie("token")
         }).then(({data}) => {
           this.mac=data.data;
-          console.log(this.mac[0].amount)
+          //console.log(this.mac[0].amount)
           if( localStorage.getItem('id') == 1){
             this.ustd =this.mac[0].amount
           }

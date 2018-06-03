@@ -65,6 +65,14 @@ export default {
     	}
     }),
     this.init()
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -109,7 +117,7 @@ export default {
       if (this.form.dccNum.num === '') return this.$bus.$emit('alert', '請輸入轉出數量')
       if (this.form.wallet.num === '') return this.$bus.$emit('alert', '請輸入錢包地址')
       if (this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
-      
+
       this.axios.post('quotation/decl_from', {
         usdt: this.form.usdt.num,
         carry_usdt: this.form.backCode.num,
@@ -119,7 +127,7 @@ export default {
         this.$bus.$emit('alert', data.message)
         if (data.status === 200) this.$router.go(-1)
       })
-      
+
     }
   }
 }

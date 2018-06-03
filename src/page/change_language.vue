@@ -26,6 +26,16 @@ export default {
       activeNum: 1
     }
   },
+  mounted() {
+    if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+      this.$bus.$emit('alertCer', {
+        msg:"請重新登錄"
+      });
+      setTimeout(function () {
+        this.$router.push('/login')
+      },2000)
+    }
+  },
   methods: {
     finish () {
       if (this.activeNum === 2) {

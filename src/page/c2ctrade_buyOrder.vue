@@ -4,7 +4,7 @@
 		<div class="tradeNavBox">
 			<!--返回图标-->
 			<router-link to="C2CTradeDcc"><i class="iconfont icon-fanhuijiantou returnBtn"></i></router-link>
-			
+
 			<div class="tradeNav">
 				<div class="tradeNav_wz" v-for="(item,index) in tradeNav" :class="{'active':addClass == index}" :key='index' @click="tabNav(item,index)">
 					<router-link :to='item.router'>{{item.title}}</router-link>
@@ -78,6 +78,7 @@
 			tabNav(val, index) {
 				this.addClass = index;
 			}
+
 		}
 
 	}

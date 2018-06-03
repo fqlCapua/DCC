@@ -45,7 +45,15 @@
       this.$bus.$emit('pageHead', '團隊獎勵')
       this.init()
       this.token =this.getCookie("token")
-      this.teamReward()
+      this.teamReward();
+        if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            this.$router.push('/login')
+          },2000)
+        }
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')

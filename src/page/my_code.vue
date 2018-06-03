@@ -3,7 +3,7 @@
   <div class="my_code">
    <!--<p class="iconfont icon-fanhuijiantou" @click="back"></p>
    <div class="header_top">
-     :class="[selectTab === 0 ?'option_active':'option_normal']" 
+     :class="[selectTab === 0 ?'option_active':'option_normal']"
     <div class="codeTab"  >
       <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">推广二维码</span>
       <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">收款二维码</span>
@@ -14,7 +14,7 @@
       	 <div class="img_box">
       	   	<img  :src="myCodeImg" alt="推广下级二维码" />
       	 </div>
-          
+
           <div class="img_tips">推广下级二维码</div>
           <div class=" img_extend_code">
               <span>您的推广码：</span>
@@ -119,6 +119,16 @@ export default {
   },
   mounted () {
   	this.$bus.$emit('pageHead', '推广二维码')
+
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
+
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -133,10 +143,10 @@ export default {
       	let base64Data = "data:image/png;base64,";
           this.myCode = data.data.ShareCode.r_code
           this.myCodeImg = base64Data + data.data.ShareCode.img
-          
+
           this.TeamCode = data.data.TeamCode.com_code
           this.TeamCodeImg = base64Data + data.data.TeamCode.img
-          
+
       });
     },
     // 生成二维码

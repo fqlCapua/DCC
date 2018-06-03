@@ -20,7 +20,16 @@
     },
     mounted () {
       this.$bus.$emit('pageHead', '公告詳情')
-      this.detailId = this.$route.query.id
+      this.detailId = this.$route.query.id;
+
+        if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            this.$router.push('/login')
+          },2000)
+        }
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')

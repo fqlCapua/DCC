@@ -40,6 +40,15 @@ import orderSuccess from './orderSuccess'
         this.num()
         this.macd()
         this.phone = localStorage.getItem("phone");
+
+        if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            this.$router.push('/login')
+          },2000)
+        }
     },
     destroyed () {
       this.$bus.$emit('pageHead');

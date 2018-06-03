@@ -65,7 +65,7 @@
         })
       },
       submit(){
-        console.log(this.name)
+        //console.log(this.name)
         if (this.code === '') return this.$bus.$emit('alert', '请输入手机验证码');
         if(this.name === undefined){
           this.$bus.$emit('alert', '没有此账户');

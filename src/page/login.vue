@@ -62,7 +62,7 @@ export default {
       }).then(({data}) => {
         if (data.ret === 0){
           let token=data.data.token;
-          console.log(token)
+          //console.log(token)
             this.setCookie('token',token);
           this.$bus.$emit('alertCer', {
             msg:"登录成功"
@@ -106,7 +106,7 @@ export default {
         cap: $that.cap,
         captcha:$that.captCha
       }).then(({data}) => {
-        console.log(data)
+        //console.log(data)
       })
     },
     tab(){

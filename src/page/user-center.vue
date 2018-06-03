@@ -194,7 +194,7 @@ export default {
         token:this.getCookie("token"),
       }).then(({data}) => {
         this.img = data.data.head
-        console.log(this.img)
+        //console.log(this.img)
       })
     },
     // 数字格式化

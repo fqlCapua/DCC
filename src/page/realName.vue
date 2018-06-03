@@ -62,7 +62,7 @@ export default {
       this.createImage_z(files[0]);
     },
     createImage_z(file) {
-      console.log(this)
+      //console.log(this)
       var image1 = new Image();
       var reader = new FileReader();
       let $that = this;
@@ -111,7 +111,7 @@ export default {
       }).then(({ data }) => {
         if (data.ret === 401) this.$router.push('login')
         vm.list.push(data.data.server_url)
-        console.log(vm.list)
+        //console.log(vm.list)
       })
     }
 

@@ -74,7 +74,7 @@
           token:this.token,
           month:time||""
         }).then(({data}) => {
-            console.log(data)
+            //console.log(data)
             this.allMoney = data.data.total
             this.nowList =  data.data.items
             let aa = [];

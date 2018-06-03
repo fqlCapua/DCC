@@ -104,7 +104,7 @@ export default {
     captchaInfo (){
     	  this.axios.get('captchaInfo')
     	  .then(({data}) => {
-          console.log(data)
+          //console.log(data)
           if(data.ret ==0){
           	  this.captchaImg = data.data.img;
           	  this.Imgstr = data.data.str;
@@ -138,7 +138,7 @@ export default {
     	 	  cap:this.Imgstr,
     	 	  captcha:this.form.captcha.num
     	 }).then(({data}) => {
-          console.log(data)
+          //console.log(data)
           if(data.ret ==0){
           	  this.isCap = true;
           }

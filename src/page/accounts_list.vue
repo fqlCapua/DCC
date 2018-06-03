@@ -85,7 +85,7 @@ export default {
 	  },
 	  haveTimeBack (data) {
         this.time = data.substr(0, 7)
-        console.log(data)
+        //console.log(data)
     }
   },
   components:{

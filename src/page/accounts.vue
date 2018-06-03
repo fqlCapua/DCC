@@ -74,13 +74,14 @@
           this.axios.post('withDrawDcc',{
             token:this.getCookie("token"),
             amount:this.zcNum,
-            sn:this.code,
+            code:this.code,
             to_uid:this.phone
           }).then(({data}) => {
             if(data.ret === 0){
               this.$router.go(-1)
             }else{
-              this.$bus.$emit('alert', '交易失败请重新交易');
+              this.$bus.$emit('alert', data.msg);
+
             }
           })
         }

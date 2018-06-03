@@ -99,7 +99,7 @@ export default {
       }).then(({ data }) => {
         //          this.userUpload ()
         if (data.ret === 0) {
-          this.$router.push({ path: 'realPresent' })
+          this.$router.push({ path: 'submitSuccess'})
         }
       })
     },

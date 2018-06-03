@@ -12,6 +12,7 @@ export default {
   name: 'setting',
   data () {
     return {
+      certification:'',
       list: [
         {
           	title: '修改登录密碼',
@@ -39,6 +40,7 @@ export default {
   },
   mounted () {
     this.$bus.$emit('pageHead', '設置')
+    this.home()
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -51,6 +53,11 @@ export default {
     	} else {
     		this.$router.push({path: this.list[index].router})
     	}
+    	if(index === 2){
+    	  if(this.certification == 1){
+          this.$router.push('/authentication')
+        }
+      }
     },
     logOut () {
     	// 退出登录
@@ -64,7 +71,16 @@ export default {
             $that.$router.push('login')
           },2000)
        }
+    },
+    home(){
+      this.axios.post('userHomePage', {
+        token: this.getCookie("token"),
+      }).then(({ data }) => {
+        this.certification =data.data.certification
+        console.log(this.certification)
+      })
     }
+
   },
 }
 </script>

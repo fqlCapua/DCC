@@ -120,8 +120,6 @@ export default {
       userList2: [],
       userList3: [],
       userList4: [],
-
-
     }
   },
   beforeMount() {

@@ -16,7 +16,7 @@
     </label>
     <label class="label" for="yzm">
      <span class="icon iconfont icon-theearth2diqiu"></span>
-      <input class="input" id="yzm" type="password" v-model="captCha" placeholder="请输入验证码">
+      <input class="input" id="yzm" type="text" v-model="captCha" placeholder="请输入验证码">
       <span class="yzmBox" @click="tab"><img :src="img" alt="" width="100%" height="100%"></span>
     </label>
     <div class="option">
@@ -63,7 +63,6 @@ export default {
         if (data.ret === 0){
           let token=data.data.token;
           console.log(token)
-//          window.localStorage.setItem('token',token);
             this.setCookie('token',token);
           this.$bus.$emit('alertCer', {
             msg:"登录成功"
@@ -85,7 +84,6 @@ export default {
           });
         }
         if(data.ret === 1){
-          //this.$bus.$emit('alertCer', data.msg);
           this.$bus.$emit('alertCer', {
             msg:data.msg
           });

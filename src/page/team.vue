@@ -13,7 +13,7 @@
             <p class="teamtitle">團隊總數</p>
           </div>
         </div>
-        <div class="select tabChild1" id="select">
+        <div class="select tabChild1"  >
           <div class="select_content">
             <p class="option" @click="selectTabFun(0)" :class="{option_child_active:selectTabChild==0}">下級</p>
             <p class="option" @click="selectTabFun(1)" :class="{option_child_active:selectTabChild==1}">會員</p>
@@ -51,7 +51,7 @@
             <p class="teamtitle">{{shareText}}</p>
           </div>
         </div>
-        <div class="select tab_child2" id="select">
+        <div class="select tab_child2"  >
           <div class="select_content">
             <p class="option1" @click="selectTabFun1(0)" :class="{option_child_active:selectTabChild2==0}">直接分享</p>
             <p class="option1" @click="selectTabFun1(1)" :class="{option_child_active:selectTabChild2==1}">間接分享</p>
@@ -315,7 +315,7 @@ export default {
   }
 }
 
-#select {
+.select {
   color: $mainColor;
   margin: 35px auto;
   background: $bgColorLow;

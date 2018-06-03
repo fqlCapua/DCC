@@ -182,6 +182,14 @@
 		      button: [],
 		      navShow: true
 		    })
+        if(!this.getCookie('token') || this.getCookie('token') === "null" ) {
+          this.$bus.$emit('alertCer', {
+            msg: "請重新登錄"
+          });
+          setTimeout(function () {
+            this.$router.push('/login')
+          }, 2000)
+        }
 		  },
 		  beforeDestroy () {
 		    this.$bus.$emit('footer', false)
@@ -209,7 +217,7 @@
 	i {
 		font-style: normal;
 	}
-	
+
 	.trade_usdt {
 		padding: 22px 0 0 0;
 		background: #040301;
@@ -303,7 +311,7 @@
 				a {
 					color: #fff;
 				}
-				
+
 				.listNav_buyOfftake,
 				.listNav_myOrder {
 					font-size: 24px;

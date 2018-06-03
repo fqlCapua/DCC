@@ -64,19 +64,27 @@ export default {
   mounted () {
     this.$bus.$emit('pageHead','轉出記錄'),
     this.init()
-    this.withDrawDccList()
+    this.withDrawDccList();
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
   },
   destroyed () {
     this.$bus.$emit('pageHead')
   },
 
   methods: {
-  	
+
   	init () {
   		   this.token = this.getCookie("token");
         // 更改时间
         let theTime = new Date()
-        this.time = theTime.getFullYear() + '-' 
+        this.time = theTime.getFullYear() + '-'
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
       },
       withDrawDccList (){
@@ -123,10 +131,10 @@ export default {
 	    		font-size: 36px;
 	    	}
     	}
-    	
+
     }
     .wallet_ul{
-    	
+
     	.wallet_li{
     		height:150px;
     		background: #3f3c3c;
@@ -154,13 +162,13 @@ export default {
     				&.active2{
     					color:#fc6e89;
     				}
-    				
+
     			}
     			.out_sum{
     				font-size:28px;
     				color:#d7a82b;
     			}
-    			
+
     		}
     		.out_time{
 				color:#d1b56a;

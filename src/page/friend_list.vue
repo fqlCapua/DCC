@@ -42,9 +42,9 @@
 		  				<span class="_time">{{rollOut.sumUp.date_time}}</span>
 	      	    <span class="iconfont" :class="timeIcon"></span>
 		  			</span>
-		  			
+
 		  		</div>
-	      	
+
 	      </div>
 	      <ul>
 	  	  <li class="_list" v-for="(item, index) in rollOut.rollOutList" :key="index">
@@ -67,7 +67,7 @@ export default {
   data () {
     return {
     	time:"",
-      active: 0, 
+      active: 0,
       isShow:true,
       timeIcon:"icon-kongtiaoguankong-",
       tab: [
@@ -136,20 +136,29 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    this.init();
+
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
   },
   beforeMount () {
-  	
+
   },
   methods: {
   	init () {
         // 更改时间
         let theTime = new Date()
-        this.time = theTime.getFullYear() + '-' 
+        this.time = theTime.getFullYear() + '-'
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
-        this.shiftTo.sumUp.date_time =  this.time                    
-        this.rollOut.sumUp.date_time =  this.time                    
-                              
+        this.shiftTo.sumUp.date_time =  this.time
+        this.rollOut.sumUp.date_time =  this.time
+
       },
     toggle (index) {
     	this.active = index
@@ -181,7 +190,7 @@ export default {
 	  		this.rollOut.sumUp.date_time = data.substr(0, 7)
         //console.log(data)
 	  	}
-        
+
    },
     back(){
     	 this.$router.go(-1)
@@ -238,7 +247,7 @@ export default {
 	      	&.active_tab{
 	      		 background: #d7a82b;
 	      		 color:#000;
-	      		 
+
 	      	}
 	      }
     	}
@@ -256,7 +265,7 @@ export default {
 	    		font-size: 36px;
     	  }
     	}
-    	
+
     	div{
     		&:first-child{
     			color: #d1b56a;
@@ -288,7 +297,7 @@ export default {
     				font-size:28px;
     				color:#d7a82b;
     			}
-    			
+
     		}
     		.out_time{
 				color:#d1b56a;

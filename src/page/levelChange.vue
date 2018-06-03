@@ -65,7 +65,15 @@
 		   let vm = this;
 		   this.$bus.$emit('pageHead',"等级兑换")
 		   this.Phone = localStorage.getItem("phone")
-       this.grades()
+       this.grades();
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
 		},
 		destroyed() {
 			this.$bus.$emit('pageHead');

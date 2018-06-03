@@ -43,6 +43,15 @@ export default {
   mounted () {
     this.imgCaptcha();
     this.getCookie();
+
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
   },
   methods: {
     // 獲取驗證碼

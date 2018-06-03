@@ -59,7 +59,15 @@
     mounted () {
       this.$bus.$emit('pageHead', '考核獎勵');
       this.init()
-      this.appraisalsReward()
+      this.appraisalsReward();
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')

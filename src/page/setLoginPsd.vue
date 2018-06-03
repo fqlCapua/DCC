@@ -59,7 +59,15 @@ export default {
   },
   mounted () {
     this.$bus.$emit('pageHead', '修改登录密碼')
-    this.init()
+    this.init();
+      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          this.$router.push('/login')
+        },2000)
+      }
   },
    computed: {
     showPhone () {

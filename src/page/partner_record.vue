@@ -15,7 +15,7 @@
       	 </div>
       	 <div class="_time">{{item.created}}</div>
       </li>
-      <li v-if="" style="line-height: 50px;color: #fff;text-align: center;font-size: 16px;">暂无记录</li>
+      <li v-show="!list.length" style="line-height: 50px;color: #fff;text-align: center;font-size: 16px;">暂无记录</li>
   </ul>
 </template>
 

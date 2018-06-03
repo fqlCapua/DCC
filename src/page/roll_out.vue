@@ -84,7 +84,7 @@
             wallet_address:this.address,
 //        数量
             amount:this.zcNum,
-            sn:this.code
+            code:this.code
           }).then(({data}) => {
           	if(!data.ret){
           		 this.$router.push({path:'submitSuccess' })

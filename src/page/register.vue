@@ -14,15 +14,15 @@
       <span class="icon iconfont icon-shouji"></span>
       <input class="input number" id="phone" type="number" v-model="phone" placeholder="請輸入手機號碼">
     </label>
+    <label class="label" for="area">
+      <span class="icon iconfont icon-theearth2diqiu"></span>
+      <input class="input" id="area" type="text" v-model="captCha"  placeholder="请输入验证码">
+      <span class="more" @click="tab"><img :src="img" alt="" width="100%" height="100%"></span>
+    </label>
 		<label class="label" for="code">
       <span class="icon iconfont icon-navicon-dxmbwh"></span>
       <input class="input" id="code" type="text" v-model="code" placeholder="請輸入驗證碼">
       <button class="code_button" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : `${codeTime}s後重試`}}</button>
-    </label>
-		<label class="label" for="area">
-      <span class="icon iconfont icon-theearth2diqiu"></span>
-      <input class="input" id="area" type="text" v-model="captCha"  placeholder="请输入验证码">
-      <span class="more" @click="tab"><img :src="img" alt="" width="100%" height="100%"></span>
     </label>
     <!--验证码和登录密码-->
 		<label class="label">
@@ -69,56 +69,59 @@
 		methods: {
 			// 獲取驗證碼
 			getCode() {
-				if(this.codeTime !== 61) return false;
-				if(this.phone === '') return this.$bus.$emit('alert', '請輸入手機號碼')
-				this.codeTime = 60
-				let timer = setInterval(() => {
-					if(--this.codeTime === 0) {
-						this.codeTime = 61
-						clearInterval(timer)
-					}
-				}, 1000)
-				this.axios.post('sms', {
-					phoneNo: this.phone
-				}).then(({
-					data
-				}) => {
-				})
+           this.checkoutCaptcha()
 			},
 
 			// 註冊提交
 			submit() {
-				if(this.phone === '' || !(/^1[34578]\d{9}$/.test(this.phone))) return this.$bus.$emit('alert', '請輸入手機號碼');
-				if(this.code === '') return this.$bus.$emit('alert', '請輸入手機驗證碼');
-				this.axios.post('userRegister', {
-          username: this.phone,
-          password:this.psd,
-          captcha:this.captCha,
-          cap: this.imgData,
-          code:this.code
-				}).then(({
-					data
-				}) => {
-					if(data.ret === 0) {
-            let token=data.data.token;
-            let $that = this;
-            this.setCookie('token',token);
-						this.$bus.$emit('alertCer',{
-							msg: '恭喜您登錄成功',
-						});
-            setTimeout(function () {
-              $that.$router.push('/index');
-            },2000)
-					} else {
-					  if(data.msg=='图片验证码不匹配'){
-					    this.imgCaptcha();
-					    this.captCha = '';
-              this.$bus.$emit('alertCer','驗證碼不匹配');
-            }
-            this.$bus.$emit('alertCer',data.msg);
-					}
-				})
+			 this.colo()
 			},
+      colo(){
+        this.axios.post('userCount', {
+          phone: this.phone,
+        }).then(({
+                   data
+                 }) => {
+           console.log(data)
+          if(data.data == 1){
+             return this.$bus.$emit('alertCer',data.msg);
+          }else{
+
+            if(this.phone === '' || !(/^1[34578]\d{9}$/.test(this.phone))) return this.$bus.$emit('alert', '請輸入手機號碼');
+            if(this.code === '') return this.$bus.$emit('alert', '請輸入手機驗證碼');
+            this.axios.post('userRegister', {
+              username: this.phone,
+              password:this.psd,
+              captcha:this.captCha,
+              cap: this.imgData,
+              code:this.code
+
+            }).then(({
+                       data
+                     }) => {
+              if(data.ret === 0) {
+                let token=data.data.token;
+                let $that = this;
+                this.setCookie('token',token);
+                this.$bus.$emit('alertCer',{
+                  msg: '恭喜您登錄成功',
+                });
+                setTimeout(function () {
+                  $that.$router.push('/index');
+                },2000)
+              } else {
+                if(data.msg=='图片验证码不匹配'){
+                  this.imgCaptcha();
+                  this.captCha = '';
+                  this.$bus.$emit('alertCer','驗證碼不匹配');
+                }
+                this.$bus.$emit('alertCer',data.msg);
+              }
+            })
+          }
+        })
+
+      },
 			bock() {
 				this.$router.go(-1)
 			},
@@ -143,6 +146,25 @@
 				}).then(({
 					data
 				}) => {
+				  if(data.ret== 1){
+             return this.$bus.$emit('alertCer','驗證碼不匹配');
+          }else{
+            if(this.codeTime !== 61) return false;
+            if(this.phone === '') return this.$bus.$emit('alert', '請輸入手機號碼')
+            this.codeTime = 60;
+            let timer = setInterval(() => {
+              if(--this.codeTime === 0) {
+                this.codeTime = 61;
+                clearInterval(timer)
+              }
+            }, 1000);
+            this.axios.post('sms', {
+              phoneNo: this.phone
+            }).then(({
+                       data
+                     }) => {
+            })
+          }
 				})
 			},
 		},

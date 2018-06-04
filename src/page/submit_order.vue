@@ -103,14 +103,20 @@ import orderSuccess from './orderSuccess'
               code:this.code
           }).then(({data}) => {
              this.$bus.$emit('alertCer', data.msg)
-             this.orderSuccess = data.data
-             this.orderSuccess.show = true
-           if(data.msg ==="操作成功"){
-             setTimeout(function () {
+            if(data.ret == 0){
+              this.orderSuccess = data.data
+              this.orderSuccess.show = true
+              if(data.msg ==="操作成功"){
+                setTimeout(function () {
 //             $that.$router.push({path:'orderSuccess' })
+                },2000)
+              }
 
-             },2000)
-           }
+            }else{
+              this.$bus.$emit('alertCer', {
+                msg:data.msg
+              });
+            }
 
 
 

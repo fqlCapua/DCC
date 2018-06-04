@@ -55,7 +55,7 @@
         this.axios.post('userHomePage', {
           token:this.getCookie("token")
         }).then(({data}) => {
-          this.zNum = data.data.DCC_total.replace(/，/ig,'.')
+          this.zNum = data.data.DCC_total
         })
       },
       getCode(){
@@ -74,25 +74,35 @@
       },
       submit(){
         //console.log(this.name)
-        if (this.code === '') return this.$bus.$emit('alert', '请输入手机验证码');
-        if(this.name === undefined){
-          this.$bus.$emit('alert', '没有此账户');
-          return false;
-        }else{
-          this.axios.post('withDrawDcc',{
-            token:this.getCookie("token"),
-            amount:this.zcNum,
-            code:this.code,
-            to_uid:this.phone
-          }).then(({data}) => {
-            if(data.ret === 0){
-              this.$router.go(-1)
-            }else{
-              this.$bus.$emit('alert', data.msg);
+        let $that =this;
+        if( this.zNum.replace(/,/ig,'') < this.zcNum ){
+          this.$bus.$emit('alert', '数量不能大于可用dcc的数值')
+          return false;}else{
+          if (this.code === '') return this.$bus.$emit('alert', '请输入手机验证码');
+          if(this.name === undefined){
+            this.$bus.$emit('alert', '没有此账户');
+            return false;
+          }else{
+            this.axios.post('withDrawDcc',{
+              token:this.getCookie("token"),
+              amount:this.zcNum,
+              code:this.code,
+              to_uid:this.phone
+            }).then(({data}) => {
+              if(data.ret === 0){
+                this.$bus.$emit('alertCer',data.msg)
+                setTimeout(function () {
+                  $that.$router.go(-1)
+                },2000)
 
-            }
-          })
+              }else{
+                this.$bus.$emit('alert', data.msg);
+
+              }
+            })
+          }
         }
+
 
 
       }

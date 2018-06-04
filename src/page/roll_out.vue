@@ -54,7 +54,7 @@
         this.axios.post('userHomePage', {
           token:this.getCookie("token")
         }).then(({data}) => {
-         this.zNum = data.data.DCC_total.replace(/，/ig,'.');
+         this.zNum = data.data.DCC_total;
         })
       },
       getCode(){
@@ -72,9 +72,9 @@
         })
       },
       submit(){
-        //console.log(this.zNum)
+        console.log(this.zNum)
         //console.log(this.zcNum)
-        if( this.zNum < this.zcNum ){
+        if( this.zNum.replace(/,/ig,'') < this.zcNum ){
           this.$bus.$emit('alert', '数量不能大于可用dcc的数值')
           return false;
         }else if((/0x[0-9a-zA-Z]{40}/.test(this.address))){

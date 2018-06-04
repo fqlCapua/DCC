@@ -25,7 +25,7 @@
           <div class="img_box">
       	   	<img  :src="TeamCodeImg"  alt="会员二维码" />
       	 </div>
-          <div class="img_tips">会员二维码</div>
+          <div class="img_tips">团队二维码</div>
           <div class=" img_extend_code">
               <span>您的推广码：</span>
               <span>{{TeamCode}}</span>
@@ -229,8 +229,8 @@ export default {
         padding:50px 0 25px 0;
          text-align:center;
          .img_box{
-         	  width:40vw;
-         	  height:40vw;
+         	  width:55vw;
+         	  height:55vw;
             margin:0 auto;
             border:1px solid #fff;
             background-image:url(../assets/images/zwimg.png);

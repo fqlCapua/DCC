@@ -26,9 +26,13 @@
 		</div>
 		<myAddress></myAddress>
     <div class="modul" v-show="show">
-      <div></div>
+      <div @click="closeType"></div>
        <ul>
-         <li v-for="(item,index) in list" @click="cele(index)">{{item.name}}</li>
+         <li v-for="(item,index) in list" @click="cele(index)" :key="index">
+         	<span>{{item.name}}</span>
+         	<span>{{item.amount}} DCC</span>
+         	<span class="garden" :class="{'active':addActive === index }"></span>
+         </li>
        </ul>
     </div>
 	</div>
@@ -42,6 +46,7 @@
 		name: 'levelChange',
 		data() {
 			return {
+				addActive:"",
 				addr:"",
         level_id:"",
         city_id:'',
@@ -79,10 +84,6 @@
 			this.$bus.$emit('pageHead');
 		},
 		methods: {
-			back() {
-				this.$router.go(-1)
-			},
-
 			getCode() {
 				if(this.codeTime !== 61) return false
 				this.codeTime = 60
@@ -111,9 +112,9 @@
           code:this.PhoneCode
 				}).then(({data}) => {
 				  let $that = this;
-					this.$bus.$emit('alertCer', data.msg)
+					this.$bus.$emit('alertCer', "提交成功")
           setTimeout(function () {
-            if(data.ret ===0) $that.$router.go(-1)
+            if(data.ret ===0) $that.$router.push("/submitSuccess")
           },2000)
 
 				})
@@ -140,15 +141,23 @@
         })
       },
       cele(index){
+      	let $that = this
         this.grade =this.list[index].name;
         this.level_id=this.list[index].id;
+        this.addActive = index
         if(!this.grade == ""){
-          this.show = false;
+//        this.show = false;
+          setTimeout(function(){
+    	   	   $that.closeType()
+    	   },200)
         }
         this.amount =this.list[index].amount
       },
+      closeType (){
+       	this.show = false;
+      },
       call(){
-         this.show = true;
+        this.show = true;
       }
 		},
 		components: {
@@ -258,21 +267,41 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.4);
-      z-index: -1;
+      z-index: 2;
     }
     ul{
-      width: 100vw;
-      height: 30.33333vw;
+      width: 64vw;
       background: #fff;
       position: absolute;
-      bottom: 0;
-      left: 0;
-      text-align: center;
-      padding-top:5vw;
+      top:50%;
+      left:50%;
+      padding: 20px 30px;
+      transform: translate(-50%,-50%);
+      border-radius: 10px;
+      z-index: 5;
       li{
-        font-size:35px;
-        height:60px;
-        line-height:60px;
+      	display: flex;
+      	justify-content: space-between;
+        font-size:30px;
+        height:80px;
+        line-height:80px;
+        .garden{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			border: 1px solid #eee;
+			padding: 4px;
+			box-sizing: border-box;
+			margin-top: 25px;
+			&.active:before{
+				content: "";
+				width: 100%;
+			    height: 100%;
+			    display: block;
+			    border-radius: 50%;
+			    background-color: #D7A82B;
+			}
+        }
       }
     }
   }

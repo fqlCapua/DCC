@@ -8,14 +8,15 @@
       	</span>
       </div>
       <ul class="wallet_ul">
-      	<li class="wallet_li" v-for="(item, index) in list" :key="index">
+      	<li v-if="list.length > 0" class="wallet_li" v-for="(item, index) in list" :key="index">
       		<div class="out_box">
-      			<div class="out_title">{{item.title}}</div>
-      			<div class="out_type" :class="'active'+item.type">{{item.state}}</div>
-      			<div class="out_sum">{{item.sum}}</div>
+      			<div class="out_title">轉出</div>
+      			<div class="out_type active">{{item.status}}</div>
+      			<div class="out_sum">{{item.trans_amount}}</div>
       		</div>
-      		<div class="out_time">{{item.time}}</div>
+      		<div class="out_time">{{item.created}}</div>
       	</li>
+      	<div v-else style="color: #fff;font-size: 13px;text-align: center;line-height: 70px;">暫無記錄</div>
       </ul>
   </div>
 </template>
@@ -29,36 +30,7 @@ export default {
        time:'',
        token:"",
        timeIcon:"icon-kongtiaoguankong-",
-       list:[
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"已完成",
-		          sum:"1,000.0000",
-		          type:0
-	          },
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"審核中",
-		          sum:"1,000.0000",
-		          type:1
-	          },
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"已駁回",
-		          sum:"1,000.0000",
-		          type:2
-	          },
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"已完成",
-		          sum:"1,000.0000",
-		          type:0
-	          }
-       ]
+       list:[]
     }
   },
   mounted () {
@@ -92,6 +64,7 @@ export default {
 	       token:this.token
 	      }).then(({data}) => {
 	           //console.log(data)
+	           this.list = data.data
 	      })
       },
     // 触发时间选择器
@@ -156,10 +129,13 @@ export default {
     				&.active0{
     					color:#4793f1;
     				}
-    				&.active1{
+    				&.active{
     					color:#ff8631;
     				}
     				&.active2{
+    					color:#fc6e89;
+    				}
+    				&.active3{
     					color:#fc6e89;
     				}
 

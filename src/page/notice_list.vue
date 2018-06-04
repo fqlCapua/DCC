@@ -2,9 +2,9 @@
   <div id="noticeList" class="pad_top">
     <router-link tag="div" :to="{path: 'noticeDetail', query: {id: item.id}}" class="notice" v-for="(item, index) in list" :key="index">
       <p class="title">{{ item.title }}</p>
-      <!--<p class="time">{{ item.time }}</p>-->
       <p class="iconfont icon-jinrujiantou"></p>
     </router-link>
+    <div  v-show="!list.length" style="color: #fff;font-size:20px;text-align: center">暫無獎勵</div>
   </div>
 </template>
 <script>
@@ -13,16 +13,6 @@
     data () {
       return {
         list: [
-          {
-            title: '重要！系統陞級提示，平臺于明日凌晨進行系統維護，給大家帶來的不便敬請見諒',
-//            time: '2018-04-14 15:23',
-            id: '1'
-          },
-          {
-            title: '重要！系統陞級提示，平臺于明日凌晨進行系統維護，給大家帶來的不便敬請見諒',
-//            time: '2018-04-14 15:23',
-            id: '2'
-          }
         ]
       }
     },

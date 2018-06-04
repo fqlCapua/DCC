@@ -54,7 +54,7 @@
         this.axios.post('userHomePage', {
           token:this.getCookie("token")
         }).then(({data}) => {
-         this.zNum = data.data.DCC_total
+         this.zNum = data.data.DCC_total.replace(/，/ig,'.');
         })
       },
       getCode(){

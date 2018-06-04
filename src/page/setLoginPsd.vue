@@ -90,29 +90,11 @@ export default {
       this.captchaInfo()
     },
     getCode () {
-      if (this.codeTime !== 61) return false
-      if (this.form.phone.num === '') return this.$bus.$emit('alert', '請輸入手機號碼')
-      this.codeTime = 60
-      let timer = setInterval(() => {
-        if (--this.codeTime === 0) {
-          clearInterval(timer)
-          this.codeTime = 61
-        }
-      }, 1000)
-      this.axios.post('sms', {
-        phoneNo: this.form.phone.num
-      }).then(({data}) => {
-        if (data.ret !== 0) {
-          clearInterval(timer);
-          this.codeTime = 61;
-          this.$bus.$emit('alert', data.data)
-        }
-      })
+       this.checkCaptcha()
     },
     captchaInfo (){
     	  this.axios.get('captchaInfo')
     	  .then(({data}) => {
-          //console.log(data)
           if(data.ret ==0){
           	  this.captchaImg = data.data.img;
           	  this.Imgstr = data.data.str;
@@ -140,7 +122,6 @@ export default {
          	    setTimeout(function () {
                 $that.$router.go(-1)
               },2000)
-
              }
       })
     },
@@ -153,6 +134,25 @@ export default {
          if(data.msg == '验证码不匹配'){
            this.captchaInfo()
            return  this.$bus.$emit('alertCer','驗證碼不匹配');
+         }else{
+           if (this.codeTime !== 61) return false
+           if (this.form.phone.num === '') return this.$bus.$emit('alert', '請輸入手機號碼')
+           this.codeTime = 60
+           let timer = setInterval(() => {
+             if (--this.codeTime === 0) {
+               clearInterval(timer)
+               this.codeTime = 61
+             }
+           }, 1000)
+           this.axios.post('sms', {
+             phoneNo: this.form.phone.num
+           }).then(({data}) => {
+             if (data.ret !== 0) {
+               clearInterval(timer);
+               this.codeTime = 61;
+               this.$bus.$emit('alert', data.data)
+             }
+           })
          }
           if(data.ret ==0){
           	  this.isCap = true;

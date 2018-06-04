@@ -89,9 +89,6 @@ export default {
       }).then(({
                  data
                }) => {
-//        this.$bus.$emit('alertCer', {
-//          msg: data.data
-//        });
       })
     },
     submit () {

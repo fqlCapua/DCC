@@ -83,9 +83,6 @@
 				}).then(({
 					data
 				}) => {
-//					this.$bus.$emit('alertCer', {
-//						msg: data.data
-//					});
 				})
 			},
 
@@ -113,7 +110,12 @@
               $that.$router.push('/index');
             },2000)
 					} else {
-						this.$bus.$emit('alert', data.msg)
+					  if(data.msg=='图片验证码不匹配'){
+					    this.imgCaptcha();
+					    this.captCha = '';
+              this.$bus.$emit('alertCer','驗證碼不匹配');
+            }
+            this.$bus.$emit('alertCer',data.msg);
 					}
 				})
 			},
@@ -128,8 +130,8 @@
 				this.axios.post('captchaInfo').then(({
 					data
 				}) => {
-					this.img = data.data.img
-					this.imgData = data.data.str
+					this.img = data.data.img;
+					this.imgData = data.data.str;
 
 				})
 			},
@@ -141,7 +143,6 @@
 				}).then(({
 					data
 				}) => {
-
 				})
 			},
 		},

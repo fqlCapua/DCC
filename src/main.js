@@ -24,7 +24,6 @@ headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 })
 
 Vue.prototype.axios.interceptors.response.use(res => {
-	 console.log(res)
   if (res.data.ret == 401) {
      router.push('/login')
     Vue.prototype.$bus.$emit('alert', '請登錄')

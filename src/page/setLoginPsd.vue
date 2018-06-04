@@ -58,7 +58,7 @@ export default {
     }
   },
   mounted () {
-    this.$bus.$emit('pageHead', '修改登录密碼')
+    this.$bus.$emit('pageHead', '修改登录密碼');
     this.init();
       if(!this.getCookie('token') || this.getCookie('token') === "null" ){
         this.$bus.$emit('alertCer', {
@@ -71,7 +71,7 @@ export default {
   },
    computed: {
     showPhone () {
-      let phoneStr
+      let phoneStr;
       if (typeof (this.form.phone.num) !== 'string') {
         phoneStr = this.form.phone.num.toString()
       } else {
@@ -103,8 +103,8 @@ export default {
         phoneNo: this.form.phone.num
       }).then(({data}) => {
         if (data.ret !== 0) {
-          clearInterval(timer)
-          this.codeTime = 61
+          clearInterval(timer);
+          this.codeTime = 61;
           this.$bus.$emit('alert', data.data)
         }
       })
@@ -120,7 +120,7 @@ export default {
       })
     },
     submit () {
-
+  let $that = this;
     	//this.checkCaptcha ()  //图片验证
 
       if (this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
@@ -136,8 +136,11 @@ export default {
         cap:this.Imgstr,
       }).then(({data}) => {
              if(data.ret == 0){
-//           	   this.$bus.$emit('alert','修改成功');
-             	   this.$router.go(-1)
+               $that.$bus.$emit('alertCer','修改成功');
+         	    setTimeout(function () {
+                $that.$router.go(-1)
+              },2000)
+
              }
       })
     },
@@ -147,9 +150,14 @@ export default {
     	 	  captcha:this.form.captcha.num
     	 }).then(({data}) => {
           //console.log(data)
+         if(data.msg == '验证码不匹配'){
+           this.captchaInfo()
+           return  this.$bus.$emit('alertCer','驗證碼不匹配');
+         }
           if(data.ret ==0){
           	  this.isCap = true;
           }
+
       })
     }
   }

@@ -127,6 +127,7 @@
 		     },
 		     haveAddress (data){
 		     	this.addr = data.addressStr
+           console.log(data)
 		     	this.city_id = data.code   //id
 		     },
 //       等级

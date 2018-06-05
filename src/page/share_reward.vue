@@ -99,17 +99,24 @@
       this.directReward()
       this.relativeReward()
       this.$bus.$emit('pageHead', '分享獎勵')
-
+       let $that=this;
 
         if(!this.getCookie('token') || this.getCookie('token') === "null" ){
           this.$bus.$emit('alertCer', {
             msg:"請重新登錄"
           });
           setTimeout(function () {
-            this.$router.push('/login')
+            $that.$router.push('/login')
           },2000)
         }
-
+      if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
 
 
     },

@@ -183,6 +183,7 @@
 		},
 
 		mounted () {
+      let $that = this;
 		    this.$bus.$emit('footer', {
 		      button: [],
 		      navShow: true
@@ -192,7 +193,15 @@
           msg:"請重新登錄"
         });
         setTimeout(function () {
-          this.$router.push('/login')
+          $that.$router.push('/login')
+        },2000)
+      }
+      if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
         },2000)
       }
 		  },

@@ -79,6 +79,7 @@ export default {
     logOut () {
     	// 退出登录
        this.delCookie('token');
+       localStorage.removeItem('token');
        if(!this.getCookie("token")){
           let $that =this;
          this.$bus.$emit('alertCer',{
@@ -88,6 +89,15 @@ export default {
             $that.$router.push('login')
           },2000)
        }
+      if(!localStorage.getItem("token")|| localStorage.getItem('token') === "null" ){
+        let $that =this;
+        this.$bus.$emit('alertCer',{
+          msg:'退出成功'
+        })
+        setTimeout(function(){
+          $that.$router.push('login')
+        },2000)
+      }
     },
     home(){
       this.axios.post('userHomePage', {

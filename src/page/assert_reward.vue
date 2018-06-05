@@ -67,7 +67,7 @@
         setTimeout(function () {
           this.$router.push('/login')
         },2000)
-      }
+      }  
     },
     beforeDestroy () {
       this.$bus.$emit('pageHead')

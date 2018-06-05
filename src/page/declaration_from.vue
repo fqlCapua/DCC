@@ -157,7 +157,7 @@ export default {
     // 跳轉詳情頁
     showInfo (item) {
       this.indexDetails = item
-      localStorage.setItem('id',item.id);
+      this.setCookie('id',item.id);
       this.indexDetails.show = true
     },
     // 關閉詳情事件

@@ -37,9 +37,9 @@ import orderSuccess from './orderSuccess'
           $that.$router.push('walletList')
         }
       }),
-        this.num()
-        this.macd()
-        this.phone = localStorage.getItem("phone");
+        this.num();
+        this.macd();
+        this.phone = this.getCookie("phone");
 
         if(!this.getCookie('token') || this.getCookie('token') === "null" ){
           this.$bus.$emit('alertCer', {
@@ -69,13 +69,13 @@ import orderSuccess from './orderSuccess'
         }).then(({data}) => {
           this.mac=data.data;
           //console.log(this.mac[0].amount)
-          if( localStorage.getItem('id') == 1){
+          if( this.getCookie('id') == 1){
             this.ustd =this.mac[0].amount
           }
-          if( localStorage.getItem('id') == 2){
+          if( this.getCookie('id') == 2){
             this.ustd =this.mac[1].amount
           }
-          if( localStorage.getItem('id') == 3){
+          if( this.getCookie('id') == 3){
             this.ustd =this.mac[2].amount
           }
         })
@@ -98,7 +98,7 @@ import orderSuccess from './orderSuccess'
            let $that= this;
           this.axios.post('coparntnerBuy', {
               token:this.getCookie("token"),
-              copartner_id:localStorage.getItem('id'),
+              copartner_id:this.getCookie('id'),
               usdt_code:this.usdt_code,
               code:this.code
           }).then(({data}) => {

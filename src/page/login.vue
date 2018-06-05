@@ -78,7 +78,7 @@ export default {
           } else if (/android/.test(ua)){
             window.localStorage.setItem('token',token)
           }
-          window.localStorage.setItem('token',token)
+          // window.localStorage.setItem('token',token)
           this.$bus.$emit('alertCer',{
             msg:"登录成功"
           });

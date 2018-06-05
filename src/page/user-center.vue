@@ -142,7 +142,7 @@ export default {
     		this.$router.push({path: this.list[index].router})
     },
     getInfo () {
-      let token = this.getCookie('token')
+      let token = this.getCookie('token');
       this.axios.post('userHomePage', {
        token:token
       }).then(({data}) => {
@@ -209,11 +209,6 @@ export default {
     },
     // 数字格式化
     formatNum (s, n) {
-      /*
-       * 参数说明：
-       * s：要格式化的数字
-       * n：保留几位小数
-       * */
       n = n > 0 && n <= 20 ? n : 2
       s = parseFloat((s + '').replace(/[^\d.-]/g, '')).toFixed(n) + ''
       let l = s.split('.')[0].split('').reverse()

@@ -93,9 +93,10 @@ export default {
     }
   },
   beforeMount () {
-    this.getInfo()
+    // this.getInfo()
   },
   mounted () {
+    this.getInfo()
     let $that = this;
     this.copyBtn = new Clipboard('.btn')
     this.$bus.$emit('footer', {

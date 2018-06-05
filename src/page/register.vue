@@ -57,12 +57,21 @@
 			}
 		},
     mounted() {
+		  let $that = this;
       if(!this.getCookie('token') || this.getCookie('token') === "null" ){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
         setTimeout(function () {
-          this.$router.push('/login')
+          $that.$router.push('/login')
+        },2000)
+      }
+      if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
         },2000)
       }
     },
@@ -103,6 +112,7 @@
                 let token=data.data.token;
                 let $that = this;
                 this.setCookie('token',token);
+                localStorage.setItem('token',token);
                 this.$bus.$emit('alertCer',{
                   msg: '恭喜您登錄成功',
                 });

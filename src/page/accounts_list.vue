@@ -1,13 +1,13 @@
 <template>
   <div class="c2c_list">
   	  <picker></picker>
-      <div class="date_time">
+      <!--<div class="date_time">
       	<span class="sp" @click="getTime">
       		<span class="_time">{{time}}</span>
       	  <span class="iconfont" :class="timeIcon"></span>
       	</span>
-      </div>
-      <ul class="wallet_ul">
+      </div>-->
+      <ul class="wallet_ul" v-if="list.length > 0">
       	<li class="wallet_li" v-for="(item, index) in list" :key="index">
       		<div class="out_box">
       			<div class="out_title">{{item.title}}</div>
@@ -17,6 +17,7 @@
       		<div class="out_time">{{item.time}}</div>
       	</li>
       </ul>
+      <div v-else style="color: #fff;font-size: 16px;line-height:40px;text-align: center;">暫無記錄</div>
   </div>
 </template>
 
@@ -29,34 +30,34 @@ export default {
        time:'',
        timeIcon:"icon-kongtiaoguankong-",
        list:[
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"已完成",
-		          sum:"1,000.0000",
-		          type:0
-	          },
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"審核中",
-		          sum:"1,000.0000",
-		          type:1
-	          },
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"已駁回",
-		          sum:"1,000.0000",
-		          type:2
-	          },
-	          {
-		          title:"轉出",
-		          time:"2018-02-20 12:45:45",
-		          state:"已完成",
-		          sum:"1,000.0000",
-		          type:0
-	          }
+//	          {
+//		          title:"轉出",
+//		          time:"2018-02-20 12:45:45",
+//		          state:"已完成",
+//		          sum:"1,000.0000",
+//		          type:0
+//	          },
+//	          {
+//		          title:"轉出",
+//		          time:"2018-02-20 12:45:45",
+//		          state:"審核中",
+//		          sum:"1,000.0000",
+//		          type:1
+//	          },
+//	          {
+//		          title:"轉出",
+//		          time:"2018-02-20 12:45:45",
+//		          state:"已駁回",
+//		          sum:"1,000.0000",
+//		          type:2
+//	          },
+//	          {
+//		          title:"轉出",
+//		          time:"2018-02-20 12:45:45",
+//		          state:"已完成",
+//		          sum:"1,000.0000",
+//		          type:0
+//	          }
        ]
     }
   },
@@ -71,6 +72,7 @@ export default {
         this.$router.push('/login')
       },2000)
     }
+    this.getAccountsList()
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -94,7 +96,15 @@ export default {
 	  haveTimeBack (data) {
         this.time = data.substr(0, 7)
         //console.log(data)
-    }
+   },
+   getAccountsList(){
+   	   this.axios.post('ZhaiBaoList', {
+          token:this.getCookie("token"),
+          action:"all"
+        }).then(({data}) => {
+          this.list = data.data
+        })
+   }
   },
   components:{
   	picker

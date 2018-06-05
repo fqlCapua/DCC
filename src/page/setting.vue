@@ -79,7 +79,6 @@ export default {
     logOut () {
     	// 退出登录
        this.delCookie('token');
-       window.localStorage.removeItem('token');
        if(!this.getCookie("token")){
           let $that =this;
          this.$bus.$emit('alertCer',{

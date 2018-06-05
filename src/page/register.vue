@@ -242,7 +242,7 @@
 				background: none;
 			}
 			.more {
-				border: 1px solid #fff;
+			 
 				float: right;
 				width: 150px;
 				height: 60px;

@@ -4,7 +4,7 @@
       <label for="" class="amount"><div>擁有DCC</div><input type="text" name=""v-model="zNum" readonly value="" placeholder="DCC數量"/></label>
       <label for="" class="amount"><div>轉出数量</div><input type="text" name=""v-model="zcNum" value="" placeholder="請輸入轉出數量"/><span>DCC</span></label>
       <label for=""><div>對方帳號</div><input type="text"  name=""  value="" v-model="address" placeholder="請輸入對方帳號/手機號"/></label>
-      <label for="" class="code"><div>验证码</div><input type="text" name=""  value="" v-model="code"  placeholder="請輸入手機驗證碼"/><span @click="getCode">{{ codeTime === 61 ? '获取验证码' : `${codeTime}s后重试`}}</span></label>
+      <label for="" class="code"><div>验证码</div><input type="text" name=""  value="" v-model="code"  placeholder="請輸入手機驗證碼"/><span @click="getCode">{{ codeTime == 61 ? '获取验证码' : codeTime+'s后重试'}}</span></label>
     </div>
     <div class="submit" @click="submit">提交</div>
   </div>

@@ -143,6 +143,8 @@ export default {
     			.out_sum{
     				font-size:28px;
     				color:#d7a82b;
+    				width: 40%;
+            text-align: right;
     			}
 
     		}

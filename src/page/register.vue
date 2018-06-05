@@ -22,7 +22,7 @@
 		<label class="label" for="code">
       <span class="icon iconfont icon-navicon-dxmbwh"></span>
       <input class="input" id="code" type="text" v-model="code" placeholder="請輸入驗證碼">
-      <button class="code_button" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : `${codeTime}s後重試`}}</button>
+      <button class="code_button" @click="getCode">{{ codeTime === 61 ? '獲取驗證碼' : codeTime+'s後重試'}}</button>
     </label>
     <!--验证码和登录密码-->
 		<label class="label">

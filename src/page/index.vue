@@ -99,12 +99,11 @@ export default {
   mounted () {
 
     let $that =this;
-
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    if(!localStorage.getItem('token')){
+    if(!$that.getCookie('token') || $that.getCookie('token') === "null" ){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });

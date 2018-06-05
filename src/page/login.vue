@@ -40,9 +40,19 @@ export default {
   },
   mounted () {
     this.imgCaptcha();
+    // this.a()
   },
   methods: {
-
+     // a(){
+     //   let ua = navigator.userAgent.toLowerCase();
+     //   if (/iphone|ipad|ipod/.test(ua)) {
+     //      // console.log(111);
+     //     alert("phone")
+     //   } else if (/android/.test(ua)){
+     //     // window.localStorage.setItem('token',token)
+     //     console.log(222)
+     //   }
+     // },
     submit () {
       if (this.phone === '') return this.$bus.$emit('alert', '请输入手机号');
       if (this.pass === '') return this.$bus.$emit('alert', '请输入登录密码');
@@ -62,8 +72,13 @@ export default {
       }).then(({data}) => {
         if (data.ret === 0){
           let token=data.data.token;
-          // window.localStorage.setItem('token',token);
+          let ua = navigator.userAgent.toLowerCase();
+          if (/iphone|ipad|ipod/.test(ua)) {
             this.setCookie('token',token);
+          } else if (/android/.test(ua)){
+            window.localStorage.setItem('token',token)
+          }
+          window.localStorage.setItem('token',token)
           this.$bus.$emit('alertCer',{
             msg:"登录成功"
           });

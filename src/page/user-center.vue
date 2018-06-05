@@ -150,7 +150,7 @@ export default {
         this.todayNum =this.formatNum(data.data.usdt_today_profit,4);
         this.dccNum =this.formatNum(data.data.freeze_dcc,4);
         this.activeNum=this.formatNum(data.data.avaliable_dcc,4);
-        window.localStorage.setItem('phone',data.data.phone);
+        this.setCookie('phone',data.data.phone);
       })
     },
     setting () {
@@ -180,7 +180,7 @@ export default {
         img:this.image
       }).then(({data})=>{
         this.img=data.data.server_url;
-        localStorage.setItem("imgUrl",this.img);
+        // localStorage.setItem("imgUrl",this.img);
         this.postUserInfo();
         if(data.ret === 401) this.$router.push('login')
       })
@@ -189,7 +189,7 @@ export default {
 //    保存接口
     postUserInfo (){
       this.axios.post('postUserInfo', {
-        token:this.getCookie("token"),
+        token:this.token,
         phone:this.phone,
         head:this.img
       }).then(({data}) => {

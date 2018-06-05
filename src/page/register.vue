@@ -58,7 +58,7 @@
 		},
     mounted() {
 		  let $that = this;
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+      if(!$that.getCookie('token') || $that.getCookie('token') === "null" || $that.getCookie('token') == null || $that.getCookie('token') == undefined ){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });

@@ -28,6 +28,7 @@
 		<label class="label">
       <span class="icon iconfont icon-yaoqingma"></span>
       <input class="input specialWidth"  type="text" v-model="yqm" placeholder="請輸入邀请碼(选填)">
+      <span class="iconr iconfont icon-richscan_icon"></span>
     </label>
 		<label class="label" for="password">
       <span class="icon iconfont icon-mima54"></span>
@@ -223,6 +224,15 @@
 				&.number {
 					font-size: 28px;
 				}
+			}
+			.iconr{
+				position: absolute;
+				top: 0;
+				right: 0;
+				width:80px;
+				color:$mainColor;
+				font-size:2em;
+				 
 			}
 			.input {
 				background: none;

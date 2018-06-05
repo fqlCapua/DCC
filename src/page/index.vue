@@ -127,8 +127,8 @@ export default {
       //公告
       this.$router.push('message')
     },
-    getInfo () {
-    	let token = this.getCookie('token');
+    getInfo () {;
+    	let token = this.getCookie('token')
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {

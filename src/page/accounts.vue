@@ -3,7 +3,12 @@
     <div action="" class="declaration-form">
       <label for="" class="amount"><div>擁有DCC</div><input type="text" name=""v-model="zNum" readonly value="" placeholder="DCC數量"/></label>
       <label for="" class="amount"><div>轉出数量</div><input type="text" name=""v-model="zcNum" value="" placeholder="請輸入轉出數量"/><span>DCC</span></label>
-      <label for=""><div>對方帳號</div><input type="text"  name=""  value="" v-model="address" placeholder="請輸入對方帳號/手機號"/> <span class=" iconfont icon-richscan_icon"></span></label>
+      <label for=""><div>對方帳號</div><input type="text"  name=""  value="" v-model="address" placeholder="請輸入對方帳號/手機號"/>
+      <div class="sm">
+      	     <i class="iconfont icon-richscan_icon"></i>
+				<input type="file" class="file" @change="onFileChange">
+      </div>
+      </label>
       <label for="" class="code"><div>验证码</div><input type="text" name=""  value="" v-model="code"  placeholder="請輸入手機驗證碼"/><span @click="getCode">{{ codeTime == 61 ? '获取验证码' : codeTime+'s后重试'}}</span></label>
     </div>
     <div class="submit" @click="submit">提交</div>
@@ -141,6 +146,27 @@
     width: 70%;
 
   }
+  .sm{
+        width: 150px;
+        height: 93px;
+        display: block;
+        background-image: url();
+        background-size: 100% 100%;
+        border-radius: 50%;
+        text-align: center;
+        i{
+        	color: #D7A82B;
+        	font-size: 36px;
+        }
+        .file {
+					outline: none;
+					opacity: 0;
+					width: 100%;
+					height: 100%;
+					position: relative;
+					top: -108px;
+				}
+      }
   }
   .amount{
 

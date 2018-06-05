@@ -99,12 +99,11 @@ export default {
   mounted () {
 
     let $that =this;
-//    //console.log($that.getCookie('token'))
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    if(!$that.getCookie('token') || $that.getCookie('token') === "null" ){
+    if(!$that.getCookie('token') || $that.getCookie('token') === "null" || $that.getCookie('token') ==null || $that.getCookie('token') == undefined ){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });
@@ -112,14 +111,14 @@ export default {
          $that.$router.push('/login')
        },2000)
     }
-    if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
-    }
+    // if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
+    //   this.$bus.$emit('alertCer', {
+    //     msg:"請重新登錄"
+    //   });
+    //   setTimeout(function () {
+    //     $that.$router.push('/login')
+    //   },2000)
+    // }
     this.ures()
   },
   beforeDestroy () {

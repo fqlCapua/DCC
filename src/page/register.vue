@@ -34,7 +34,7 @@
       <input class="input specialWidth" id="password" v-model="psd" type="password"  placeholder="請設置您的登錄密碼">
     </label>
     <p class="toLoginBox">
-    	已有賬號 <router-link to="/" class="toLogin">去登陸</router-link>
+    	已有賬號 <router-link to="/login" class="toLogin">去登陸</router-link>
     </p>
 		<button class="submit" @click="submit">注冊</button>
 	</div>
@@ -242,7 +242,7 @@
 				background: none;
 			}
 			.more {
-			 
+
 				float: right;
 				width: 150px;
 				height: 60px;

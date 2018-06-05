@@ -92,22 +92,19 @@ export default {
       ]
     }
   },
-  beforeMount () {
-    // this.getInfo()
-  },
   mounted () {
-    this.getInfo()
+
     let $that = this;
     this.copyBtn = new Clipboard('.btn')
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
+    this.getInfo()
     if(!this.getCookie('token')){
       this.$router.push('/login')
     }
     this.userHomePage();
-
       if(!this.getCookie('token') || this.getCookie('token') === "null" ){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"

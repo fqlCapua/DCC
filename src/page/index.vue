@@ -104,21 +104,13 @@ export default {
       button: [],
       navShow: true
     });
-    if(!localStorage.getItem('token') ){
+    if(!localStorage.getItem('token')){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });
        setTimeout(function () {
          $that.$router.push('/login')
        },2000)
-    }
-    if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
     }
     this.ures()
   },

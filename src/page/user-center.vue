@@ -52,6 +52,7 @@ export default {
       name:'',
       image:'', //64
       img:'',
+      token:'',
       list:[
         {
         	name:"轉出至錢包",
@@ -93,18 +94,17 @@ export default {
     }
   },
   mounted () {
-
     let $that = this;
     this.copyBtn = new Clipboard('.btn')
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    this.getInfo()
+    $that.getInfo()
     if(!this.getCookie('token')){
       this.$router.push('/login')
     }
-    this.userHomePage();
+    $that.userHomePage();
       if(!this.getCookie('token') || this.getCookie('token') === "null" ){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
@@ -140,17 +140,17 @@ export default {
     		this.$router.push({path: this.list[index].router})
     },
     getInfo () {
-      let token = this.getCookie('token');
+      this.token = this.getCookie('token');
       this.axios.post('userHomePage', {
-       token:token
+       token:this.token
       }).then(({data}) => {
-        window.localStorage.setItem('phone',data.data.phone);
         this.name = data.data.name;
         this.phone = data.data.phone;
         this.allNum = this.formatNum(data.data.price_usdt,4);
         this.todayNum =this.formatNum(data.data.usdt_today_profit,4);
         this.dccNum =this.formatNum(data.data.freeze_dcc,4);
         this.activeNum=this.formatNum(data.data.avaliable_dcc,4);
+        window.localStorage.setItem('phone',data.data.phone);
       })
     },
     setting () {

@@ -99,31 +99,27 @@ export default {
   mounted () {
 
     let $that =this;
+
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    let ua = navigator.userAgent.toLowerCase();
-    if (/iphone|ipad|ipod/.test(ua)) {
-      if(!$that.getCookie('token') || $that.getCookie('token') === "null" || $that.getCookie('token') ==null || $that.getCookie('token') == undefined ){
-        this.$bus.$emit('alertCer', {
-          msg:"請重新登錄"
-        });
-        setTimeout(function () {
-          $that.$router.push('/login')
-        },2000)
-      }
-    } else if (/android/.test(ua)) {
-      if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" || localStorage.getItem('token') ==null || localStorage.getItem('token') == undefined ){
-        this.$bus.$emit('alertCer', {
-          msg:"請重新登錄"
-        });
-        setTimeout(function () {
-          $that.$router.push('/login')
-        },2000)
-      }
+    if(!localStorage.getItem('token') ){
+      this.$bus.$emit('alertCer', {
+        msg:"請重新登錄"
+      });
+       setTimeout(function () {
+         $that.$router.push('/login')
+       },2000)
     }
-
+    if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
+      this.$bus.$emit('alertCer', {
+        msg:"請重新登錄"
+      });
+      setTimeout(function () {
+        $that.$router.push('/login')
+      },2000)
+    }
     this.ures()
   },
   beforeDestroy () {

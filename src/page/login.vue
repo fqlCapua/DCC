@@ -72,13 +72,13 @@ export default {
       }).then(({data}) => {
         if (data.ret === 0){
           let token=data.data.token;
-          let ua = navigator.userAgent.toLowerCase();
-          if (/iphone|ipad|ipod/.test(ua)) {
-            this.setCookie('token',token);
-          } else if (/android/.test(ua)){
-            window.localStorage.setItem('token',token)
-          }
-          // window.localStorage.setItem('token',token)
+          // let ua = navigator.userAgent.toLowerCase();
+          // if (/iphone|ipad|ipod/.test(ua)) {
+          //   this.setCookie('token',token);
+          // } else if (/android/.test(ua)){
+          //   window.localStorage.setItem('token',token)
+          // }
+          window.localStorage.setItem('token',token)
           this.$bus.$emit('alertCer',{
             msg:"登录成功"
           });

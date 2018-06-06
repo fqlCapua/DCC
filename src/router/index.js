@@ -114,7 +114,7 @@ export default new Router({
 			component: changeLanguage
 		},
 		{
-			path: '/',   //主页
+			path: '/',
 			name: 'index',
 			component: index
 		},

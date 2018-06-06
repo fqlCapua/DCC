@@ -141,7 +141,7 @@ export default {
       this.$router.push('message')
     },
     getInfo () {
-    	let token = localStorage.getItem('token');
+    	let token = this.getCookie('token');
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {
@@ -163,7 +163,7 @@ export default {
      ures(){
          let $that=this;
        this.axios.post('/userHomePage',{
-         token:localStorage.getItem("token")
+         token:this.getCookie('token')
        }).then(({data}) => {
            this.hasMessage =data.data.new_msg
          })

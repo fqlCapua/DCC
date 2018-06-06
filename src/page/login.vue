@@ -62,8 +62,14 @@ export default {
       }).then(({data}) => {
         if (data.ret === 0){
           let token=data.data.token;
-          // this.setCookie('token',token)
-          window.localStorage.setItem('token',token);
+          let u = navigator.userAgent;
+          let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+          let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+           if(isAndroid){
+             this.setCookie('token',token)
+           }else if(isiOS){
+             window.localStorage.setItem('token',token);
+           }
           this.setCookie('phone',this.phone)
           this.$bus.$emit('alertCer',{
             msg:"登录成功"

@@ -10,7 +10,6 @@
       <p class="month_reward">本月獎勵：{{ selectTab === 0 ? info1.moneyReward : info2.moneyReward }}</p>
       <p class="calendar" @click="getTime">{{ selectTab === 0 ? info1.calendar : info2.calendar }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
     </div>
-
     <div class="data" :class="{'select_ing': selectTabIng}" v-show="selectTab === 0">
       <div class="list" v-show="userList1.length">
         <dl class="every" v-for="(item, index) in userList1" :key="index">
@@ -117,7 +116,6 @@
     },
     methods: {
       init () {
-
       	 this.token = this.getCookie("token")
         // 更改时间
         let theTime = new Date()
@@ -126,18 +124,36 @@
 //      this.getDirectData(this.info1.calendar)
 //      this.getIndirectData(this.info2.calendar)
       },
+      formatNum (s, n) {
+        /*
+         * 参数说明：
+         * s：要格式化的数字
+         * n：保留几位小数
+         * */
+        n = n > 0 && n <= 20 ? n : 2;
+        s = parseFloat((s + '').replace(/[^\d.-]/g, '')).toFixed(n) + '';
+        let l = s.split('.')[0].split('').reverse();
+        let r = s.split('.')[1];
+        let t = '';
+        for (let i = 0; i < l.length; i++) {
+          t += l[i] + ((i + 1) % 3 === 0 && (i + 1) !== l.length ? ',' : '')
+        }
+        return t.split('').reverse().join('') + '.' + r
+      },
         // 直接分享
       directReward (time){
       	  this.axios.post('directReward',{
           token:this.token,
           month:time||""
         }).then(({data}) => {
-            this.allMoney = data.data.total;
-            this.allDirect = data.data.total;
+            this.allMoney = this.formatNum(data.data.total,4);
+            this.allDirect = this.formatNum(data.data.total,4);
             this.userList1 = data.data.items;
             var aa = [];
             for(var  x in data.data.items){
-            	  aa.push(data.data.items[x].reward)
+                 let reward= this.formatNum(data.data.items[x].reward,4)
+              // console.log(reward)
+            	  aa.push(reward)
             }
             this.info1.moneyReward =   eval(aa.join("+"))
         })
@@ -148,13 +164,13 @@
           token:this.token,
           month:time||""
         }).then(({data}) => {
-            this.allRelative = data.data.total;
+            this.allRelative =this.formatNum(data.data.total,4);
             this.userList2 = data.data.items;
             var bb = [];
             for(var  x in data.data.items){
             	  bb.push(data.data.items[x].reward)
             }
-            this.info2.moneyReward =   eval(bb.join("+"))
+            this.info2.moneyReward = eval(bb.join("+"))
         })
       },
       // 分享切换

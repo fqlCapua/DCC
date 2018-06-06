@@ -103,7 +103,7 @@ export default {
       button: [],
       navShow: true
     });
-    if(!this.getCookie('token') ||this.getCookie('token') === "null" ){
+    if(!this.getCookie('token')){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });
@@ -111,7 +111,7 @@ export default {
          $that.$router.push('/login')
        },2000)
     }
-    if(!localStorage.getItem('token') ||localStorage.getItem('token') === "null" ){
+    if(!localStorage.getItem('token')){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });

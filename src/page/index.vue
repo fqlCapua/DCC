@@ -49,6 +49,7 @@ export default {
       hasMessage: '',
       totalAmount: '', // 總市值
       totalFrost: '', // 凍結額度(CNY)
+      token:'',
       list: [
         {
           icon: 'icon-jiedong',
@@ -94,7 +95,7 @@ export default {
     }
   },
   beforeMount () {
-    this.getInfo()
+    this.getInfo();
   },
   mounted () {
     let $that =this;
@@ -106,7 +107,7 @@ export default {
     let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
     let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
     if(isAndroid){
-      if(! this.setCookie('token')){
+      if(!$that.getCookie('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -114,7 +115,8 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
-    }else if(isiOS){
+    }
+    if(isiOS){
       if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
@@ -124,7 +126,6 @@ export default {
         },2000)
       }
     }
-
     this.ures()
   },
   beforeDestroy () {
@@ -139,7 +140,18 @@ export default {
 //    })
       //公告
       this.$router.push('message')
+
     },
+    ures(){
+      let $that=this;
+      // console.log(this.getCookie('token'));
+      this.axios.post('/userHomePage',{
+        token:this.getCookie('token')
+      }).then(({data}) => {
+        this.hasMessage =data.data.new_msg
+      })
+    },
+
     getInfo () {
     	let token = this.getCookie('token');
       this.axios.post('/home',{
@@ -160,14 +172,7 @@ export default {
         })
       })
     },
-     ures(){
-         let $that=this;
-       this.axios.post('/userHomePage',{
-         token:this.getCookie('token')
-       }).then(({data}) => {
-           this.hasMessage =data.data.new_msg
-         })
-     },
+
     // 数字格式化
     formatNum (s, n) {
     /*

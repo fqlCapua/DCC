@@ -412,7 +412,7 @@ export default {
 }
 
 .tabChild1 {
-  width: 86%;
+  width: 65%;
 }
 
 .tab_child2 {

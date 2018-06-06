@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="select tabChild1"  >
-          <div class="select_content">
+          <div class="select_content1">
             <p class="option" @click="selectTabFun(0)" :class="{option_child_active:selectTabChild==0}">下級</p>
             <p class="option" @click="selectTabFun(1)" :class="{option_child_active:selectTabChild==1}">會員</p>
           </div>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="select tab_child2"  >
-          <div class="select_content">
+          <div class="select_content1">
             <p class="option1" @click="selectTabFun1(0)" :class="{option_child_active:selectTabChild2==0}">直接分享</p>
             <p class="option1" @click="selectTabFun1(1)" :class="{option_child_active:selectTabChild2==1}">間接分享</p>
           </div>
@@ -332,14 +332,11 @@ export default {
   height: 63px;
   border-radius: 31px;
   position: relative;
-  .select_content {
+  .select_content1 {
     width: 80%;
     margin: 0 auto;
   }
-  .select_content1 {
-    width: 65%;
-    margin: 0 auto;
-  }
+  
   .option {
     text-align: center;
     float: left;

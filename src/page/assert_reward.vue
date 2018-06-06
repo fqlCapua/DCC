@@ -15,7 +15,7 @@
       <div class="iconfont icon-kongtiaoguankong- change_day" @click="getTime"></div>
     </div>
     <div class="info">
-      <p class="month_reward">本月業績：{{ list.money }}</p>
+      <p class="month_reward">本月業績：{{formatNum(list.money,4)}} USDT</p>
     </div>
     <div class="data">
       <div class="list">
@@ -26,7 +26,7 @@
               <p class="name">{{ item.name }}</p>
               <p class="time">{{ item.created }}</p>
             </div>
-            <p class="money">{{ item.reward }}</p>
+            <p class="money">{{ formatNum(item.reward,4) }}</p>
           </dd>
         </dl>
       </div>
@@ -51,7 +51,7 @@
           month:''
         },
         list: {
-          money: '8,000.00',
+          money: '',
           data: []
         }
       }
@@ -89,18 +89,18 @@
 	      }).then(({data}) => {
 	          this.list.data = data.data.items
 
-	          this.money.all = data.data.total
-	          this.money.month = data.data.total_month
+	          this.money.all = this.formatNum(data.data.total,4)
+	          this.money.month =  this.formatNum(data.data.total_month,4)
 
-	          this.needTo.all = data.data.goal
-	          this.needTo.month = data.data.goal_month
+	          this.needTo.all = this.formatNum(data.data.goal,4)
+	          this.needTo.month =  this.formatNum(data.data.goal_month,4)
 
 	          var ary = [];
             for(var  x in data.data.items){
             	  ary.push(data.data.items[x].amount)
             }
             this.list.money =   eval(ary.join("+"))
-
+            this.list.money =   this.formatNum(this.list.money,2)
 	      })
       },
       // 触发时间选择器

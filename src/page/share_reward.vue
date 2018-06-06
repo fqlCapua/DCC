@@ -7,7 +7,7 @@
       <p class="option" @click="selectTabFun(1)">間接分享</p>
     </div>
     <div class="info">
-      <p class="month_reward">本月獎勵：{{ selectTab === 0 ? info1.moneyReward : info2.moneyReward }}</p>
+      <p class="month_reward">本月獎勵：{{ selectTab === 0 ? info1.moneyReward : info2.moneyReward }} USDT</p>
       <p class="calendar" @click="getTime">{{ selectTab === 0 ? info1.calendar : info2.calendar }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
     </div>
     <div class="data" :class="{'select_ing': selectTabIng}" v-show="selectTab === 0">
@@ -22,7 +22,7 @@
               <p class="name">{{item.name}}</p>
               <p class="time">{{item.created}}</p>
             </div>
-            <p class="money">{{item.reward}}</p>
+            <p class="money">{{formatNum(item.reward,4)}}</p>
           </dd>
         </dl>
       </div>
@@ -40,7 +40,7 @@
               <p class="name">{{ item.name}}</p>
               <p class="time">{{ item.created}}</p>
             </div>
-            <p class="money">{{ item.reward}}</p>
+            <p class="money">{{ formatNum(item.reward,4)}}</p>
           </dd>
         </dl>
       </div>
@@ -59,20 +59,20 @@
       	newmonth:"",
       	token:"",
         // 总金额
-        allMoney: '100.00',
-        allRelative: '',  //间接
-        allDirect: '',  //直接
+        allMoney: '---',
+        allRelative: '---',  //间接
+        allDirect: '---',  //直接
         // 切换列表
         selectTab: 0,
         // 是否在切换中
         selectTabIng: false,
         // 奖励和时间
         info1: {
-          moneyReward: '1.00',
+          moneyReward: '',
           calendar: ''
         },
         info2: {
-          moneyReward: '2.00',
+          moneyReward: '',
           calendar: ''
         },
         // 列表
@@ -124,22 +124,6 @@
 //      this.getDirectData(this.info1.calendar)
 //      this.getIndirectData(this.info2.calendar)
       },
-      formatNum (s, n) {
-        /*
-         * 参数说明：
-         * s：要格式化的数字
-         * n：保留几位小数
-         * */
-        n = n > 0 && n <= 20 ? n : 2;
-        s = parseFloat((s + '').replace(/[^\d.-]/g, '')).toFixed(n) + '';
-        let l = s.split('.')[0].split('').reverse();
-        let r = s.split('.')[1];
-        let t = '';
-        for (let i = 0; i < l.length; i++) {
-          t += l[i] + ((i + 1) % 3 === 0 && (i + 1) !== l.length ? ',' : '')
-        }
-        return t.split('').reverse().join('') + '.' + r
-      },
         // 直接分享
       directReward (time){
       	  this.axios.post('directReward',{
@@ -151,11 +135,13 @@
             this.userList1 = data.data.items;
             var aa = [];
             for(var  x in data.data.items){
-                 let reward= this.formatNum(data.data.items[x].reward,4)
-              // console.log(reward)
+                 let reward= data.data.items[x].reward
+                 console.log(reward)
             	  aa.push(reward)
             }
-            this.info1.moneyReward =   eval(aa.join("+"))
+             let moneyRew = eval(aa.join("+"))
+            this.info1.moneyReward = this.formatNum(moneyRew,4)
+            
         })
       },
        //间接分享
@@ -171,6 +157,7 @@
             	  bb.push(data.data.items[x].reward)
             }
             this.info2.moneyReward = eval(bb.join("+"))
+            this.info2.moneyReward = this.formatNum(this.info2.moneyReward,4)
         })
       },
       // 分享切换

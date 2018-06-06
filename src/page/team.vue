@@ -6,8 +6,8 @@
       <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">我的分享</span>
     </div>
     <div class="data1" v-show="selectTab === 0">
-      <div id="shareReward">
-        <div id="rewardTop1">
+      <div >
+        <div>
           <div class="inner">
             <h3 class="teamNumber">{{ teamNumber }} </h3>
             <p class="teamtitle">團隊總數</p>
@@ -44,8 +44,8 @@
       </div>
     </div>
     <div class="data1" v-show="selectTab === 1">
-      <div id="shareReward">
-        <div id="rewardTop1">
+      <div>
+        <div>
           <div class="inner">
             <h3 class="teamNumber">{{ shareNumber }} </h3>
             <p class="teamtitle">{{shareText}}</p>

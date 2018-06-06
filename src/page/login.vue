@@ -63,6 +63,7 @@ export default {
         if (data.ret === 0){
           let token=data.data.token;
           this.setCookie('token',token)
+          this.setCookie('phone',this.phone)
           this.$bus.$emit('alertCer',{
             msg:"登录成功"
           });

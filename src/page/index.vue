@@ -102,7 +102,7 @@ export default {
       button: [],
       navShow: true
     });
-    if(!this.getCookie('token')){
+    if(!localStorage.getItem('token')){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });
@@ -126,7 +126,7 @@ export default {
       this.$router.push('message')
     },
     getInfo () {
-    	let token = this.getCookie('token')
+    	let token = localStorage.getItem('token');
       this.axios.post('/home',{
       	token:token
       }).then(({data}) => {
@@ -148,7 +148,7 @@ export default {
      ures(){
          let $that=this;
        this.axios.post('/userHomePage',{
-         token:$that.getCookie("token")
+         token:localStorage.getItem("token")
        }).then(({data}) => {
            this.hasMessage =data.data.new_msg
          })

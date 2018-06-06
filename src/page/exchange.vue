@@ -65,7 +65,8 @@ export default {
     	}
     }),
     this.init()
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -73,13 +74,15 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
-    if(!localStorage.getItem('token') || localStorage.getItem('token') === "null" ){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
     }
   },
   destroyed () {

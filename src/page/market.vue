@@ -20,6 +20,7 @@ export default {
   data () {
     return {
       allMoney: '0.0000',
+      token:'',
       list: [
         {
           pic: require('../assets//images/reward_list1.png'),
@@ -52,7 +53,8 @@ export default {
     })
     this.init()
          let $that=this;
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -60,14 +62,29 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    }
   },
   beforeDestroy () {
     this.$bus.$emit('footer')
   },
   methods: {
     init () {
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       this.axios.post('rewardIndex',{
-      	token:this.getCookie("token")
+      	token:this.token
       }).then(({data}) => {
         this.allMoney = this.formatNum(data.data.total,4)
       })

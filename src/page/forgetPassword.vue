@@ -48,7 +48,7 @@ export default {
     // 獲取驗證碼
     getCode() {
       if(this.codeTime !== 61) return false;
-      if(this.phone === '') return this.$bus.$emit('alert', '請輸入手機號碼')
+      if(this.phone === '') return this.$bus.$emit('alert', '請輸入手機號碼');
       this.codeTime = 60
       let timer = setInterval(() => {
         if(--this.codeTime === 0) {

@@ -105,7 +105,8 @@ export default {
       this.$router.push('/login')
     }
     $that.userHomePage();
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -113,6 +114,16 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    }
   },
   beforeDestroy () {
     this.$bus.$emit('footer', false)
@@ -140,7 +151,11 @@ export default {
     		this.$router.push({path: this.list[index].router})
     },
     getInfo () {
-      this.token = this.getCookie('token');
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {
+        this.token = this.getCookie('token')
+      }
       this.axios.post('userHomePage', {
        token:this.token
       }).then(({data}) => {

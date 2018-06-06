@@ -20,7 +20,8 @@
         codeTime: 61,
         address:'',
         zNum:'',
-        zcNum:""
+        zcNum:"",
+        token:'',
       }
     },
     mounted () {
@@ -35,8 +36,8 @@
         }
       }),
       this.num()
-
-        if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        if(!localStorage.getItem('token')){
           this.$bus.$emit('alertCer', {
             msg:"請重新登錄"
           });
@@ -44,6 +45,16 @@
             $that.$router.push('/login')
           },2000)
         }
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        if(!$that.getCookie('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
+      }
 
     },
     destroyed () {
@@ -52,8 +63,13 @@
     methods: {
 
       num(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         this.axios.post('userHomePage', {
-          token:this.getCookie("token")
+          token:this.token
         }).then(({data}) => {
          this.zNum = this.formatNum(data.data.DCC_total,4);
         })

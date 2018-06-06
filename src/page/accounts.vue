@@ -26,7 +26,8 @@
 				address: '',
 				zNum: '',
 				zcNum: "",
-				name: ''
+				name: '',
+        token:''
 			}
 		},
 		mounted() {
@@ -44,14 +45,25 @@
 				}
 			});
 			this.num();
-			if(!this.getCookie('token') || this.getCookie('token') === "null") {
-				this.$bus.$emit('alertCer', {
-					msg: "請重新登錄"
-				});
-				setTimeout(function() {
-					vm.$router.push('/login')
-				}, 2000)
-			}
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        if(!localStorage.getItem('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        if(!$that.getCookie('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
+      }
 		},
 		destroyed() {
 			this.$bus.$emit('pageHead');
@@ -59,8 +71,13 @@
 		methods: {
 
 			num() {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
 				this.axios.post('userHomePage', {
-					token: this.getCookie("token")
+					token: this.token
 				}).then(({
 					data
 				}) => {
@@ -141,11 +158,11 @@
 		           if(!data.data.text) return  this.$bus.$emit('alert',"二维码无效");
 		           this.address = data.data.text
 		      })
-       
+
     },
-			
-			
-			
+
+
+
 		},
 	}
 </script>
@@ -235,7 +252,7 @@
 			border-radius: 70px 70px;
 		}
 	}
-	
+
 	.icon-richscan_icon {
 		font-size: 2em;
 		padding-right: 40px;

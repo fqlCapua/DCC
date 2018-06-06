@@ -29,6 +29,7 @@ export default {
     return {
        time:'',
        timeIcon:"icon-kongtiaoguankong-",
+      token:'',
        list:[
 //	          {
 //		          title:"轉出",
@@ -65,15 +66,25 @@ export default {
     this.$bus.$emit('pageHead','轉出記錄'),
     this.init();
     let $that = this;
-    if(!this.getCookie('token') || this.getCookie('token') === "null" ){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
     }
-
     this.getAccountsList()
   },
   destroyed () {
@@ -100,8 +111,13 @@ export default {
         //console.log(data)
    },
    getAccountsList(){
+     if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+       this.token=localStorage.getItem('token')
+     } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+       this.token = this.getCookie('token')
+     }
    	   this.axios.post('ZhaiBaoList', {
-          token:this.getCookie("token"),
+          token:this.token,
           action:"all"
         }).then(({data}) => {
           this.list = data.data

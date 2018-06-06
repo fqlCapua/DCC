@@ -21,13 +21,24 @@ export default {
   },
   mounted() {
     let $that =this;
-    if(!this.getCookie('token') || this.getCookie('token') === "null" ){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
     }
 
   },

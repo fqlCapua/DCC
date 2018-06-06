@@ -18,6 +18,7 @@ export default {
   name: 'setDealPsd',
   data () {
     return {
+      token:'',
       form: {
       	phone: {
           placeholder: '我的手機號',
@@ -48,8 +49,8 @@ export default {
     let $that = this;
     this.$bus.$emit('pageHead', '修改交易密碼')
     this.form.phone.num = localStorage.getItem("phone");
-
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -57,6 +58,16 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    }
   },
   destroyed () {
     this.$bus.$emit('pageHead')
@@ -93,12 +104,17 @@ export default {
       })
     },
     submit () {
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       if (this.form.newsCode.num === '') return this.$bus.$emit('alert', '請輸入驗證碼')
       if (this.form.newsPsd.num === '') return this.$bus.$emit('alert', '請輸入密碼')
       if (this.form.confirmPsd.num.length !== 6) return this.$bus.$emit('alert', '交易密碼為6位數字')
       if (this.form.confirmPsd.num != this.form.newsPsd.num) return this.$bus.$emit('alert', '兩次輸入的密碼不一致')
       this.axios.post('setPayPassword', {
-        token:this.getCookie("token"),
+        token:this.token,
         pay_password: this.form.newsPsd.num,
         code: this.form.newsCode.num
       }).then(({data}) => {

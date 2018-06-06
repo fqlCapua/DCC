@@ -195,6 +195,7 @@ export default {
       }).then(({data}) => {
         if(data.ret === 401) this.$router.push('login')
       })
+
     },
 //    獲取頭像
     userHomePage (){

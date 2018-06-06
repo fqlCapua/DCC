@@ -102,14 +102,29 @@ export default {
       button: [],
       navShow: true
     });
-    if(!localStorage.getItem('token')){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-       setTimeout(function () {
-         $that.$router.push('/login')
-       },2000)
+    let u = navigator.userAgent;
+    let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if(isAndroid){
+      if(! this.setCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    }else if(isiOS){
+      if(!localStorage.getItem('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
     }
+
     this.ures()
   },
   beforeDestroy () {

@@ -93,6 +93,7 @@ export default {
       selectTab: 0,
       activeRouter: '',
       active: 0,
+      token:'',
       teamNumber: "112",
       teamText: "團隊總數",
       shareNumber: "113",
@@ -129,7 +130,15 @@ export default {
     this.vipSub();
     this.indirect();
     let $that =this;
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      this.token=localStorage.getItem('token')
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      this.token = this.getCookie('token')
+    }
+
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -137,6 +146,16 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    }
   },
   methods: {
     getRoute() {
@@ -176,7 +195,7 @@ export default {
     vipSub(){
       let $that = this;
       this.axios.post('myTuanDui', {
-      token:this.getCookie('token')
+      token:this.token
       }).then(({data}) => {
      $that.userList2 =data.data.member;
         $that.userList1 =data.data.employee
@@ -186,7 +205,7 @@ export default {
 //     我的分享
     indirect(){
      this.axios.post('myShareMembers', {
-       token:this.getCookie('token')
+       token:this.token
      }).then(({data}) => {
        this.userList3 =data.data.direct;
        this.userList4=data.data.relative;

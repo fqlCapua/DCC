@@ -55,6 +55,7 @@
 				PhoneCode:"",
         amount:'',
         show:false,
+        token:'',
 				form: {
 					newsCode: {
 						name: '短信驗證碼',
@@ -71,13 +72,24 @@
 		   this.$bus.$emit('pageHead',"等级兑换")
 		   this.Phone = localStorage.getItem("phone")
        this.grades();
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ){
-        this.$bus.$emit('alertCer', {
-          msg:"請重新登錄"
-        });
-        setTimeout(function () {
-          vm.$router.push('/login')
-        },2000)
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        if(!localStorage.getItem('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        if(!$that.getCookie('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
       }
 		},
 		destroyed() {
@@ -100,12 +112,17 @@
 				})
 			},
 			submit() {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
 				if(this.addr === '') return this.$bus.$emit('alert', '請選擇地區');
 				if(this.grade === '') return this.$bus.$emit('alert', '請選擇等級');
 				if(this.PhoneCode === '') return this.$bus.$emit('alert', '請輸入驗證碼');
 //   預約
 				this.axios.post('levelBuy', {
-          token:this.getCookie('token'),
+          token:this.token,
           level_id: this.level_id,
           city_id:this.city_id,
           dcc_amount:this.amount,

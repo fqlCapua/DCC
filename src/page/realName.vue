@@ -42,6 +42,7 @@ export default {
       idfront: '',
       idback: '',
       list: [],
+      token:'',
       form: [
         { name: '真实姓名', value: "", placeholder: '請輸入姓名' },
         { name: "身份证", value: "", placeholder: '請輸入身份證號' },
@@ -51,13 +52,24 @@ export default {
   mounted() {
     let $that=this;
     this.$bus.$emit('pageHead', ' 实名认证')
-    if(!this.getCookie('token') || this.getCookie('token') === "null" ){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
     }
   },
   destroyed() {
@@ -98,9 +110,14 @@ export default {
       reader.readAsDataURL(file);
     },
     submit() {
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       if (this.form[1].value === "") return this.$bus.$emit('alert', '姓名或身份证号不能为空');
       this.axios.post('idNameCert', {
-        token: this.getCookie("token"),
+        token: this.token,
         idfront: this.list[0],
         idback: this.list[1],
         idcard: this.form[1].value,

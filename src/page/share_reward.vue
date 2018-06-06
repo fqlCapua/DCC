@@ -100,15 +100,25 @@
       this.$bus.$emit('pageHead', '分享獎勵')
        let $that=this;
 
-        if(!this.getCookie('token') || this.getCookie('token') === "null" ) {
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        if(!localStorage.getItem('token')){
           this.$bus.$emit('alertCer', {
-            msg: "請重新登錄"
+            msg:"請重新登錄"
           });
           setTimeout(function () {
             $that.$router.push('/login')
-          }, 2000)
+          },2000)
         }
-
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        if(!$that.getCookie('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
+      }
 
     },
     beforeDestroy () {
@@ -116,7 +126,11 @@
     },
     methods: {
       init () {
-      	 this.token = this.getCookie("token")
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         // 更改时间
         let theTime = new Date()
         this.info2.calendar = this.info1.calendar = this.newmonth =  theTime.getFullYear() + '-'

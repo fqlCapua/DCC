@@ -12,6 +12,7 @@
     name: 'noticeList',
     data () {
       return {
+        token:'',
         list: [
         ]
       }
@@ -20,7 +21,8 @@
       let $that=this;
       this.$bus.$emit('pageHead', '公告')
       this.sub();
-        if(!this.getCookie('token') || this.getCookie('token') === "null" ){
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        if(!localStorage.getItem('token')){
           this.$bus.$emit('alertCer', {
             msg:"請重新登錄"
           });
@@ -28,6 +30,16 @@
             $that.$router.push('/login')
           },2000)
         }
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        if(!$that.getCookie('token')){
+          this.$bus.$emit('alertCer', {
+            msg:"請重新登錄"
+          });
+          setTimeout(function () {
+            $that.$router.push('/login')
+          },2000)
+        }
+      }
 
     },
     beforeDestroy () {
@@ -36,9 +48,14 @@
     methods:{
 
       sub(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         let  $that = this;
         this.axios.post('newMsgList', {
-          token:this.getCookie('token')
+          token:this.token
         }).then(({data}) =>{
           $that.list =data.data;
           //console.log($that.list)

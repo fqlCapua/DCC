@@ -114,8 +114,7 @@ export default {
       },
       // 礦區內容
       list:[],
-
-
+      token:'',
       indexDetails: {
         show: false,
         amount: '',
@@ -139,14 +138,25 @@ export default {
     let $that = this;
     // 監聽關閉事件
     this.$bus.$on('closeIndexDetails', this.closeDetails);
-      if(!this.getCookie('token') || this.getCookie('token') === "null" ) {
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
-          msg: "請重新登錄"
+          msg:"請重新登錄"
         });
         setTimeout(function () {
           $that.$router.push('/login')
-        }, 2000)
+        },2000)
       }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    }
 
   },
   destroyed () {
@@ -174,9 +184,14 @@ export default {
       }
     },
     declFromPage () {
-       let $that =this
+      let $that =this;
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       this.axios.post('coparntner',{
-        token:this.getCookie("token")
+        token:this.token
       }).then(({data}) => {
         $that.list=data.data;
          for(let item in  $that.list){

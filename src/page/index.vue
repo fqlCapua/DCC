@@ -106,8 +106,8 @@ export default {
     let u = navigator.userAgent;
     let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
     let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-    if(isAndroid){
-      if(!$that.getCookie('token')){
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -115,9 +115,8 @@ export default {
           $that.$router.push('/login')
         },2000)
       }
-    }
-    if(isiOS){
-      if(!localStorage.getItem('token')){
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if(!$that.getCookie('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -143,19 +142,26 @@ export default {
 
     },
     ures(){
-      let $that=this;
-      // console.log(this.getCookie('token'));
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       this.axios.post('/userHomePage',{
-        token:this.getCookie('token')
+        token:this.token
       }).then(({data}) => {
         this.hasMessage =data.data.new_msg
       })
     },
 
     getInfo () {
-    	let token = this.getCookie('token');
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       this.axios.post('/home',{
-      	token:token
+      	token:this.token
       }).then(({data}) => {
           this.totalAmount = this.formatNum(data.data.total_usdt*data.data.price_usdt + data.data.avaliable_dcc*data.data.today_dcc_price+data.data.freeze_dcc*data.data.today_dcc_price,2)  //總市值
           this.totalFrost = this.formatNum(data.data.freeze_dcc,2) // 冻结额度

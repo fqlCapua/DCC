@@ -103,7 +103,7 @@ export default {
       button: [],
       navShow: true
     });
-    if(!$that.getCookie('token') || $that.getCookie('token') == null){
+    if(!$that.getCookie('token')){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });

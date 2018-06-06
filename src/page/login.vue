@@ -64,7 +64,7 @@ export default {
           let token=data.data.token;
           this.setCookie('token',token)
           this.setCookie('phone',this.phone)
-          localStorage.setItem("token",token)
+          window.localStorage.setItem("token",token)
           this.$bus.$emit('alertCer',{
             msg:"登录成功"
           });

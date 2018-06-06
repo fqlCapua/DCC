@@ -165,7 +165,7 @@
 		}
 	}
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	@import '../assets/scss/style.scss';
 	.main {
 		position: relative;

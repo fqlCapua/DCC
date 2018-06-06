@@ -20,7 +20,7 @@
 		name: 'C2C',
 		data() {
 			return {
-				phone: localStorage.getItem("phone"),
+				phone:'',
 				code: '',
 				codeTime: 61,
 				address: '',
@@ -30,6 +30,7 @@
 			}
 		},
 		mounted() {
+			this.phone = this.getCookie("phone");
 			let vm = this;
 			this.$bus.$emit('pageHead', {
 				title: "用戶轉賬",

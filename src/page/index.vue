@@ -97,27 +97,18 @@ export default {
     this.getInfo()
   },
   mounted () {
-
     let $that =this;
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    if(!this.getCookie('token')){
+    if(!this.getCookie('token') || this.getCookie('token') === "null" ){
       this.$bus.$emit('alertCer', {
         msg:"請重新登錄"
       });
        setTimeout(function () {
          $that.$router.push('/login')
        },2000)
-    }
-    if(!localStorage.getItem('token')){
-      this.$bus.$emit('alertCer', {
-        msg:"請重新登錄"
-      });
-      setTimeout(function () {
-        $that.$router.push('/login')
-      },2000)
     }
     this.ures()
   },
@@ -131,11 +122,10 @@ export default {
 //      msg: '正在测试中，敬请期待。',
 //      btn: '知道了'
 //    })
-
       //公告
       this.$router.push('message')
     },
-    getInfo () {;
+    getInfo () {
     	let token = this.getCookie('token')
       this.axios.post('/home',{
       	token:token

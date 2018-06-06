@@ -64,7 +64,7 @@
 				}).then(({
 					data
 				}) => {
-					this.zNum = data.data.DCC_total
+					this.zNum =this.formatNum(data.data.DCC_total,4) 
 				})
 			},
 			getCode() {

@@ -53,7 +53,7 @@
         <dd class="info">
           <h3 class="name">{{ item.name }}</h3>
           <!--<p class="number">庫存：{{ item.number }}</p>-->
-          <p class="price">售價：{{ item.amount }} USDT</p>
+          <p class="price">售價：{{ formatNum(item.amount,4)  }} USDT</p>
           <button class="details" @click="showInfo(item)">詳情</button>
         </dd>
       </dl>

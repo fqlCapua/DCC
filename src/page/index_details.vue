@@ -4,7 +4,7 @@
       <p class="iconfont icon-guanbijiantou" @click="close"></p>
       <img class="shop_pic" :src="content.logo" />
       <p class="name pad_l">{{ content.name }}</p>
-      <p class="price pad_l">售價：{{ content.amount }}</p>
+      <p class="price pad_l">售價：{{formatNum(content.amount,4)}} USDT</p>
       <p class="small pad_l">分享獎勵：{{content.comment}}</p>
       <!--<p class="small pad_l">靜態收益：{{ content.forzen }}</p>-->
       <!--<p class="small pad_l">庫存：{{ content.number }}</p>-->
@@ -82,7 +82,7 @@ export default {
         position: absolute;
         top: 20px;
         right: 20px;
-        color: #666;
+        color: #fff;
         font-size: 40px;
       }
       .shop_pic {

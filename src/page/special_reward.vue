@@ -3,7 +3,7 @@
     <rewardTop :money="allMoney"></rewardTop>
     <picker></picker>
     <div class="info">
-      <p class="month_reward">本月獎勵：{{ info.moneyReward }}</p>
+      <p class="month_reward">本月獎勵：{{ formatNum(info.moneyReward,4) }} USDT</p>
       <p class="calendar" @click="getTime">{{ info.calendar }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
     </div>
     <div class="data">
@@ -15,7 +15,7 @@
               <p class="name">{{ item.name }}</p>
               <p class="time">{{ item.created }}</p>
             </div>
-            <p class="money">{{ item.reward }}</p>
+            <p class="money">{{formatNum(item.reward,4)}}</p>
           </dd>
         </dl>
       </div>
@@ -77,7 +77,7 @@
 	      	month:time||""
 	      }).then(({data}) => {
 	          this.userList = data.data.items
-	          this.allMoney = data.data.total
+	          this.allMoney = this.formatNum(data.data.total,4) 
 	          var ary1 = [];
             for(var  x in data.data.items){
             	  ary1.push(data.data.items[x].reward)

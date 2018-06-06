@@ -4,7 +4,7 @@
       <p class="title">{{ item.title }}</p>
       <p class="iconfont icon-jinrujiantou"></p>
     </router-link>
-    <div  v-show="!list.length" style="color: #fff;font-size:20px;text-align: center;margin:20px 0 0 0; ">暫無獎勵</div>
+    <div  v-show="!list.length" style="color: #fff;font-size:15px;text-align: center;margin:20px 0 0 0; ">暫無公告</div>
   </div>
 </template>
 <script>

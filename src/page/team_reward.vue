@@ -4,7 +4,7 @@
     <picker></picker>
     <div class="type">
       <div class="info">
-        <p class="month_reward"><span class="timer">本月</span>獎勵：{{ info.self }}</p>
+        <p class="month_reward">本月獎勵：{{formatNum(info.self,4)}} USDT</p>
         <p class="calendar" @click="getTime">{{ time }}<span class="iconfont icon-kongtiaoguankong-"></span></p>
       </div>
       <div class="data">
@@ -16,7 +16,7 @@
                 <p class="name">{{ item.name }}<span class="name_type">{{ item.type }}</span></p>
                 <p class="time">{{ item.created}}</p>
               </div>
-              <p class="money">{{item.reward}}</p>
+              <p class="money">{{formatNum(item.reward,4)}}</p>
             </dd>
           </dl>
         </div>
@@ -35,7 +35,7 @@
       	token:"",
         allMoney:'',
         info: {
-          self: '4,000.00'
+          self: ''
         },
         time: '',
         nowList: [],
@@ -84,13 +84,14 @@
           month:time||""
         }).then(({data}) => {
             //console.log(data)
-            this.allMoney = data.data.total
+            this.allMoney = this.formatNum(data.data.total,4)
             this.nowList =  data.data.items
             let aa = [];
             for(var  x in data.data.items){
             	  aa.push(data.data.items[x].reward)
             }
             this.info.self =   eval(aa.join("+"))
+            this.info.self =   this.formatNum(this.info.self,2)
         })
       }
     },

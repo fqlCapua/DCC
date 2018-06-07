@@ -81,8 +81,10 @@ export default {
     num() {
       if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         this.token = localStorage.getItem('token')
+        this.phone = localStorage.getItem('phone')
       } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
         this.token = this.getCookie('token')
+        this.phone =  this.getCookie('phone')
       }
       this.axios.post('userHomePage', {
         token: this.token
@@ -102,7 +104,7 @@ export default {
         }
       }, 1000)
       this.axios.post('sms', {
-        phoneNo: localStorage.getItem('phone')
+        phoneNo:this.phone
       }).then(({
         data
       }) => {})

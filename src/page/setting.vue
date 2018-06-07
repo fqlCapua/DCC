@@ -96,9 +96,8 @@
             },1000)
           }
         } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
-          this.setCookie('token',"");
-          window.localStorage.setItem('token',"")
-          if(this.getCookie('token')===""){
+          this.delCookie("token");
+          if(!this.getCookie('token')){
             let $that =this;
             this.$bus.$emit('alertCer',{
               msg:'退出成功'

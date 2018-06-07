@@ -82,16 +82,29 @@
       },
       logOut () {
         // 退出登录
-         this.setCookie('token',"");
-         if(!this.getCookie('token')){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          if(!localStorage.getItem('token')){
             let $that =this;
-           this.$bus.$emit('alertCer',{
-             msg:'退出成功'
-           })
+            this.$bus.$emit('alertCer',{
+              msg:'退出成功'
+            })
             setTimeout(function(){
               $that.$router.push('login')
             },1000)
-         }
+          }
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          if(!this.getCookie('token')){
+            let $that =this;
+            this.$bus.$emit('alertCer',{
+              msg:'退出成功'
+            })
+            setTimeout(function(){
+              $that.$router.push('login')
+            },1000)
+          }
+        }
+        this.setCookie('token',"")
+
       },
       home(){
         this.axios.post('userHomePage', {

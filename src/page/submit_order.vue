@@ -76,13 +76,23 @@ import orderSuccess from './orderSuccess'
     methods: {
 
       num(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         this.axios.post('userHomePage', {
-          token:this.getCookie("token")
+          token:this.token
         }).then(({data}) => {
 
         })
       },
       macd(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         this.axios.post('coparntner', {
           token:this.token
         }).then(({data}) => {

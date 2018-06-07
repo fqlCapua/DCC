@@ -13,6 +13,7 @@
     data () {
       return {
         certification:'',
+        token:'',
         list: [
           {
               title: '修改登录密碼',
@@ -41,7 +42,7 @@
     mounted () {
       let $that = this;
       this.$bus.$emit('pageHead', '設置')
-      this.home()
+
       if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         if(!localStorage.getItem('token')){
           this.$bus.$emit('alertCer', {
@@ -61,6 +62,7 @@
           },2000)
         }
       }
+      this.home()
       },
 
     destroyed () {
@@ -107,8 +109,13 @@
 
       },
       home(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         this.axios.post('userHomePage', {
-          token: this.getCookie("token"),
+          token: this.token,
         }).then(({ data }) => {
           this.certification =data.data.certification
           console.log(this.certification)

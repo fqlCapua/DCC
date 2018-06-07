@@ -1,15 +1,14 @@
 <template>
   <ul class="partnerRecord">
       <li class="list" :for="index" v-for="(item, index) in list" :key="index">
-      	 <img v-if="item.grade === 3 " :src="imgList.high"/>
-      	 <img v-if="item.grade === 2 " :src="imgList.middle"/>
-      	 <img v-if="item.grade === 1 " :src="imgList.low"/>
+      	 <img  :src="isHttp+'//'+item.logo"/>
+      	 
       	 <div class="rank">
       	 	   <div class="rank_title">
-      	 	   	  <span>{{item.title}}</span>
-      	 	   	  <span :class="{'achieve': item.status === 1 }" v-if="item.status === 1">已完成</span>
-      	 	   	  <span :class="{'audit': item.status === 2 }" v-if="item.status === 2">審核中</span>
-      	 	   	  <span :class="{'reject': item.status === 3 }" v-if="item.status === 3">已駁回</span>
+      	 	   	  <span>{{item.trans_type_name}}</span>
+      	 	   	  <span class="audit">{{item.status}}</span>
+      	 	   	  <!--<span :class="{'audit': item.status === 2 }" v-if="item.status === 2">審核中</span>
+      	 	   	  <span :class="{'reject': item.status === 3 }" v-if="item.status === 3">已駁回</span>-->
       	 	   </div>
       	 	   <div class="rank_sum">售賣: {{item.trans_amount}}  USDT</div>
       	 </div>
@@ -26,6 +25,7 @@ export default {
     return {
     	isShow:false,
     	token:"",
+    	isHttp:document.location.protocol,
        imgList:{
        	  high: require('../assets/images/mills_pic0.png'),
        	  middle:require('../assets/images/mills_pic1.png'),

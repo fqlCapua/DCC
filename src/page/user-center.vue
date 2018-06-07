@@ -95,18 +95,14 @@ export default {
   },
   mounted () {
     let $that = this;
-    this.copyBtn = new Clipboard('.btn')
+    this.copyBtn = new Clipboard('.btn');
     this.$bus.$emit('footer', {
       button: [],
       navShow: true
     });
-    $that.getInfo()
-    if(!this.getCookie('token')){
-      this.$router.push('/login')
-    }
-    $that.userHomePage();
+
     if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-      if(!localStorage.getItem('token')){
+      if(localStorage.getItem('token')==null){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -115,7 +111,7 @@ export default {
         },2000)
       }
     } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
-      if(!$that.getCookie('token')){
+      if(!$that.getCookie('token')==null){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -124,13 +120,15 @@ export default {
         },2000)
       }
     }
+    $that.userHomePage();
+    $that.getInfo();
   },
   beforeDestroy () {
     this.$bus.$emit('footer', false)
   },
   computed: {
     showPhone () {
-      let phoneStr
+      let phoneStr;
       if (typeof (this.phone) !== 'string') {
         phoneStr = this.phone.toString()
       } else {
@@ -153,10 +151,10 @@ export default {
     getInfo () {
       if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         this.token=localStorage.getItem('token')
-      } else if (/(Android)/i.test(navigator.userAgent)) {
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
         this.token = this.getCookie('token')
       }
-      this.axios.post('userHomePage', {
+      this.axios.post('/userHomePage', {
        token:this.token
       }).then(({data}) => {
         this.name = data.data.name;
@@ -214,8 +212,13 @@ export default {
     },
 //    獲取頭像
     userHomePage (){
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       this.axios.post('userHomePage', {
-        token:this.getCookie("token"),
+        token:this.token,
       }).then(({data}) => {
         this.img = data.data.head
         //console.log(this.img)

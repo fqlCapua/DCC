@@ -81,34 +81,42 @@ export default {
   },
   methods: {
     onFileChange(e) {
+    	let  $that  =this
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length)
         return;
-      this.createImage(files[0]);
-
-
+//    this.createImage(files[0]);
+       var fileUrl = this.getObjectURL(files[0]);
+       qrcode.decode(fileUrl);
+       qrcode.callback = function(imgMsg){  
+				    if(imgMsg.indexOf("error") > -1){
+				    	return $that.$bus.$emit('alert', "二维码无效")
+				    }else {
+				       $that.yqm = imgMsg
+				    }
+				} 
     },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-      reader.onload = (e) => {
-      	console.log(e)
-        let image = e.target.result;
-        this.upLoad(image)
-      };
-      reader.readAsDataURL(file);
-    },
-    upLoad(image) {
-      this.axios.post('qrcodeUpload', {
-        img:image
-      }).then(({ data }) => {
-      	console.log(data);
-        if (!data.data.text) return this.$bus.$emit('alert', "二维码无效");
-        this.yqm = data.data.text
-      })
-
-    },
+//  createImage(file) {
+//    var image = new Image();
+//    var reader = new FileReader();
+//    var vm = this;
+//    reader.onload = (e) => {
+//    	console.log(e)
+//      let image = e.target.result;
+//      this.upLoad(image)
+//    };
+//    reader.readAsDataURL(file);
+//  },
+//  upLoad(image) {
+//    this.axios.post('qrcodeUpload', {
+//      img:image
+//    }).then(({ data }) => {
+//    	console.log(data);
+//      if (!data.data.text) return this.$bus.$emit('alert', "二维码无效");
+//      this.yqm = data.data.text
+//    })
+//
+//  },
     // 獲取驗證碼
     getCode() {
       this.checkoutCaptcha()

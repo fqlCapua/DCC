@@ -80,6 +80,18 @@ Vue.prototype.getCookie=function(c_name) {
     }
     return t.split('').reverse().join('') + '.' + r
 }
+ //  识别 二维码
+ Vue.prototype.getObjectURL = function(file){  
+		    let url = null ;   
+		    if (window.createObjectURL!=undefined) { // basic  
+		        url = window.createObjectURL(file) ;  
+		    } else if (window.URL!=undefined) { // mozilla(firefox)  
+		        url = window.URL.createObjectURL(file) ;  
+		    } else if (window.webkitURL!=undefined) { // webkit or chrome  
+		        url = window.webkitURL.createObjectURL(file) ;  
+		    }  
+		    return url;  
+		}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

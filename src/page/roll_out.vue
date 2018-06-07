@@ -163,7 +163,7 @@ export default {
       div {
         font-size: 28px;
         color: #fff;
-        width: 40%;
+        width:30%;
       }
       input {
         font-size: 26px;
@@ -187,7 +187,7 @@ export default {
     }
     .code {
       input {
-        width: 50%;
+        width: 48%;
       }
       span {
         color: #D7A82B;
@@ -220,9 +220,10 @@ i {
   outline: none;
   opacity: 0;
   width: 100%;
-  height: 100%;
+  height:50px;
   position: relative;
-  top: 0;
+  top: 30px;
+  left:120px;
 }
 
 </style>

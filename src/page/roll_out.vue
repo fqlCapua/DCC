@@ -8,10 +8,9 @@
       <label for="" class="amount">
         <div>轉出数量</div>
         <input type="text" name="" v-model="zcNum" value="" placeholder="請輸入轉出數量" /><span>DCC</span></label>
-      <label for="">
+      <label for="" class="amount">
         <div>钱包地址</div>
-        <input type="text" name="" value="" v-model="walletNumber" placeholder="請輸入錢包地址" />
-        <i class="iconfont icon-richscan_icon"></i>
+        <input type="text" name="" v-model="walletNumber" value="" placeholder="請輸入钱包地址" /> <i class="iconfont icon-richscan_icon"></i>
         <input type="file" class="file" @change="onFileChange">
       </label>
       <label for="" class="code">
@@ -33,7 +32,7 @@ export default {
       zNum: '',
       zcNum: "",
       token: '',
-      walletNumber:""
+      walletNumber: ""
     }
   },
   mounted() {
@@ -164,13 +163,13 @@ export default {
       div {
         font-size: 28px;
         color: #fff;
-        width: 30%;
+        width: 40%;
       }
       input {
         font-size: 26px;
         background: none;
         color: #fff;
-        width: 50%;
+        width: 60%;
       }
     }
     .amount {

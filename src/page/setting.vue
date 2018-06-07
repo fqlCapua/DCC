@@ -85,6 +85,7 @@
       logOut () {
         // 退出登录
         if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          localStorage.removeItem('token');
           if(!localStorage.getItem('token')){
             let $that =this;
             this.$bus.$emit('alertCer',{
@@ -95,6 +96,7 @@
             },1000)
           }
         } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.setCookie('token',"");
           if(!this.getCookie('token')){
             let $that =this;
             this.$bus.$emit('alertCer',{

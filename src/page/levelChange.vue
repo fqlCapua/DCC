@@ -294,21 +294,21 @@
       z-index: 2;
     }
     ul{
-      width: 64vw;
+      width: 70vw;
       background: #fff;
       position: absolute;
       top:50%;
       left:50%;
-      padding: 20px 30px;
+      padding: 50px 50px;
       transform: translate(-50%,-50%);
       border-radius: 10px;
       z-index: 5;
       li{
       	display: flex;
       	justify-content: space-between;
-        font-size:30px;
-        height:80px;
-        line-height:80px;
+        font-size:32px;
+        height:90px;
+        line-height:90px;
         .garden{
 			width: 30px;
 			height: 30px;
@@ -316,7 +316,7 @@
 			border: 1px solid #eee;
 			padding: 4px;
 			box-sizing: border-box;
-			margin-top: 25px;
+			margin-top: 30px;
 			&.active:before{
 				content: "";
 				width: 100%;

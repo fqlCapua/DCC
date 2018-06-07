@@ -1,5 +1,5 @@
 <template>
-  <div id="picker" v-show="show">
+  <div id="picker1" v-show="show">
     <div class="picker_bg" @click="closeBox"></div>
     <div class="picker_inner">
       <h3 class="picker_title">{{ title }}<button class="submit" @click="submit">确认</button></h3>
@@ -130,7 +130,7 @@
 <style lang="scss" scoped>
   @import '../assets/scss/style.scss';
   $pickerBgColor: #fff;
-  #picker {
+  #picker1 {
     position: fixed;
     top: 0;
     left: 0;

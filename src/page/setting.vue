@@ -96,7 +96,7 @@
             },1000)
           }
         } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
-          this.delCookie("token");
+          this.setCookie("token",'');
           if(!this.getCookie('token')){
             let $that =this;
             this.$bus.$emit('alertCer',{

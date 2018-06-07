@@ -97,7 +97,7 @@
           }
         } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
           this.setCookie('token',"");
-          if(!this.getCookie('token')){
+          if(this.getCookie('token')==null){
             let $that =this;
             this.$bus.$emit('alertCer',{
               msg:'退出成功'
@@ -107,8 +107,6 @@
             },1000)
           }
         }
-        this.setCookie('token',"")
-
       },
       home(){
         if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {

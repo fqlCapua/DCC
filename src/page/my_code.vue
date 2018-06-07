@@ -6,7 +6,7 @@
       <span class="option" @click="toggleTabs(0)" :class="{option_active:1!=selectTab}">个人二维码</span>
       <span class="option" @click="toggleTabs(1)" :class="{option_active:0!=selectTab}">团队二维码</span>
     </div>
-   
+
     <div class="data" v-show="selectTab === 0">
       <div class="extend_code qrcode">
         <div class="img_box">
@@ -18,7 +18,7 @@
           <span>{{myCode}}</span>
         </div>
       </div>
-     
+
     </div>
     <div class="data" v-show="selectTab === 1">
        <div class="vip_code qrcode">
@@ -39,7 +39,7 @@
           </div>
           <div>
             <div class="center_box">
-             
+
               <div class="identity alipayCode">
                 <img alt="" :src="card" width="100%" height="100%">
                 <input type="file" class="file" @change="fileImage">
@@ -110,14 +110,26 @@ export default {
   mounted() {
     // this.$bus.$emit('pageHead', '推广二维码')
     let $that = this;
-    if (!this.getCookie('token') || this.getCookie('token') === "null") {
-      this.$bus.$emit('alertCer', {
-        msg: "請重新登錄"
-      });
-      setTimeout(function() {
-        $that.$router.push('/login')
-      }, 2000)
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(localStorage.getItem('token') == null){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
+    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+      if($that.getCookie('token')==null){
+        this.$bus.$emit('alertCer', {
+          msg:"請重新登錄"
+        });
+        setTimeout(function () {
+          $that.$router.push('/login')
+        },2000)
+      }
     }
+
 
   },
   destroyed() {
@@ -127,7 +139,11 @@ export default {
   methods: {
     init() {
       let $that = this;
-      this.token = this.getCookie("token")
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       this.axios.post("myShareCode", {
         token: this.token
       }).then(({ data }) => {
@@ -223,20 +239,20 @@ export default {
       padding:100px 0 25px 0;
       text-align: center;
       .img_box {
-       
+
         width:80vw;
         height:80vw;
         margin:0 auto;
-        
+
         background-image: url(../assets/images/zwimg.png);
-       
+
         background-size: 100%;
         background-repeat: no-repeat;
         overflow: hidden;
         img {
           width:100%;
           height:100%;
-           
+
           display: block;
         }
       }
@@ -381,7 +397,7 @@ export default {
   }
 }
 .codeTab {
-  
+
   font-family: "微软雅黑";
   border: 1px solid #CFA12A;
   border-radius: 6px;

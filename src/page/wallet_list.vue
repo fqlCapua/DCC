@@ -72,6 +72,11 @@ export default {
                               + (theTime.getMonth() >= 9 ? theTime.getMonth() + 1 : '0' + (theTime.getMonth() + 1))
       },
       withDrawDccList (){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
 	      this.axios.post('withDrawDccList', {
 	       token:this.token
 	      }).then(({data}) => {

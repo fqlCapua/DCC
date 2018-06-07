@@ -131,11 +131,6 @@ export default {
     this.indirect();
     let $that =this;
 
-    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-      this.token=localStorage.getItem('token')
-    } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
-      this.token = this.getCookie('token')
-    }
 
     if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
       if(!localStorage.getItem('token')){
@@ -193,6 +188,12 @@ export default {
     },
 //    会员
     vipSub(){
+
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
       let $that = this;
       this.axios.post('myTuanDui', {
       token:this.token
@@ -204,6 +205,11 @@ export default {
     },
 //     我的分享
     indirect(){
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.token=localStorage.getItem('token')
+      } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.token = this.getCookie('token')
+      }
      this.axios.post('myShareMembers', {
        token:this.token
      }).then(({data}) => {
@@ -355,7 +361,7 @@ export default {
     width: 80%;
     margin: 0 auto;
   }
-  
+
   .option {
     text-align: center;
     float: left;

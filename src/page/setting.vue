@@ -85,7 +85,7 @@
       logOut () {
         // 退出登录
         if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-          localStorage.setItem('token',"");
+          window.localStorage.setItem('token',"");
           if(!localStorage.getItem('token')){
             let $that =this;
             this.$bus.$emit('alertCer',{
@@ -101,7 +101,7 @@
             let $that =this;
             this.$bus.$emit('alertCer',{
               msg:'退出成功'
-            })
+            });
             setTimeout(function(){
               $that.$router.push('login')
             },1000)

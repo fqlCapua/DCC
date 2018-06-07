@@ -111,7 +111,7 @@ export default {
         },2000)
       }
     } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
-      if(!$that.getCookie('token')==null){
+      if($that.getCookie('token')==null){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"
         });
@@ -163,7 +163,12 @@ export default {
         this.todayNum =this.formatNum(data.data.usdt_today_profit,4);
         this.dccNum =this.formatNum(data.data.freeze_dcc,4);
         this.activeNum=this.formatNum(data.data.avaliable_dcc,4);
-        this.setCookie('phone',data.data.phone);
+        //
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          localStorage.setItem('phone',data.data.phone);
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.setCookie('phone',data.data.phone);
+        }
       })
     },
     setting () {

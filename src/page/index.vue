@@ -106,7 +106,7 @@ export default {
     let u = navigator.userAgent;
     let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
     let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
       if(!localStorage.getItem('token')){
         this.$bus.$emit('alertCer', {
           msg:"請重新登錄"

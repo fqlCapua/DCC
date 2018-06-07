@@ -73,6 +73,7 @@
 		   this.Phone = localStorage.getItem("phone")
        this.grades();
       if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.Phone = localStorage.getItem("phone")
         if(!localStorage.getItem('token')){
           this.$bus.$emit('alertCer', {
             msg:"請重新登錄"
@@ -82,6 +83,7 @@
           },2000)
         }
       } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+        this.Phone = this.getCookie("phone")
         if(!$that.getCookie('token')){
           this.$bus.$emit('alertCer', {
             msg:"請重新登錄"
@@ -150,8 +152,13 @@
 		     },
 //       等级
       grades (){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          this.token=localStorage.getItem('token')
+        } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
+          this.token = this.getCookie('token')
+        }
         this.axios.post('levelShow', {
-          token:this.getCookie('token'),
+          token:this.token,
         }).then(({data}) => {
            this.list =data.data;
            this.grade =this.list.name;

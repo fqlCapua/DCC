@@ -8,9 +8,9 @@
       <label for="" class="amount">
         <div>轉出数量</div>
         <input type="text" name="" v-model="zcNum" value="" placeholder="請輸入轉出數量" /><span>DCC</span></label>
-      <label for="">
+      <label class="amount">
         <div>對方帳號</div>
-        <input type="text" name="" value="" v-model="address" placeholder="請輸入對方帳號/手機號" />
+        <input type="text" name="" value="" readonly v-model="address" placeholder="請輸入對方帳號/手機號" />
         <div class="sm">
           <i class="iconfont icon-richscan_icon"></i>
           <input type="file" class="file" @change="onFileChange">
@@ -59,16 +59,16 @@ export default {
           msg: "請重新登錄"
         });
         setTimeout(function() {
-          $that.$router.push('/login')
+          vm.$router.push('/login')
         }, 2000)
       }
     } else if (/(Android)/i.test(navigator.userAgent)) {  //判断Android
-      if (!$that.getCookie('token')) {
+      if (!vm.getCookie('token')) {
         this.$bus.$emit('alertCer', {
           msg: "請重新登錄"
         });
         setTimeout(function() {
-          $that.$router.push('/login')
+          vm.$router.push('/login')
         }, 2000)
       }
     }
@@ -226,14 +226,16 @@ export default {
         i {
           color: #D7A82B;
           font-size: 36px;
+          position:absolute;
+          right:20px;
         }
         .file {
           outline: none;
           opacity: 0;
           width: 100%;
-          height: 100%;
+          height:100%;
           position: relative;
-          top: -108px;
+          left:160px;
         }
       }
     }

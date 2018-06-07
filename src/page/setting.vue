@@ -85,7 +85,7 @@
       logOut () {
         // 退出登录
         if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-          localStorage.removeItem('token');
+          localStorage.setItem('token',"");
           if(!localStorage.getItem('token')){
             let $that =this;
             this.$bus.$emit('alertCer',{

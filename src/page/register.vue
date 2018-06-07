@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="register">
     <areaPage></areaPage>
     <!-- 頭部 -->
     <div class="head">
@@ -232,7 +232,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../assets/scss/style.scss';
-.login {
+.register {
   padding-top: 90px;
   .head {
     @include headBlack;

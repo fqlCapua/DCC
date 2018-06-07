@@ -1,12 +1,12 @@
 <template>
   <div class="wallet_list">
   	  <picker></picker>
-      <div class="date_time">
+      <!--<div class="date_time">
       	<span class="sp" @click="getTime">
       		<span class="_time">{{time}}</span>
       	  <span class="iconfont" :class="timeIcon" @click="getTime"></span>
       	</span>
-      </div>
+      </div>-->
       <ul class="wallet_ul">
       	<li v-if="list.length > 0" class="wallet_li" v-for="(item, index) in list" :key="index">
       		<div class="out_box">

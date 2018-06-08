@@ -26,14 +26,17 @@
 		</div>
 		<myAddress></myAddress>
     <div class="modul" v-show="show">
-      <div @click="closeType"></div>
-       <ul>
-         <li v-for="(item,index) in list" @click="cele(index)" :key="index">
-         	<span>{{item.name}}</span>
-         	<span>{{item.amount}} DCC</span>
-         	<span class="garden" :class="{'active':addActive === index }"></span>
-         </li>
-       </ul>
+      <div class="close" @click="closeType"></div>
+       <div class="_ul">
+       	<div class="modul_title">請選擇</div>
+       	<ul>
+       		<li v-for="(item,index) in list" @click="cele(index)" :key="index">
+	         	<span>{{item.name}}</span>
+	         	<span>{{item.amount}} DCC</span>
+	         	<span class="garden" :class="{'active':addActive === index }"></span>
+            </li>
+       	</ul>
+       </div>
     </div>
 	</div>
 
@@ -284,7 +287,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 11;
-    div{
+    div.close{
       position: absolute;
       top: 0;
       left: 0;
@@ -293,41 +296,70 @@
       background: rgba(0, 0, 0, 0.4);
       z-index: 2;
     }
-    ul{
-      width: 70vw;
+    ._ul{
+      width: 100vw;
       background: #fff;
       position: absolute;
-      top:50%;
-      left:50%;
-      padding: 50px 50px;
-      transform: translate(-50%,-50%);
-      border-radius: 10px;
+      bottom:0;
+      left:0;
+      animation: listClass .2s ease-in-out;
+      /*padding: 50px 50px;*/
+      padding-top: 0;
+      padding-bottom: 20px;
+      /*transform: translate(-50%,-50%);*/
+      /*border-radius: 10px;*/
       z-index: 5;
-      li{
-      	display: flex;
-      	justify-content: space-between;
-        font-size:32px;
-        height:90px;
-        line-height:90px;
-        .garden{
-			width: 30px;
-			height: 30px;
-			border-radius: 50%;
-			border: 1px solid #eee;
-			padding: 4px;
-			box-sizing: border-box;
-			margin-top: 30px;
-			&.active:before{
-				content: "";
-				width: 100%;
-			    height: 100%;
-			    display: block;
-			    border-radius: 50%;
-			    background-color: #D7A82B;
-			}
-        }
+      .modul_title{
+      	width: 100%;
+      	height: 90px;
+      	line-height: 90px;
+      	text-align: center;
+      	font-size: 28px;
+      	color: #666;
+      	border-bottom: 1px solid #ececec;
+      }
+      ul{
+         width: 100%;
+         height: 270px;
+         overflow-y:scroll;
+	      li{
+	      	width: 60%;
+	      	margin: 0 auto;
+	      	display: flex;
+	      	justify-content: space-between;
+	        font-size:32px;
+	        height:90px;
+	        line-height:90px;
+	        .garden{
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				border: 1px solid #eee;
+				padding: 4px;
+				box-sizing: border-box;
+				margin-top: 30px;
+				&.active:before{
+					content: "";
+					width: 100%;
+				    height: 100%;
+				    display: block;
+				    border-radius: 50%;
+				    background-color: #D7A82B;
+				}
+	        }
+	      }
       }
     }
   }
+  @keyframes listClass {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 </style>

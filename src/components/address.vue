@@ -155,6 +155,7 @@
       left: 0;
       text-align: center;
       padding-top: 60px;
+      animation: listAdd .2s ease-in-out;
       .picker_title {
         font-size: 34px;
         color: #4a66c2;
@@ -211,4 +212,14 @@
       }
     }
   }
+  @keyframes listAdd {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 </style>

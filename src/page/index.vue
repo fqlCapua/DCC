@@ -11,16 +11,18 @@
     </header>
     <!--<div class="circle"></div>-->
     <div class="bearing">
-    	<div id="">
+    	<div>
     		<div class="total-value" id="box">{{totalAmount}}</div>
         <div class="total-title">總市值(CNY)</div>
     	</div>
-      <div id="">
-      	<div class="total-value" id="box1">{{totalFrost}}</div>
-        <div class="total-title">凍結額度(CNY)</div>
-      </div>
 
     </div>
+  <div class="bearing2">
+    <div class="clear">
+      <div class="total-title">凍結額度(CNY)</div>
+      <div class="total-value" id="box1">{{totalFrost}}</div>
+    </div>
+  </div>
     <!--<img :src="circle" alt="" class="circle">-->
     <!--<div class="btns">
       <button class="in" @click="seeDetails">買入</button>
@@ -31,7 +33,7 @@
         <i class="iconfont" :class="item.icon"></i>
         <div class="right">
           <span class="name">{{item.name}}</span>
-          <span class="num">{{item.num}}</span>
+          <span class="num" :class="item.num.length>13 ? isTrue:''">{{item.num}}</span>
         </div>
       </li>
     </ul>
@@ -50,15 +52,16 @@ export default {
       totalAmount: '', // 總市值
       totalFrost: '', // 凍結額度(CNY)
       token:'',
+      isTrue:'aaa',
       list: [
-        {
-          icon: 'icon-jiedong',
-          name: '今日解凍DCC',
-          num: '--'
-        },
         {
           icon: 'icon-jiangli',
           name: '今日新增獎勵 (USDT)',
+          num: '--'
+        },
+        {
+          icon: 'icon-jiedong',
+          name: '今日解凍DCC',
           num: '--'
         },
         {
@@ -67,8 +70,8 @@ export default {
           num: '--'
         },
         {
-          icon: 'icon-danjia',
-          name: '單價 (CNY)',
+          icon: 'icon-kedanjia',
+          name: 'DCC單價 (CNY)',
           num: '0.00'
         },
         {
@@ -77,8 +80,8 @@ export default {
           num: '0.00'
         },
         {
-          icon: 'icon-danjia',
-          name: '單價 (CNY)',
+          icon: 'icon-kedanjia',
+          name: 'USDT單價 (CNY)',
           num: '0.00'
         },
         {
@@ -163,18 +166,22 @@ export default {
       this.axios.post('/home',{
       	token:this.token
       }).then(({data}) => {
-          this.totalAmount = this.formatNum(data.data.total_usdt*data.data.price_usdt + data.data.avaliable_dcc*data.data.today_dcc_price+data.data.freeze_dcc*data.data.today_dcc_price,2)  //總市值
+          this.totalAmount = this.formatNum(data.data.total) //總市值
           this.totalFrost = this.formatNum(data.data.freeze_dcc,2) // 冻结额度
           this.list = this.list.map((item, index) => {
-          if (index === 0) item.num = this.formatNum(data.data.freeze_dcc, 4)  //
-          if (index === 1) item.num = this.formatNum(data.data.today_profit,4)
+          if (index === 1){
+            item.num = this.formatNum(data.data.freeze_dcc, 4)
+          }
+          if (index === 0) item.num = this.formatNum(data.data.today_profit,4)
           if (index === 2) item.num = this.formatNum(data.data.avaliable_dcc,4)
           if (index === 3) item.num = data.data.today_dcc_price
           if (index === 4) item.num = this.formatNum(data.data.total_usdt,4)
           if (index === 5) item.num = data.data.price_usdt
           if (index === 6) item.num = data.data.max_dcc_price
           if (index === 7) item.num = data.data.min_dcc_price
+
           return item
+
         })
       })
     },
@@ -205,7 +212,6 @@ export default {
   $green: $mainColor;
   $black: #000000;
   $gray:  #eee;
-
   $grid-opacity: 0.15;
   .index_wrap{
     /*padding: 150px 0 90px;*/
@@ -214,7 +220,7 @@ export default {
     background-image: url(../assets/images/banner.png);
     background-size: 100%;
     background-repeat: no-repeat;
-    background-position-y: -100px;
+    background-position-y: -120px;
     header{
       height: 90px;
       display: flex;
@@ -281,7 +287,7 @@ export default {
         text-align: center;
         font-size:50px;
         color:#fff;
-        margin-bottom: 55px;
+        margin-bottom: 20px;
         font-weight: 600;
         font-style: italic;
       }
@@ -291,7 +297,30 @@ export default {
         color:#fff;
       }
     }
-
+    .bearing2{
+      background:#16191E ;
+      width:90%;
+      margin: 0 auto;
+      border-radius: 40px 40px;
+      height: 80px;
+      line-height: 80px;
+      padding-left: 30px;
+      padding-right: 30px;
+      overflow: hidden;
+       .clear{
+          width: 100%;
+         color: #fff;
+         div:nth-child(1){
+           float: left;
+         }
+         div:nth-child(2){
+           float: right;
+           font-size: 30px;
+           font-style: italic;
+           font-weight: 600;
+         }
+     }
+    }
     .circle{
       margin: 40px 0;
       background:
@@ -364,7 +393,7 @@ export default {
       }
     }
     .list_wrap{
-      margin: 34px 30px;
+      margin: 13px 30px;
       border-radius: 16px;
       background-color: #16191E;
       display: flex;
@@ -374,7 +403,7 @@ export default {
         border-bottom: 1px solid #424652;
         display: flex;
         align-items: center;
-        padding: 50px 0 40px 54px;
+        padding: 50px 0 40px 25px;
         &:nth-last-child(1),&:nth-last-child(2){
           border: none;
         }
@@ -396,6 +425,9 @@ export default {
             font-size: 30px;
             font-weight: 600;
             font-style: italic;
+          }
+          .aaa{
+            font-size:26px;
           }
         }
       }

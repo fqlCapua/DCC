@@ -4,7 +4,7 @@
       <p class="title">{{ item.title }}</p>
       <p class="iconfont icon-jinrujiantou"></p>
     </router-link>
-    <div  v-show="!list.length" style="color: #fff;font-size:15px;text-align: center;margin:20px 0 0 0; ">暫無公告</div>
+    <div  v-show="list.length == 0" style="color: #fff;font-size:15px;text-align: center;margin:20px 0 0 0; ">暫無公告</div>
   </div>
 </template>
 <script>
@@ -14,6 +14,10 @@
       return {
         token:'',
         list: [
+           {
+           	id:111,
+           	title:"qqqqqqq"
+           }
         ]
       }
     },
@@ -57,7 +61,7 @@
         this.axios.post('newMsgList', {
           token:this.token
         }).then(({data}) =>{
-          $that.list =data.data;
+//        $that.list =data.data;
           //console.log($that.list)
         })
       }

@@ -78,8 +78,29 @@ export default {
         },2000)
       }
     }
+    // 判断是否是微信
+     if(this.isWeixn()) {
+     	    $that.yqm = this.getQueryString(id)
+     }
   },
   methods: {
+  	
+  	isWeixn(){
+		    var ua = navigator.userAgent.toLowerCase();
+		    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+		        return true;
+		    } else {
+		        return false;
+		    }
+		},
+		getQueryString(name) {
+			var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null) {
+			return(r[2]);
+			}
+			return null;
+		},
     onFileChange(e) {
     	let  $that  =this
       var files = e.target.files || e.dataTransfer.files;
@@ -92,7 +113,9 @@ export default {
 				    if(imgMsg.indexOf("error") > -1){
 				    	return $that.$bus.$emit('alert', "二维码无效")
 				    }else {
-				       $that.yqm = imgMsg
+				    	let  code = imgMsg.split("/")
+				       $that.yqm = code[code.length-1]
+				       console.log($that.yqm)
 				    }
 				} 
     },
@@ -144,8 +167,8 @@ export default {
             password: this.psd,
             captcha: this.captCha,
             cap: this.imgData,
-            code: this.code
-
+            code: this.code,
+            fid:this.yqm
           }).then(({
             data
           }) => {

@@ -519,10 +519,13 @@ export default {
         }
       }
       .notice {
+
+
+
       overflow:hidden;
       width:92%;
       margin: 0 auto;
-     /*box-shadow: 0 2px 30px 0 rgba(71, 147, 241, 0.4);*/
+  
       border-radius: 5px;
       z-index: 6;
       background: #20232C;
@@ -533,8 +536,7 @@ export default {
       background-position:20px 26px;
       padding-left: 90px;
       .swiper_notice {
-       
-        width: 100%;
+          width: 100%;
         height: 88px;
         .notice-detial {
           width: 100%;

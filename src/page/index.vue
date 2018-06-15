@@ -12,17 +12,27 @@
     <!--<div class="circle"></div>-->
     <div class="bearing">
     	<div>
+          <div class="total-title">總市值(CNY)</div>
     		<div class="total-value" id="box">{{totalAmount}}</div>
-        <div class="total-title">總市值(CNY)</div>
+      
     	</div>
 
     </div>
   <div class="bearing2">
     <div class="clear">
-      <div class="total-title">凍結額度(CNY)</div>
-      <div class="total-value" id="box1">{{totalFrost}}</div>
+      <div class="total-title">凍結額度</div>
+      <div class="total-value" id="box1">{{totalFrost}}</div>&nbsp;(CNY)
     </div>
   </div>
+   <!-- 公告 -->
+    <router-link tag="div" :to="{path: 'waitOpen', query: { title: '系統公告' }}" class="notice">
+      <swiper :options="swiperNoticeCoing.swiperOption" ref="mySwiper" class="swiper_notice">
+        <!-- slides -->
+        <swiperSlide v-for="item in swiperNoticeCoing.swiperNotice" :key="item.id">
+          <p class="notice-detial">{{ item.text }}</p>
+        </swiperSlide>
+      </swiper>
+    </router-link>
     <!--<img :src="circle" alt="" class="circle">-->
     <!--<div class="btns">
       <button class="in" @click="seeDetails">買入</button>
@@ -31,8 +41,8 @@
     <ul class="list_wrap">
       <li class="item" v-for="(item, index) in list" :key="index">
         <i class="iconfont" :class="item.icon"></i>
-        <div class="right">
-          <span class="name">{{item.name}}</span>
+        <div class="right"> 
+          <span class="name">{{item.name}}</span>  
           <span class="num" :class="item.num.length>13 ? isTrue:''">{{item.num}}</span>
         </div>
       </li>
@@ -41,11 +51,56 @@
 </template>
 
 <script>
+  import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import indexDetails from '../page/index_details'
 import CountUp from 'CountUp'
 export default {
   name: 'index',
   data () {
     return {
+       // 轮播图配置
+      swiperBannerCoing: {
+        swiperOption: {
+          notNextTick: true,
+          autoplay: {
+            delay: 3000
+          },
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination'
+          }
+        },
+        // 轮播图信息
+        swiperImg: [
+          require('../assets/images/banner_1.png'),
+          require('../assets/images/banner_1.png'),
+          require('../assets/images/banner_1.png')
+        ]
+      },
+      swiperNoticeCoing: {
+        swiperOption: {
+          autoplay: {
+            delay: 1500
+          },
+          direction: 'vertical',
+          loop: true,
+          allowTouchMove: false
+        },
+        swiperNotice: [
+          {
+            text: '關於商家聯盟入會條件最新活動通知及注意事項關於商家聯盟入會條件最新活動通知及注意事項',
+            id: 1
+          },
+          {
+            text: '關於商家聯盟入會',
+            id: 2
+          },
+          {
+            text: '關於商家聯盟入會條件最新活動',
+            id: 3
+          }
+        ]
+      },
       logo: require('../assets/images/logo.png'),
       circle: require('../assets/images/bearing.png'),
       hasMessage: '',
@@ -203,6 +258,12 @@ export default {
       }
       return t.split('').reverse().join('') + '.' + r
     },
+
+  },
+   components: {
+    swiper,
+    swiperSlide,
+    indexDetails
   }
 }
 </script>
@@ -273,7 +334,7 @@ export default {
 
     .bearing{
       width:100%;
-      height: 400px;
+      height:300px;
       max-height: 75vh;
       max-width: 75vh;
       /*background-image: url(../assets/images/banner.png);*/
@@ -281,11 +342,11 @@ export default {
       background-repeat: no-repeat;
       background-position: 50%;*/
       display: flex;
-      justify-content: space-around;
+      justify-content:space-around;
       padding-top:160px;
       .total-value{
         text-align: center;
-        font-size:50px;
+        font-size:60px;
         color:#fff;
         margin-bottom: 20px;
         font-weight: 600;
@@ -293,13 +354,13 @@ export default {
       }
       .total-title{
         text-align: center;
-        font-size:28px;
+        font-size:38px;
         color:#fff;
       }
     }
     .bearing2{
-      background:#16191E ;
-      width:90%;
+       width:90%;
+        padding-bottom: 150px;
       margin: 0 auto;
       border-radius: 40px 40px;
       height: 80px;
@@ -307,14 +368,19 @@ export default {
       padding-left: 30px;
       padding-right: 30px;
       overflow: hidden;
+      text-align: center;
        .clear{
-          width: 100%;
+
+         width: 100%;
          color: #fff;
+         div{
+          display: inline-block;
+         }
          div:nth-child(1){
-           float: left;
+           
          }
          div:nth-child(2){
-           float: right;
+         
            font-size: 30px;
            font-style: italic;
            font-weight: 600;
@@ -403,7 +469,7 @@ export default {
         border-bottom: 1px solid #424652;
         display: flex;
         align-items: center;
-        padding: 50px 0 40px 25px;
+        padding:50px 0 40px 25px;
         &:nth-last-child(1),&:nth-last-child(2){
           border: none;
         }
@@ -433,6 +499,55 @@ export default {
       }
     }
   }
+      .swiper-pagination {
+        position: absolute;
+        bottom: 70px;
+        left: 50%;
+        margin-left: -48px;
+        .swiper-pagination-bullet {
+          background: #fff;
+          opacity: 1;
+          width: 12px;
+          height: 12px;
+          margin: 0 5px;
+          border-radius: 6px;
+          transition: .4s all;
+        }
+        .swiper-pagination-bullet-active {
+          background: #fff;
+          width: 27px;
+        }
+      }
+      .notice {
+      overflow:hidden;
+      width:92%;
+      margin: 0 auto;
+     /*box-shadow: 0 2px 30px 0 rgba(71, 147, 241, 0.4);*/
+      border-radius: 5px;
+      z-index: 6;
+      background: #20232C;
+      opacity:0.9;
+      background-image: url(../assets/images/scroll_icon.png);
+      background-repeat: no-repeat;
+      background-size:43px 43px;
+      background-position:20px 26px;
+      padding-left: 90px;
+      .swiper_notice {
+       
+        width: 100%;
+        height: 88px;
+        .notice-detial {
+          width: 100%;
+          line-height: 88px;
+          font-size: 24px;
+          color: $mainColor;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
+          
+        }
+      }
+    }
   @keyframes radar-beam {
     0% {
         transform: rotate(0deg);

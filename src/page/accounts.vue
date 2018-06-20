@@ -10,7 +10,7 @@
         <input type="text" name="" v-model="zcNum" value="" placeholder="請輸入轉出數量" /><span>DCC</span></label>
       <label class="amount">
         <div>對方帳號</div>
-        <input type="text" name="" value="" readonly v-model="address" placeholder="請輸入對方帳號/手機號" />
+        <input type="text" name="" value=""  v-model="address" placeholder="請輸入對方帳號/手機號" />
         <div class="sm">
           <i class="iconfont icon-richscan_icon"></i>
           <input type="file" class="file" @change="onFileChange">

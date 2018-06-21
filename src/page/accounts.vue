@@ -122,13 +122,11 @@ export default {
           return false;
         } else {
           this.axios.post('withDrawDcc', {
-            token: this.getCookie("token"),
+            token: this.token,
             amount: this.zcNum,
             code: this.code,
-            to_uid: this.phone
-          }).then(({
-            data
-          }) => {
+            uid_to: this.address
+          }).then(({ data}) => {
             if (data.ret === 0) {
               this.$bus.$emit('alertCer', data.msg)
               setTimeout(function() {
